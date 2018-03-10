@@ -1,24 +1,76 @@
-<?php defined('IN_PHPCMS') or exit('No permission resources.'); ?><div class="footer">
-<p class="info">
-<?php if(defined('IN_ADMIN')  && !defined('HTML')) {echo "<div class=\"admin_piao\" pc_action=\"content\" data=\"op=content&tag_md5=e3d146232857be4579899ac97dbd2f7c&action=category&catid=1&num=15&siteid=%24siteid&order=listorder+ASC\"><a href=\"javascript:void(0)\" class=\"admin_piao_edit\">修改</a>";}$content_tag = pc_base::load_app_class("content_tag", "content");if (method_exists($content_tag, 'category')) {$data = $content_tag->category(array('catid'=>'1','siteid'=>$siteid,'order'=>'listorder ASC','limit'=>'15',));}?>
-<?php $n=1;if(is_array($data)) foreach($data AS $r) { ?>
-<a href="<?php echo $r['url'];?>" target="_blank"><?php echo $r['catname'];?></a> |  
-<?php $n++;}unset($n); ?>
-<?php if(defined('IN_ADMIN') && !defined('HTML')) {echo '</div>';}?>
-<a href="<?php echo APP_PATH;?>index.php?m=link" target="_blank">友情链接</a>
-<br />
-Powered by <strong><a href="http://www.phpcms.cn" target="_blank">PHPCMS</a></strong> <em><?php echo get_pc_version(1);?></em> &copy; 2017 <img src="<?php echo IMG_PATH;?>copyright.gif"/><?php echo tjcode();?><?php echo runhook('glogal_footer')?>
-</p>
+<?php defined('IN_PHPCMS') or exit('No permission resources.'); ?>
+<div class="footer min-width-1300">
+	<div class="container" style="overflow: hidden;">
+		<div class="foot_l">
+			<ul>
+				<li><span class="lable">友情链接：</span><span class="huoban"><a href="">友情链接1</a></span><span class="huoban"><a href="">友情链接2</a></span></li>
+				<li><span class="lable">版权所有：</span>外航服务公司 备案号</li>
+				<li><span class="lable">联系电话：</span>010-84187577 <span class="tousu"><a href="">投诉与建议</a></span></li>
+			</ul>
+		</div>
+		<div class="foot_r">
+			<ul>
+				<li><p>官方微信</p><img src="<?php echo APP_PATH;?>statics/default/images/index_62.jpg" width="120" height="120" alt=""></li>
+				<li><p>官方微博</p><img src="<?php echo APP_PATH;?>statics/default/images/index_62.jpg" width="120" height="120" alt=""></li>
+			</ul>
+		</div>
+
+	</div>
 </div>
+<!-- banner -->
+<script type="text/javascript" src="<?php echo APP_PATH;?>statics/default/js/jquery.flexslider-min.js"></script>
 <script type="text/javascript">
-$(function(){
-	$(".picbig").each(function(i){
-		var cur = $(this).find('.img-wrap').eq(0);
-		var w = cur.width();
-		var h = cur.height();
-	   $(this).find('.img-wrap img').LoadImage(true, w, h,'<?php echo IMG_PATH;?>msg_img/loading.gif');
+	$(document).ready(function(){
+		$('.flexslider').flexslider({
+			directionNav: false,
+			pauseOnAction: false,
+			pauseOnHover: true,
+			slideshowSpeed: 3000,
+		});
 	});
-})
+</script>
+<script type="text/javascript">
+	$(function(){
+		// 显示语言
+
+		$('.language').click(function(){
+			visible($('.zh'))
+			return false
+		})
+
+		$('.person').click(function(){
+			visible($('.loginreg'))
+			return false
+		})
+		$(document).click(function(){
+			unvisible($('.zh'));
+			unvisible($('.loginreg'));
+		})
+
+		// 显示
+		function visible($obj){
+			$obj.stop();
+			$obj.css({opacity:0}).show();
+			$obj.animate({opacity:1}, 500);
+		}
+		// 隐藏
+		function unvisible($obj){
+			$obj.stop();
+			$obj.animate({opacity:0}, 500, function(){
+				$obj.hide();
+			});
+		}
+	})
+</script>
+<script type="text/javascript">
+	// 导航下拉
+	$(function(){
+		$('.menu li').hover(function(){
+			$(this).find('dl').show();
+		}, function(){
+			$(this).find('dl').hide();
+		})
+	})
 </script>
 </body>
 </html>

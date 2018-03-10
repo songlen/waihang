@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=1200" />     
+	<title>外航</title>
+	<link rel="stylesheet" href="css/style.css?v=0309">
+	<link rel="stylesheet" href="css/flexslider.css">
+	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+
+</head>
+<body>
+<div id="top">
+	<div class="container">
+		<div class="menu">
+			<ul>
+				<li><a href="">首页</a></li>
+				<li><a href="">关于公司</a></li>
+				<li><a href="">招聘求职</a></li>
+				<li><a href="">企业服务</a></li>
+				<li><a href="">员工服务</a></li>
+				<li><a href="">党群建设</a></li>
+				<li><a href="">培训服务</a></li>
+				<li><a href="">新闻中心</a></li>
+			</ul>
+		</div>
+		<div class="menuright">
+			<div class="language">English <div class="zh"><a href="">中文</a></div></div>
+			<div class="shu">|</div>
+			<div class="person">
+				<img src="images/index_03.jpg" alt="">
+				<ul class="loginreg">
+					<li><a href="">登录</a></li>
+					<li style="border-top:1px solid #e5e5e5;"><a href="">注册</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+</div>
+<div class="min-width-1300">
+	<div class="container logotop">
+		<div class="logo"><a href=""><img src="images/logo.jpg" width="295" alt=""></a></div>
+		<div class="searchbox">
+			<div class="search"><input type="text" name="keyword" placeholder="搜索关键词"><span class="sbutton"></span></div>
+			<div class="history">历史搜索：<a href="">员工培训</a></div>
+		</div>
+	</div>
+</div>
+
+<div class="categoryimage"><img src="images/aboutbanner.png" alt=""></div>
+
+<div class="container">
+	
+</div>
+
+
+
+<!-- banner -->
+<script type="text/javascript" src="js/jquery.flexslider-min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.flexslider').flexslider({
+			directionNav: false,
+			pauseOnAction: false,
+			pauseOnHover: true,
+			slideshowSpeed: 3000,
+		});
+	});
+</script>
+<script type="text/javascript">
+		$(function(){
+			// 显示语言
+
+			$('.language').click(function(){
+				visible($('.zh'))
+				return false
+			})
+
+			$('.person').click(function(){
+				visible($('.loginreg'))
+				return false
+			})
+			$(document).click(function(){
+				unvisible($('.zh'));
+				unvisible($('.loginreg'));
+			})
+
+			// 显示
+			function visible($obj){
+				$obj.stop();
+				$obj.css({opacity:0}).show();
+				$obj.animate({opacity:1}, 500);
+			}
+			// 隐藏
+			function unvisible($obj){
+				$obj.stop();
+				$obj.animate({opacity:0}, 500, function(){
+					$obj.hide();
+				});
+			}
+		})
+</script>
+</body>
+</html>

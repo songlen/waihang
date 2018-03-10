@@ -86,7 +86,7 @@ class index extends admin {
 				isset($_SESSION['card_password']) ? $_SESSION['card_verif'] = '' : '';
 			}
 			
-			$this->db->update(array('lastloginip'=>ip(),'lastlogintime'=>SYS_TIME),array('userid'=>$r['userid']));
+			// $this->db->update(array('lastloginip'=>ip(),'lastlogintime'=>SYS_TIME),array('userid'=>$r['userid']));
 			$_SESSION['userid'] = $r['userid'];
 			$_SESSION['roleid'] = $r['roleid'];
 			$_SESSION['pc_hash'] = random(6,'abcdefghigklmnopqrstuvwxwyABCDEFGHIGKLMNOPQRSTUVWXWY0123456789');
@@ -208,8 +208,12 @@ class index extends admin {
 		$userid = $_SESSION['userid'];
 		$rolename = $roles[$_SESSION['roleid']];
 		$r = $this->db->get_one(array('userid'=>$userid));
+
 		$logintime = $r['lastlogintime'];
 		$loginip = $r['lastloginip'];
+
+			
+		$this->db->update(array('lastloginip'=>ip(),'lastlogintime'=>SYS_TIME),array('userid'=>$userid));
 		$sysinfo = get_sysinfo();
 		$sysinfo['mysqlv'] = $this->db->version();
 		$show_header = $show_pc_hash = 1;

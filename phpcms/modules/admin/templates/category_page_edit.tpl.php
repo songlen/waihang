@@ -20,7 +20,7 @@ include $this->admin_tpl('header');?>
             <li id="tab_setting_2" onclick="SwapTab('setting','on','',5,2);"><?php echo L('catgory_createhtml');?></li>
             <li id="tab_setting_3" onclick="SwapTab('setting','on','',5,3);"><?php echo L('catgory_template');?></li>
             <li id="tab_setting_4" onclick="SwapTab('setting','on','',5,4);"><?php echo L('catgory_seo');?></li>
-            <li id="tab_setting_5" onclick="SwapTab('setting','on','',5,5);"><?php echo L('catgory_private');?></li>
+            <!-- <li id="tab_setting_5" onclick="SwapTab('setting','on','',5,5);"><?php echo L('catgory_private');?></li> -->
 </ul>
 <div id="div_setting_1" class="contentList pad-10">
 

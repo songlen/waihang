@@ -7,4 +7,20 @@
  * @lastmodify			2010-10-27
  */
  
-?>
+ function extend_setting_get($key=null){
+ 	if($key==null) return false;
+ 	$db = pc_base::load_model('extend_setting_model');
+
+ 	$siteid = get_siteid();
+
+ 	$where = array(
+ 		'key' => $key,
+ 		'siteid' => $siteid
+ 	);
+
+ 	$data = $db->get_one($where, 'data');
+ 	if($data)
+ 		return $data['data'];
+ 	else 
+ 		return false;
+ }

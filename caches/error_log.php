@@ -363,3 +363,113 @@
 <?php exit;?>01-23 10:31:07 | 2 | rmdir(C:\Windows\TEMP\5a669e6bab487\xl\worksheets): Directory not empty | spreadsheet-reader\SpreadsheetReader_XLSX.php | 332
 <?php exit;?>01-23 10:31:07 | 2 | rmdir(C:\Windows\TEMP\5a669e6bab487\xl): Directory not empty | spreadsheet-reader\SpreadsheetReader_XLSX.php | 333
 <?php exit;?>01-23 10:31:07 | 2 | rmdir(C:\Windows\TEMP\5a669e6bab487\): Directory not empty | spreadsheet-reader\SpreadsheetReader_XLSX.php | 334
+<?php exit;?>01-23 12:30:34 | 2 | Invalid argument supplied for foreach() | phpcms\modules\member\member.php | 598
+<?php exit;?>01-23 12:30:34 | 2 | Invalid argument supplied for foreach() | phpcms\modules\member\member.php | 642
+<?php exit;?>01-23 13:02:22 | 2 | unlink(C:\Windows\TEMP\5a66c1de384d1\xl\sharedStrings.xml): Permission denied | spreadsheet-reader\SpreadsheetReader_XLSX.php | 326
+<?php exit;?>01-23 13:02:22 | 2 | unlink(C:\Windows\TEMP\5a66c1de384d1\xl\worksheets\sheet1.xml): Permission denied | spreadsheet-reader\SpreadsheetReader_XLSX.php | 326
+<?php exit;?>01-23 13:02:22 | 2 | rmdir(C:\Windows\TEMP\5a66c1de384d1\xl\worksheets): Directory not empty | spreadsheet-reader\SpreadsheetReader_XLSX.php | 332
+<?php exit;?>01-23 13:02:22 | 2 | rmdir(C:\Windows\TEMP\5a66c1de384d1\xl): Directory not empty | spreadsheet-reader\SpreadsheetReader_XLSX.php | 333
+<?php exit;?>01-23 13:02:22 | 2 | rmdir(C:\Windows\TEMP\5a66c1de384d1\): Directory not empty | spreadsheet-reader\SpreadsheetReader_XLSX.php | 334
+<?php exit;?>01-23 17:55:51 | 2 | Invalid argument supplied for foreach() | phpcms\modules\member\member.php | 598
+<?php exit;?>01-23 17:55:51 | 2 | Invalid argument supplied for foreach() | phpcms\modules\member\member.php | 642
+<?php exit;?>01-23 17:56:01 | 2 | Invalid argument supplied for foreach() | caches\caches_model\caches_data\member_form.class.php | 19
+<?php exit;?>01-23 18:01:41 | 2 | Invalid argument supplied for foreach() | caches\caches_model\caches_data\member_form.class.php | 19
+<?php exit;?>02-01 13:34:48 | 2 | Invalid argument supplied for foreach() | phpcms\modules\member\member.php | 598
+<?php exit;?>02-01 13:34:48 | 2 | Invalid argument supplied for foreach() | phpcms\modules\member\member.php | 642
+<?php exit;?>02-01 13:34:52 | 2 | Invalid argument supplied for foreach() | phpcms\modules\member\member.php | 598
+<?php exit;?>02-01 13:34:52 | 2 | Invalid argument supplied for foreach() | phpcms\modules\member\member.php | 642
+<?php exit;?>02-01 13:34:54 | 2 | Invalid argument supplied for foreach() | phpcms\modules\member\member.php | 598
+<?php exit;?>02-01 13:34:54 | 2 | Invalid argument supplied for foreach() | phpcms\modules\member\member.php | 642
+<?php exit;?>02-01 13:39:13 | 2 | Invalid argument supplied for foreach() | phpcms\modules\member\member.php | 598
+<?php exit;?>02-01 13:39:13 | 2 | Invalid argument supplied for foreach() | phpcms\modules\member\member.php | 642
+<?php exit;?>02-01 13:39:16 | 2 | Invalid argument supplied for foreach() | phpcms\modules\member\member.php | 598
+<?php exit;?>02-01 13:39:16 | 2 | Invalid argument supplied for foreach() | phpcms\modules\member\member.php | 642
+<?php exit;?>02-01 13:39:18 | 2 | Invalid argument supplied for foreach() | phpcms\modules\member\member.php | 598
+<?php exit;?>02-01 13:39:18 | 2 | Invalid argument supplied for foreach() | phpcms\modules\member\member.php | 642
+<?php exit;?>03-09 18:00:42 | 2 | fsockopen(): php_network_getaddresses: getaddrinfo failed: ��֪������������  | phpcms\libs\classes\http.class.php | 84
+<?php exit;?>03-09 18:00:42 | 2 | fsockopen(): unable to connect to juhe.phpcms.cn:80 (php_network_getaddresses: getaddrinfo failed: ��֪������������ ) | phpcms\libs\classes\http.class.php | 84
+<?php exit;?>03-09 18:31:22 | 2 | fsockopen(): php_network_getaddresses: getaddrinfo failed: ��֪������������  | phpcms\libs\classes\http.class.php | 84
+<?php exit;?>03-09 18:31:22 | 2 | fsockopen(): unable to connect to juhe.phpcms.cn:80 (php_network_getaddresses: getaddrinfo failed: ��֪������������ ) | phpcms\libs\classes\http.class.php | 84
+<?php exit;?>03-09 18:50:19 | 2 | file_put_contents(E:\PHPTools\www\waihang\caches\poster_js/11.js): failed to open stream: No such file or directory | phpcms\modules\poster\classes\html.class.php | 67
+<?php exit;?>03-09 18:50:19 | 2 | chmod(): No such file or directory | phpcms\modules\poster\classes\html.class.php | 68
+<?php exit;?>03-09 18:50:34 | 2 | file_put_contents(E:\PHPTools\www\waihang\caches\poster_js/11.js): failed to open stream: No such file or directory | phpcms\modules\poster\classes\html.class.php | 67
+<?php exit;?>03-09 18:50:34 | 2 | chmod(): No such file or directory | phpcms\modules\poster\classes\html.class.php | 68
+<?php exit;?>03-09 22:55:59 | 2 | fsockopen(): php_network_getaddresses: getaddrinfo failed: ��֪������������  | phpcms\libs\classes\http.class.php | 84
+<?php exit;?>03-09 22:55:59 | 2 | fsockopen(): unable to connect to juhe.phpcms.cn:80 (php_network_getaddresses: getaddrinfo failed: ��֪������������ ) | phpcms\libs\classes\http.class.php | 84
+<?php exit;?>03-09 23:02:45 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:03:39 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:05:47 | 2 | extract() expects parameter 1 to be array, null given | phpcms\modules\content\classes\html.class.php | 182
+<?php exit;?>03-09 23:05:49 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:07:12 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:07:48 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:08:03 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:09:34 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:09:48 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:10:07 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:20:02 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:20:27 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:22:27 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:22:45 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:23:35 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:24:23 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:26:38 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:32:25 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:33:33 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:33:52 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:34:39 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:35:49 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:37:27 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:47:55 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:49:13 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:50:45 | 2 | extract() expects parameter 1 to be array, null given | phpcms\modules\content\classes\html.class.php | 182
+<?php exit;?>03-09 23:50:47 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:52:02 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:52:19 | 2 | extract() expects parameter 1 to be array, null given | phpcms\modules\content\classes\html.class.php | 182
+<?php exit;?>03-09 23:52:21 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:54:11 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:55:07 | 2 | extract() expects parameter 1 to be array, null given | phpcms\modules\content\classes\html.class.php | 182
+<?php exit;?>03-09 23:55:09 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:58:05 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-09 23:58:25 | 2 | extract() expects parameter 1 to be array, null given | phpcms\modules\content\classes\html.class.php | 182
+<?php exit;?>03-09 23:58:27 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 07:05:35 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 07:14:00 | 2 | extract() expects parameter 1 to be array, null given | phpcms\modules\content\classes\html.class.php | 182
+<?php exit;?>03-10 07:14:02 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 07:15:54 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 07:16:22 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 07:17:02 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 07:18:10 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 07:18:29 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 07:19:25 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 07:19:38 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 08:22:24 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 08:32:38 | 2 | extract() expects parameter 1 to be array, null given | phpcms\modules\content\classes\html.class.php | 182
+<?php exit;?>03-10 08:32:40 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 08:33:11 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 08:33:32 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 08:34:10 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 08:35:11 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 08:35:35 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 08:37:04 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 08:43:13 | 2 | extract() expects parameter 1 to be array, null given | phpcms\modules\content\classes\html.class.php | 182
+<?php exit;?>03-10 08:43:15 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 08:43:37 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 08:44:13 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 09:44:53 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 09:49:23 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 09:51:37 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 09:51:53 | 2 | fsockopen(): php_network_getaddresses: getaddrinfo failed: ��֪������������  | phpcms\libs\classes\http.class.php | 84
+<?php exit;?>03-10 09:51:53 | 2 | fsockopen(): unable to connect to juhe.phpcms.cn:80 (php_network_getaddresses: getaddrinfo failed: ��֪������������ ) | phpcms\libs\classes\http.class.php | 84
+<?php exit;?>03-10 09:52:01 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 09:52:40 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 09:54:14 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 09:55:01 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 09:55:20 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 09:57:27 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 09:57:30 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 09:58:06 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 09:58:41 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 09:59:36 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 10:00:31 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 10:00:31 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53
+<?php exit;?>03-10 10:00:59 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53

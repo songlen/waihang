@@ -8,6 +8,7 @@ class enterprise extends admin {
 		parent::__construct();
 
 		$this->db = pc_base::load_model('recruit_enterprise_model');
+		$this->db_job = pc_base::load_model('recruit_job_model');
 	}
 	//首页
 	public function init() {
@@ -64,7 +65,10 @@ class enterprise extends admin {
 			if($id < 1) return false;
 			if(!is_array($_POST['info']) || empty($_POST['info'])) return false;
 			if((!$_POST['info']['name']) || empty($_POST['info']['name'])) return false;
-			$this->db->update($_POST['info'],array('id'=>$id));
+			$info = new_addslashes($_POST['info']);
+			$this->db->update($info, array('id'=>$id));
+			// 更新职位表中的航司名称
+			$this->db_job->update(array('enterprise_name' => $info['name']), array('enterprise_id' => $id));
 			//更新附件状态
 			if(pc_base::load_config('system','attachment_stat') & $_POST['link']['logo']) {
 				$this->attachment_db = pc_base::load_model('attachment_model');

@@ -1,0 +1,122 @@
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div, input, dl, dt{margin:0;padding:0;border:0;} 
+body{background:#fff;color:#000; font-size:14px; font-family:"Microsoft Yahei","微软雅黑",arial,"\5b8b\4f53";} 
+
+ul,ol{list-style-type:none;} 
+input, a {outline: none;}
+ 
+a {color:#000; text-decoration:none;} 
+a:visited {text-decoration:none;} 
+a:hover {color:#d32628;text-decoration:none;} 
+a:active {color:#d32628;} 
+.fr {float: right;}
+.fl {float: left;}
+.overflow {overflow: hidden;}
+.clear {clear: both; height: 0;}
+/*.min-width-1300{min-width: 1300px; margin: 0 auto;}*/
+
+
+.container {width: 1100px; margin: 0 auto; position: relative;}
+
+#top { height: 60px; background: #d0161b;}
+
+.menu {float: left;}
+.menu ul li {float: left; height: 60px; line-height: 60px; font-size: 18px;}
+.menu ul li a{display: inline-block; height: 60px; padding: 0 18px; color: #fff;}
+.menu ul li:hover a, .menu ul li.current a{ font-weight: bold; }
+
+.menu dl {position: absolute; background: #ab3131; display: none; top: 60px; z-index: 10000; padding: 5px 2px;}
+.menu dt {line-height: 40px; height: 40px; padding-left: 8px; padding-right: 1px; text-align: left;}
+.menu ul li dt a{height: 40px; line-height: 40px; font-size: 16px; border-left: 4px solid #ab3131; color: #fff; text-indent: 20px; padding:0 ;width: 160px;}
+.menu ul li dt:hover a{background: #FFF; border-left: 4px solid #fb964d; color: #bf1321;}
+.menu ul li:hover dt a { font-weight: normal;}
+
+.menuright {float: right; color: #FFF; height: 60px; line-height: 60px;}
+.menuright div {float: left;}
+.menuright .language {padding-right: 30px; position: relative; font-size: 18px; cursor: pointer; background: url(../images/index_06.jpg) right center no-repeat;}
+.menuright .shu {padding: 0 30px; font-size: 22px;}
+.menuright .person {padding-right: 30px; position: relative; background: url(../images/index_06.jpg) right 22px no-repeat; margin-top: 6px; cursor: pointer;}
+.menuright .language .zh { background: #FFF; display: none; position: absolute; z-index: 1000; top: 62px; left: 0; width: 96px; height: 40px; line-height: 40px; font-family: "黑体"; color: #333; text-align: center; border: 1px solid #e5e5e5; border-radius: 5px; behavior:url('PIE.htc');}
+.menuright .person .loginreg { background: #FFF;display: none; position: absolute; z-index: 1000; top: 56px; left: 0; font-size: 18px;  width: 96px;  border: 1px solid #e5e5e5; border-radius: 5px; behavior:url('PIE.htc');}
+.menuright .person .loginreg li{text-align: center; height: 40px; line-height: 40px;}
+.menuright .person .loginreg li a{font-size: 16px;}
+
+.logotop {height: 95px; overflow: hidden;}
+.logotop .logo {width: 390px; float: left; margin-top: 15px;}
+.logotop .searchbox {width: 500px; float: left; margin-left: 200px; margin-top: 18px;}
+.logotop .searchbox .search { height: 40px; width: 500px; border:1px solid #f3f3f3; border-radius: 23px;  behavior:url('PIE.htc');}
+.logotop .searchbox .search input {float: left; height: 40px; line-height: 40px; margin-left: 23px; width: 415px; font-size: 16px; color: #999;}
+.logotop .searchbox .search .sbutton { cursor: pointer; width: 40px; height: 40px; float: left; background: url(../images/index_14.jpg) center center no-repeat;}
+.logotop .history {padding-left: 25px; padding-top: 6px; font-size: 14px;}
+
+.index_title { position: relative; margin-top: 60px;}
+.index_title .more {position: absolute; right: 0; top: 20px;}
+
+.index_news {overflow: hidden; margin-top: 20px;}
+.index_news_video {float: left; width: 550px; height: 400px;}
+.index_news_box { float: right; width: 520px; }
+.index_news_box li { border-bottom: 1px dotted #ddd; padding-bottom: 17px; margin-top: 16px; overflow: hidden; font-size: 16px;}
+.index_news_box li:first-child {margin-top: 0;}
+.index_news_box li .time {margin-right: 20px;}
+.index_news_box li .pic {width: 200px; height: 125px; float: left;}
+.index_news_box li .infor {width: 310px; float: right; display: table; font-size: 16px;}
+.index_news_box li .infor span {display: table-row; height: 65px; line-height: 1.6em;}
+.index_news_box li .infor span.des { color: #999;}
+/*.index_news_box li .infor .title { font-size: 18px; }*/
+
+.index_zhaopin {}
+.index_zhaopin ul {margin-left: -40px; overflow: hidden; }
+.index_zhaopin li {width: 530px; margin-left: 40px; overflow: hidden; float: left; margin-top: 30px; background: #f1eff0;}
+.index_zhaopin li .pic {float: left; width: 190px; height: 210px;}
+.index_zhaopin li .infor {width: 325px; float: right;}
+.index_zhaopin li .infor .title { font-size: 16px; line-height: 1.6em; margin-top: 10px;}
+.index_zhaopin li .infor .des { color: #a5a5a5; margin-top: 15px; font-size: 14px; }
+.index_zhaopin li .infor .time {color: #a5a5a5; margin-top: 15px}
+
+.indexmidmenu {margin-top: 60px;}
+.indexmidmenu ul{overflow: hidden;}
+.indexmidmenu ul li {float: left; width: 366px; height: 190px;}
+
+.index_customer {margin-top: 30px;}
+.index_customer ul {overflow: hidden; margin-left: -20px;}
+.index_customer ul li { width: 260px; margin-left: 20px; float: left; }
+.index_customer ul li img {border-radius: 5px; behavior:url('PIE.htc');}
+.index_customer ul li .title {color: #a0a0a0; margin-top: 15px; font-size: 16px; text-align: center;}
+.index_customer ul li .title a:hover{color: #d32628}
+
+
+.footer { padding: 30px 0; overflow: hidden; margin-top: 100px; letter-spacing: 2px; background: #2f2f2f;}
+.footer .foot_l {float: left; width: 750px;}
+
+.footer .foot_l ul {}
+.footer .foot_l li {line-height: 44px; color: #666; font-size: 18px;}
+.footer .foot_l li a{color: #666}
+.footer .foot_l li a:hover{color: #fff}
+.footer .foot_l li .lable {display: inline-block; width: 130px; color: #fff; }
+.footer .foot_l li .huoban {margin-right: 20px;}
+.footer .foot_r {float: right; width: 340px;}
+.footer .foot_r p {line-height: 44px; color: #666; font-size: 18px;}
+.footer .foot_r ul {margin-left: -66px;}
+.footer .foot_r li {float: left; width: 132px; margin-left: 66px; text-align: center;}
+.footer .foot_r li img {margin-top: 20px;}
+.footer .tousu {margin-left: 30px;}
+
+
+.categoryimage img {width: 100%; display: block;}
+
+.page_left {float: left; width: 200px; background: #ab3131; margin-top: -32px; z-index: 2}
+.page_left .title {height: 60px; line-height: 60px; color: #FFF; font-size: 18px; text-indent: 34px; letter-spacing: 3px;}
+.page_left ul { margin: 0 1px 1px 8px; font-size: 16px; background: #FFF;}
+.page_left li { border-left: 4px solid #ab3131; padding-left: 4px;}
+.page_left li a { width: 100%; display: inline-block; height: 50px; text-indent: 20px; line-height: 50px; border-bottom: 1px solid #e7e7e7; margin-left: -4px; }
+.page_left li.current, .page_left li:hover {border-left-color: #fb964d; }
+.page_left li:hover a{color: #ab3131;}
+.page_right {float: right; width: 860px;}
+
+
+.current_crumb {padding-left: 60px; background: url(../images/posbg.png) left center no-repeat; border-bottom: 2px solid #f0f0f0;}
+.crumb {font-size: 16px; color: #a4a1a1; padding: 10px 0; }
+.crumb a{ color: #a4a1a1; }
+.category_title {font-size: 20px; color: #ab3131; padding-bottom: 10px; letter-spacing: 3px;}
+.page_content {padding: 20px 0; font-size: 16px;}
+.page_content img {max-width: 100%;}
+

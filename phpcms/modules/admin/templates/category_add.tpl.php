@@ -22,8 +22,8 @@ include $this->admin_tpl('header');?>
 <li id="tab_setting_2" onclick="SwapTab('setting','on','',6,2);"><?php echo L('catgory_createhtml');?></li>
 <li id="tab_setting_3" onclick="SwapTab('setting','on','',6,3);"><?php echo L('catgory_template');?></li>
 <li id="tab_setting_4" onclick="SwapTab('setting','on','',6,4);"><?php echo L('catgory_seo');?></li>
-<li id="tab_setting_5" onclick="SwapTab('setting','on','',6,5);"><?php echo L('catgory_private');?></li>
-<li id="tab_setting_6" onclick="SwapTab('setting','on','',6,6);"><?php echo L('catgory_readpoint');?></li>
+<!-- <li id="tab_setting_5" onclick="SwapTab('setting','on','',6,5);"><?php echo L('catgory_private');?></li> -->
+<!-- <li id="tab_setting_6" onclick="SwapTab('setting','on','',6,6);"><?php echo L('catgory_readpoint');?></li> -->
 </ul>
 <div id="div_setting_1" class="contentList pad-10">
 

@@ -17,7 +17,7 @@ class index extends foreground {
 		$this->http_user_agent = $_SERVER['HTTP_USER_AGENT'];
 	}
 	public function excel(){
-die();
+		// die('hao');
 		include 'spreadsheet-reader/php-excel-reader/excel_reader2.php';
 		include 'spreadsheet-reader/SpreadsheetReader.php';
 
@@ -25,77 +25,73 @@ die();
 		$db_member=pc_base::load_model('member_model');
 		$db_member_resume=pc_base::load_model('member_resume_model');
 
-		$reader = new SpreadsheetReader('spreadsheet-reader/waihang.xlsx');
+		$reader = new SpreadsheetReader('spreadsheet-reader/waihang.csv');
 
 		foreach ($reader as $k => $row) {
-			die();
-			if($k < 1) continue;
-			if($k < 10000){
-				file_put_contents('mem.log', "\r\n $k ---- $row[25]", FILE_APPEND);
-				$encrypt = create_randomstr(6);
-				$userinfo = array(
-					'username' => $row[25],
-					'nickname' => $row[25],
-					'regdate' => time(),
-					'lastdate' => time(),
-					'email' => $row[27],
-					'mobile' => $row[25],
-					'encrypt' => $encrypt,
-					'password' => password('123456', $encrypt),
-				);
 
-				$userid = $db_member->insert($userinfo, 1);
-				if($userid){
-					$userinfo = array(
-						'member_id' => $userid,
-						'hardware' => $row[0],
-						'english_lever' => $row[1],
-						'remark' => $row[2],
-						'fullname' => $row[10],
-						'surname' => $row[11],
-						'firstname' => $row[12],
-						'surname_spell' => $row[14],
-						'firstname_spell' => $row[13],
-						'sex' => $row[15],
-						'birthday' => $row[16],
-						'age' => $row[17],
-						'swimming_ability' => $row[18],
-						'living_city' => $row[19],
-						'registered_residence' => $row[20],
-						'education' => $row[21],
-						'profession' => $row[22],
-						'graduation_university' => $row[23],
-						'graduation_date' => $row[24],
-						'mobile_phone' => $row[25],
-						'telphone' => $row[26],
-						'email' => $row[27],
-						'ID_number' => $row[28],
-						'flight_experience' => $row[29],
-						'aviation_experience' => $row[30],
-						'work_experience' => $row[31],
-						'height' => $row[32],
-						'weight' => $row[33],
-						'passport_number' => $row[34],
-						'passport_deadline' => $row[35],
-						'marital_status' => $row[36],
-						'nation' => $row[37],
-						'political_outlook' => $row[38],
-						'mother_name' => $row[39],
-						'mother_phone' => $row[40],
-						'father_name' => $row[41],
-						'father_phone' => $row[42],
-						'spouse_name' => $row[43],
-						'spouse_phone' => $row[44],
-						'archiving_organization' => $row[45],
-						'address' => $row[46],
-						'zip_code' => $row[47],
-					);
-					$userinfo = new_addslashes($userinfo);
-					$db_member_resume->insert($userinfo);
-				}
-			} else {
-				break;
+			file_put_contents('mem.log', "\r\n $k ---- $row[25]", FILE_APPEND);
+			$encrypt = create_randomstr(6);
+			$userinfo = array(
+				'username' => $row[25],
+				'nickname' => $row[25],
+				'regdate' => time(),
+				'lastdate' => time(),
+				'email' => $row[27],
+				'mobile' => $row[25],
+				'encrypt' => $encrypt,
+				'password' => password('123456', $encrypt),
+			);
+
+			$userid = $db_member->insert($userinfo, 1);
+			if($userid){
+				$userinfo = array(
+					'member_id' => $userid,
+					'hardware' => $row[0],
+					'english_lever' => $row[1],
+					'remark' => $row[2],
+					'fullname' => $row[10],
+					'surname' => $row[11],
+					'firstname' => $row[12],
+					'surname_spell' => $row[14],
+					'firstname_spell' => $row[13],
+					'sex' => $row[15],
+					'birthday' => $row[16],
+					'age' => $row[17],
+					'swimming_ability' => $row[18],
+					'living_city' => $row[19],
+					'registered_residence' => $row[20],
+					'education' => $row[21],
+					'profession' => $row[22],
+					'graduation_university' => $row[23],
+					'graduation_date' => $row[24],
+					'mobile_phone' => $row[25],
+					'telphone' => $row[26],
+					'email' => $row[27],
+					'ID_number' => $row[28],
+					'flight_experience' => $row[29],
+					'aviation_experience' => $row[30],
+					'work_experience' => $row[31],
+					'height' => $row[32],
+					'weight' => $row[33],
+					'passport_number' => $row[34],
+					'passport_deadline' => $row[35],
+					'marital_status' => $row[36],
+					'nation' => $row[37],
+					'political_outlook' => $row[38],
+					'mother_name' => $row[39],
+					'mother_phone' => $row[40],
+					'father_name' => $row[41],
+					'father_phone' => $row[42],
+					'spouse_name' => $row[43],
+					'spouse_phone' => $row[44],
+					'archiving_organization' => $row[45],
+					'address' => $row[46],
+					'zip_code' => $row[47],
+				);
+				$userinfo = new_addslashes($userinfo);
+				$db_member_resume->insert($userinfo);
 			}
+
 		}
 	}
 

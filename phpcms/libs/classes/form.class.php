@@ -83,6 +83,54 @@ class form {
 		$str .= $ext_str;
 		return $str;
 	}
+
+
+	/**
+	 * [ueditor UEditor]
+	 * @param  string  $textarearid [id]
+	 * @param  string  $toolbars    [工具栏图标 basic full]
+	 * @param  integer $height      [description]
+	 * @return [type]               [description]
+	 */
+	public function ueditor($textarearid = 'content', $toolbars = 'full', $width=680, $height = 200){
+		// 引入ueditor配置文件
+		$str = '<script type="text/javascript" src="'.JS_PATH.'ueditor/ueditor.config.js"></script>';
+		// 引入ueditor核心文件
+		$str .= '<script type="text/javascript" src="'.JS_PATH.'ueditor/ueditor.all.js"></script>';
+
+		// 工具栏图标
+		if($toolbars == 'basic'){
+			$toolbars = "[['fullscreen', 'source', 'undo', 'redo', 'bold']]";
+		} else if ($toolbars == 'full'){
+			$toolbars = "[[
+				'fullscreen', 'source', '|', 'undo', 'redo', '|',
+				'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+				'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+				'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+				'directionalityltr', 'directionalityrtl', 'indent', '|',
+				'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+				'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+				'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'attachment', 'map', 'insertframe', 'template', 'background', '|',
+				'horizontal', 'date', 'time', 'spechars', 'wordimage', '|',
+				'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+				'print', 'preview', 'searchreplace', 'drafts', 'help'
+			]]";
+		}
+
+		// 实例化编辑器
+    	$str .= <<<	initUeditor
+    		<script type="text/javascript">
+				UE.getEditor("$textarearid", {
+					initialFrameWidth: $width,
+					initialFrameHeight: $height,
+					toolbars: $toolbars,
+					wordCount: false, //{Boolean} [默认值：true] //是否开启字数统计
+				});
+			</script>;
+initUeditor;
+
+    	return $str;
+	}
 	
 	/**
 	 * 

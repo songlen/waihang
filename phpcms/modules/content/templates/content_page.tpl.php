@@ -50,7 +50,7 @@ function closeParent() {
  <th width="80"> <?php echo L('content');?>	  </th>
 <td>
 <textarea name="info[content]" id="content"><?php echo $content?></textarea>
-<?php echo form::editor('content','full','','','',1,1)?>
+<?php echo form::ueditor('content','full', 860)?>
 </td></tr>
 </table>
 </div>
