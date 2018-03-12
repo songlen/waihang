@@ -462,6 +462,11 @@ class category extends admin {
 					$url = $this->update_url($catid);
 					$url = APP_PATH.$url;
 				}
+
+				// 将 url 转换为 跳转链接
+				if($cat['islink'] && $cat['linkurl']){
+					$url = $cat['linkurl'];
+				}
 				if($cat['url']!=$url) $this->db->update(array('url'=>$url), array('catid'=>$catid));
 				
 				

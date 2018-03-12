@@ -4,9 +4,9 @@
 
 <div class="container">
 	<div class="page_left">
-		<div class="title">关于公司</div>
+		<div class="title"><?php echo $CATEGORYS[$parentid]['catname'];?></div>
 		<ul class="navlist">
-			<?php if(defined('IN_ADMIN')  && !defined('HTML')) {echo "<div class=\"admin_piao\" pc_action=\"content\" data=\"op=content&tag_md5=ef9b1d6ade0246d68e39644948c46b77&action=category&catid=1&num=25&siteid=%24siteid&order=listorder+desc%2C+id+desc\"><a href=\"javascript:void(0)\" class=\"admin_piao_edit\">编辑</a>";}$content_tag = pc_base::load_app_class("content_tag", "content");if (method_exists($content_tag, 'category')) {$data = $content_tag->category(array('catid'=>'1','siteid'=>$siteid,'order'=>'listorder desc, id desc','limit'=>'25',));}?>
+			<?php if(defined('IN_ADMIN')  && !defined('HTML')) {echo "<div class=\"admin_piao\" pc_action=\"content\" data=\"op=content&tag_md5=a7f6b5ed2256165e3f10a57ccc53c4b4&action=category&catid=%24parentid&num=25&siteid=%24siteid&order=listorder+desc%2C+id+desc\"><a href=\"javascript:void(0)\" class=\"admin_piao_edit\">编辑</a>";}$content_tag = pc_base::load_app_class("content_tag", "content");if (method_exists($content_tag, 'category')) {$data = $content_tag->category(array('catid'=>$parentid,'siteid'=>$siteid,'order'=>'listorder desc, id desc','limit'=>'25',));}?>
 			<?php $n=1; if(is_array($data)) foreach($data AS $n => $r) { ?>
 			<li <?php if($r[catid] == $catid) { ?> class="current"<?php } ?>><a href="<?php echo $r['url'];?>"><?php echo $r['catname'];?></a></li>
 			<?php $n++;}unset($n); ?>
@@ -24,18 +24,5 @@
 	</div>
 	<div class="clear"></div>
 </div>
-
-<script type="text/javascript">
-	if(GetQueryString('catid')=='1'){
-		var url = window.location.href.replace('catid=1', 'catid=2');
-		window.location.href=url
-	}
-	function GetQueryString(name)
-	{
-	     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-	     var r = window.location.search.substr(1).match(reg);
-	     if(r!=null)return  unescape(r[2]); return null;
-	}
-</script>
 
 <?php include template('content', 'footer'); ?>

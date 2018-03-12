@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=1200" />
+	<!-- <meta name="viewport" content="width=1200" /> -->
 	<title>{if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}{$SEO['site_title']}</title>
 	<meta name="keywords" content="{$SEO['keyword']}">
 	<meta name="description" content="{$SEO['description']}"> 
 	<title>外航</title>
-	<link rel="stylesheet" href="{APP_PATH}statics/default/css/style.css?v=0309">
+	<link rel="stylesheet" href="{APP_PATH}statics/default/css/style.css?v={create_randomstr(6)}">
 	<link rel="stylesheet" href="{APP_PATH}statics/default/css/flexslider.css">
 	<link rel="stylesheet" href="{JS_PATH}ueditor/themes/table_default.css">
 	<script type="text/javascript" src="{APP_PATH}statics/default/js/jquery-1.11.0.min.js"></script>
@@ -52,12 +52,11 @@
 	</div>
 
 </div>
-<div class="min-width-1300">
-	<div class="container logotop">
-		<div class="logo"><a href=""><img src="{APP_PATH}statics/default/images/logo.jpg" width="295" alt=""></a></div>
-		<div class="searchbox">
-			<div class="search"><input type="text" name="keyword" placeholder="搜索关键词"><span class="sbutton"></span></div>
-			<div class="history">历史搜索：<a href="">员工培训</a></div>
-		</div>
+
+<div class="container logotop">
+	<div class="logo"><a href=""><img src="{APP_PATH}statics/default/images/logo.jpg" width="295" alt=""></a></div>
+	<div class="searchbox">
+		<div class="search"><input type="text" name="keyword" placeholder="搜索关键词"><span class="sbutton"></span></div>
+		<div class="history">历史搜索：<a href="">员工培训</a></div>
 	</div>
 </div>

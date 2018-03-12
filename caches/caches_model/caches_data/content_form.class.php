@@ -99,7 +99,7 @@ class content_form {
 			return true;
 		}
 	});';
-		return "<div id='{$field}_tip'></div>".'<textarea name="info['.$field.']" id="'.$field.'" boxid="'.$field.'">'.$value.'</textarea>'.form::editor($field,$toolbar,'content',$this->catid,'',$allowupload,1,'',$height,$disabled_page);
+		return "<div id='{$field}_tip'></div>".'<textarea name="info['.$field.']" id="'.$field.'" boxid="'.$field.'">'.$value.'</textarea>'.form::ueditor($field,$toolbar, 650,$height);
 	}
 	function catid($field, $value, $fieldinfo) {
 		if(!$value) $value = $this->catid;

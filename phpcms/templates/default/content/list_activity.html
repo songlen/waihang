@@ -1,0 +1,35 @@
+{template 'content', 'header'}
+
+<div class="categoryimage"><img src="{$image}" alt=""></div>
+
+<div class="container">
+	<div class="page_left">
+		<div class="title">{$CATEGORYS[$parentid][catname]}</div>
+		<ul class="navlist">
+			{pc:content action="category" catid="$parentid" num="25" siteid="$siteid" order="listorder desc, id desc"}
+			{loop $data $n $r}
+			<li {if $r[catid] == $catid} class="current"{/if}><a href="{$r[url]}">{$r[catname]}</a></li>
+			{/loop}
+			{/pc}
+		</ul>
+	</div>
+	<div class="page_right">
+		<div class="current_crumb">
+			<div class="crumb">{catpos($catid)}</div>
+			<div class="category_title">{$catname}</div>
+		</div>
+		<div class="page_list">
+			<ul class="activity">
+				{pc:content action="lists" catid="$catid" num="10" order="listorder desc, id DESC" page="$page"}
+				{loop $data $r}
+				<li><a href="{$r[url]}" target="_blank" {title_style($r[style])}><span>{date('Y-m-d', $r[inputtime])}</span>{$r[title]}</a></li>
+				{/loop}
+				{/pc}
+			</ul>
+			<div id="pages">{$pages}</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+
+{template 'content', 'footer'}

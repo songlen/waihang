@@ -9,10 +9,17 @@
 			</ul>
 		</div>
 		<div class="foot_r">
+			{pc:get sql="SELECT name, setting FROM phpcms_poster WHERE spaceid = 12 AND disabled=0 ORDER BY listorder ASC"}
 			<ul>
-				<li><p>官方微信</p><img src="{APP_PATH}statics/default/images/index_62.jpg" width="120" height="120" alt=""></li>
-				<li><p>官方微博</p><img src="{APP_PATH}statics/default/images/index_62.jpg" width="120" height="120" alt=""></li>
+				{loop $data $r}
+				<?php 
+					$image = json_decode($r['setting'], true);
+					$image = $image[1];
+				?>
+				<li><p>{$r[name]}</p><img src="{$image[imageurl]}" width="110" height="110" alt="{$image[alt]}"></li>
+				{/loop}
 			</ul>
+			{/pc}
 		</div>
 
 	</div>

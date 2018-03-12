@@ -9,10 +9,17 @@
 			</ul>
 		</div>
 		<div class="foot_r">
+			<?php if(defined('IN_ADMIN')  && !defined('HTML')) {echo "<div class=\"admin_piao\" pc_action=\"get\" data=\"op=get&tag_md5=56127cc7f574b62e6d1d22ec33080376&sql=SELECT+name%2C+setting+FROM+phpcms_poster+WHERE+spaceid+%3D+12+AND+disabled%3D0+ORDER+BY+listorder+ASC\"><a href=\"javascript:void(0)\" class=\"admin_piao_edit\">编辑</a>";}pc_base::load_sys_class("get_model", "model", 0);$get_db = new get_model();$r = $get_db->sql_query("SELECT name, setting FROM phpcms_poster WHERE spaceid = 12 AND disabled=0 ORDER BY listorder ASC LIMIT 20");while(($s = $get_db->fetch_next()) != false) {$a[] = $s;}$data = $a;unset($a);?>
 			<ul>
-				<li><p>官方微信</p><img src="<?php echo APP_PATH;?>statics/default/images/index_62.jpg" width="120" height="120" alt=""></li>
-				<li><p>官方微博</p><img src="<?php echo APP_PATH;?>statics/default/images/index_62.jpg" width="120" height="120" alt=""></li>
+				<?php $n=1;if(is_array($data)) foreach($data AS $r) { ?>
+				<?php 
+					$image = json_decode($r['setting'], true);
+					$image = $image[1];
+				?>
+				<li><p><?php echo $r['name'];?></p><img src="<?php echo $image['imageurl'];?>" width="110" height="110" alt="<?php echo $image['alt'];?>"></li>
+				<?php $n++;}unset($n); ?>
 			</ul>
+			<?php if(defined('IN_ADMIN') && !defined('HTML')) {echo '</div>';}?>
 		</div>
 
 	</div>

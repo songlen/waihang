@@ -24,3 +24,17 @@
  	else 
  		return false;
  }
+
+
+function strcut($str, $lenght = 60, $suffix = '...'){
+ 	if($str == '') return '';
+
+ 	$str = str_replace(array("'","\r\n","\t",'[page]','[/page]','&ldquo;','&rdquo;','&nbsp;'), '', strip_tags($str));
+
+ 	if(mb_strlen($str, 'utf-8') > $lenght) {
+ 		return mb_substr($str, 0, $lenght, 'utf-8').$suffix;
+ 	} else {
+ 		return mb_substr($str, 0, $lenght, 'utf-8');
+ 	}
+	
+ }

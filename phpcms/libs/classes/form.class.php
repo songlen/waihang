@@ -92,7 +92,7 @@ class form {
 	 * @param  integer $height      [description]
 	 * @return [type]               [description]
 	 */
-	public function ueditor($textarearid = 'content', $toolbars = 'full', $width=680, $height = 200){
+	public function ueditor($textarearid = 'content', $toolbars = 'full', $width="99%", $height = 300){
 		// 引入ueditor配置文件
 		$str = '<script type="text/javascript" src="'.JS_PATH.'ueditor/ueditor.config.js"></script>';
 		// 引入ueditor核心文件
@@ -121,12 +121,12 @@ class form {
     	$str .= <<<	initUeditor
     		<script type="text/javascript">
 				UE.getEditor("$textarearid", {
-					initialFrameWidth: $width,
+					initialFrameWidth: "$width",
 					initialFrameHeight: $height,
 					toolbars: $toolbars,
 					wordCount: false, //{Boolean} [默认值：true] //是否开启字数统计
-				});
-			</script>;
+				})
+			</script>
 initUeditor;
 
     	return $str;

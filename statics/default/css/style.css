@@ -16,6 +16,7 @@ a:active {color:#d32628;}
 
 
 .container {width: 1100px; margin: 0 auto; position: relative;}
+.ch {height: 10px; background: url(../images/ch.jpg) repeat;}
 
 #top { height: 60px; background: #d0161b;}
 
@@ -100,13 +101,22 @@ a:active {color:#d32628;}
 .footer .foot_r li img {margin-top: 20px;}
 .footer .tousu {margin-left: 30px;}
 
+/* 分页 */
+#pages { padding:14px 0 10px; font-family:宋体; text-align: center; margin-top: 30px; font-size: 14px; font-weight: bold; }
+#pages a { display:inline-block; height:30px; line-height:30px; background:#fff; border:1px solid #e3e3e3; text-align:center; color:#333; padding:0 16px}
+#pages a.a1 { background:url(../images/admin_img/pages.png) no-repeat 0 5px; width:56px; padding:0 }
+#pages a:hover { background:#f1f1f1; color:#000; text-decoration:none }
+#pages span { display:inline-block; height:30px; line-height:30px; background:#ab3131; border:1px solid #ab3131; color:#fff; text-align:center;padding:0 16px}
+.page .noPage { display:inline-block; width:56px; height:30px; line-height:30px; background:url(../img/icu/titleBg.png) repeat-x 0 -55px ; border:1px solid #e3e3e3; text-align:center; color:#a4a4a4; }
+
+
 
 .categoryimage img {width: 100%; display: block;}
 
-.page_left {float: left; width: 200px; background: #ab3131; margin-top: -32px; z-index: 2}
+.page_left {float: left; width: 200px; background: #d0161b; margin-top: -32px; z-index: 2}
 .page_left .title {height: 60px; line-height: 60px; color: #FFF; font-size: 18px; text-indent: 34px; letter-spacing: 3px;}
 .page_left ul { margin: 0 1px 1px 8px; font-size: 16px; background: #FFF;}
-.page_left li { border-left: 4px solid #ab3131; padding-left: 4px;}
+.page_left li { border-left: 4px solid #d0161b; padding-left: 4px;}
 .page_left li a { width: 100%; display: inline-block; height: 50px; text-indent: 20px; line-height: 50px; border-bottom: 1px solid #e7e7e7; margin-left: -4px; }
 .page_left li.current, .page_left li:hover {border-left-color: #fb964d; }
 .page_left li:hover a{color: #ab3131;}
@@ -118,5 +128,32 @@ a:active {color:#d32628;}
 .crumb a{ color: #a4a1a1; }
 .category_title {font-size: 20px; color: #ab3131; padding-bottom: 10px; letter-spacing: 3px;}
 .page_content {padding: 20px 0; font-size: 16px;}
+.page_title {font-size: 24px; border-bottom: 2px solid #eee; margin:30px 0; padding-bottom: 15px;}
 .page_content img {max-width: 100%;}
 
+.page_list .shebao li { padding: 15px; overflow: hidden; background: #f5f5f5; margin-top: 30px; }
+.page_list .shebao li .pic { float: left; width: 235px; }
+.page_list .shebao li .rinfo {float: right; width: 570px;}
+.page_list .dangyuan_activity li .rinfo { width: 800px; }
+.page_list .shebao li .tit {font-size: 18px; font-weight: bold;}
+.page_list .shebao li .des {font-size: 16px; margin-top: 20px; line-height: 1.6em; text-align: justify;}
+
+.page_list .news li {background: none; padding: 0; padding-bottom: 20px; border-bottom: 1px solid #eee;}
+.page_list .news li .pic {width: 300px;}
+.page_list .news li .rinfo {width: 760px;}
+
+.page_list .activity li { overflow: hidden; line-height: 60px; border-bottom: 1px dashed #cecccb; font-size: 16px;}
+.page_list .activity li span {float: right;}
+.activity_form {width: 500px; margin-top: 30px;}
+.activity_tit{ font-size: 18px; margin-top: 50px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+
+.page_list .dangjian li {overflow: hidden; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0; }
+.page_list .dangjian li .tit {font-size: 20px; padding: 20px 0 10px 0;}
+.page_list .dangjian .pic {width: 300px;  height: 190px; position: relative; float: left;}
+.page_list .dangjian .date { position: absolute; width: 60px; height: 60px; bottom: 10px; left: 10px; background: #071e74; color: #FFF; opacity: 0.8; text-align: center; }
+.page_list .dangjian .date span {display: block;}
+.page_list .dangjian .date span.day {font-size: 20px; margin-top: 5px;}
+.page_list .dangjian .date span.year {font-size: 14px;}
+.page_list .dangjian .des {width: 760px; float: right; font-size: 16px; line-height: 1.8em; }
+
+.new_tit {margin-top: 30px;}

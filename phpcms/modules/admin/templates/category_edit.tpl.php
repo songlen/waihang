@@ -20,7 +20,7 @@ include $this->admin_tpl('header');?>
 
 <ul class="tabBut cu-li">
 <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',6,1);"><?php echo L('catgory_basic');?></li>
-<li id="tab_setting_2" onclick="SwapTab('setting','on','',6,2);"><?php echo L('catgory_createhtml');?></li>
+<!-- <li id="tab_setting_2" onclick="SwapTab('setting','on','',6,2);"><?php echo L('catgory_createhtml');?></li> -->
 <li id="tab_setting_3" onclick="SwapTab('setting','on','',6,3);"><?php echo L('catgory_template');?></li>
 <li id="tab_setting_4" onclick="SwapTab('setting','on','',6,4);"><?php echo L('catgory_seo');?></li>
 <!-- <li id="tab_setting_5" onclick="SwapTab('setting','on','',6,5);"><?php echo L('catgory_private');?></li> -->
@@ -70,7 +70,7 @@ include $this->admin_tpl('header');?>
 		<textarea name="info[description]" maxlength="255" style="width:300px;height:60px;"><?php echo $description;?></textarea>
 		</td>
       </tr>
-	 <tr>
+<!-- 	 <tr>
       <th><?php echo L('workflow');?>：</th>
       <td>
 	  <?php
@@ -87,12 +87,24 @@ include $this->admin_tpl('header');?>
 		}
 	?>
 	  </td>
-    </tr>
+    </tr> -->
 <tr>
      <th><?php echo L('ismenu');?>：</th>
       <td>
 	  <input type='radio' name='info[ismenu]' value='1' <?php if($ismenu) echo 'checked';?>> <?php echo L('yes');?>&nbsp;&nbsp;&nbsp;&nbsp;
 	  <input type='radio' name='info[ismenu]' value='0' <?php if(!$ismenu) echo 'checked';?>> <?php echo L('no');?></td>
+    </tr>
+
+    <tr>
+    	<th>转向连接</th>
+    	<td><input type="text" name="info[linkurl]" size="50" value="<?php if($islink) echo $url;?>"></td>
+    </tr>
+    <tr>
+    	<th>是否转向</th>
+    	<td>
+    		<input type="radio" name="info[islink]" value="1"  <?php if($islink) echo 'checked';?> /> 是&nbsp;&nbsp;&nbsp;&nbsp;
+    		<input type="radio" name="info[islink]" value="0"  <?php if(!$islink) echo 'checked';?> /> 否
+    	</td>
     </tr>
 
 </table>
