@@ -33,15 +33,20 @@ include $this->admin_tpl('header','admin');
 		<tr>
 			<th width="100">广告类型：</th>
 			<td>
-				<input type="radio" name="info[type]" value="1" <?php if($type == '1'){echo 'checked="checked"';}?>> 广告一类
-				<input type="radio" name="info[type]" value="2" <?php if($type == '2'){echo 'checked="checked"';}?>> 广告二类
-				<input type="radio" name="info[type]" value="3" <?php if($type == '3'){echo 'checked="checked"';}?>> 广告三类
+				<input class="type" type="radio" name="info[type]" value="1" <?php if($type == '1'){echo 'checked="checked"';}?>> 广告一类
+				<input class="type" type="radio" name="info[type]" value="2" <?php if($type == '2'){echo 'checked="checked"';}?>> 广告二类
 			</td>
 		</tr>
 		
 		<tr>
 			<th width="100">缩略图：</th>
-			<td> <?php echo form::images('info[image]', 'image', $image, 'recruit')?> </td>
+			<td> <?php echo form::images('info[image]', 'image', $image, 'recruit')?><br>
+				<?php if($type == '1'){ ?>
+				<span class="tip">图片尺寸 540*270</span> 
+				<?php } else { ?>
+				<span class="tip"">图片尺寸 260*260</span> 
+				<?php } ?>
+			</td>
 		</tr>
 
 		<tr>
@@ -78,7 +83,7 @@ include $this->admin_tpl('header','admin');
 			<th width="100">详细介绍：</th>
 			<td>
 				<textarea name="info[content]" id="content"><?php echo $content;?></textarea>
-				<?php echo form::editor('content','full','','','',1,1)?>
+				<?php echo form::ueditor('content','full')?>
 			</td>
 		</tr>
 
@@ -198,6 +203,15 @@ include $this->admin_tpl('header','admin');
 	// 删除职位
 	$(document).on('click', '.delSelectedJob', function(){
 		$(this).parents('.selectedJobList').remove();
+	})
+
+	// 选择广告类别
+	$(function(){
+		$('.type').click(function(){
+			var type_val = $(this).val();
+			$('.tip').hide();
+			$('.tip').eq(type_val-1).show();
+		})
 	})
 </script>
 </body>

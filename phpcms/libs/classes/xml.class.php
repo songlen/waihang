@@ -3,7 +3,7 @@
  * @author				wangtiecheng(jim_@live.cn)
  * @link				http://www.phpcms.cn http://www.ku6.cn
  * @copyright			2005-2009 PHPCMS/KU6 Software LLCS
- * @license				http://www.phpcms.cn/license/
+
  * @datetime			Wed Aug 05 18:37:10 CST 2009
  * @lastmodify			Wed Aug 05 18:37:10 CST 2009
  * ------------------------------------------------------------

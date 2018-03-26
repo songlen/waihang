@@ -3,7 +3,7 @@
  *  db_factory.class.php 数据库工厂类
  *
  * @copyright			(C) 2005-2015 PHPCMS
- * @license				http://www.phpcms.cn/license/
+
  * @lastmodify			2015-02-10
  */
 

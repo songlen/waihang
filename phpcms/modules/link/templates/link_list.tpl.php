@@ -9,7 +9,6 @@ include $this->admin_tpl('header', 'admin');
 		<tr>
 		<td><div class="explain-col"> 
 		<?php echo L('all_linktype')?>: &nbsp;&nbsp; <a href="?m=link&c=link"><?php echo L('all')?></a> &nbsp;&nbsp;
-		<a href="?m=link&c=link&typeid=0">默认分类</a>&nbsp;
 		<?php
 	if(is_array($type_arr)){
 	foreach($type_arr as $typeid => $type){
@@ -31,7 +30,6 @@ include $this->admin_tpl('header', 'admin');
 			<th width="12%" align="center"><?php echo L('logo')?></th>
 			<th width="10%" align="center"><?php echo L('typeid')?></th>
 			<th width='10%' align="center"><?php echo L('link_type')?></th>
-			<th width="8%" align="center"><?php echo L('status')?></th>
 			<th width="12%" align="center"><?php echo L('operations_manage')?></th>
 		</tr>
 	</thead>
@@ -44,12 +42,9 @@ if(is_array($infos)){
 		<td align="center" width="35"><input type="checkbox" name="linkid[]" value="<?php echo $info['linkid']?>"></td>
 		<td align="center" width="35"><input name='listorders[<?php echo $info['linkid']?>]' type='text' size='3' value='<?php echo $info['listorder']?>' class="input-text-c"></td>
 		<td><a href="<?php echo $info['url'];?>" title="<?php echo L('go_website')?>" target="_blank"><?php echo new_html_special_chars($info['name'])?></a> </td>
-		<td align="center" width="12%"><?php if($info['linktype']==1){?><?php if($info['passed']=='1'){?><img src="<?php echo $info['logo'];?>" width=83 height=31><?php } else echo $info['logo'];}?></td>
+		<td align="center" width="12%"><?php if($info['linktype']==1){?><img src="<?php echo $info['logo'];?>" width=83 height=31><?php } else echo $info['logo'];?></td>
 		<td align="center" width="10%"><?php echo $type_arr[$info['typeid']];?></td>
 		<td align="center" width="10%"><?php if($info['linktype']==0){echo L('word_link');}else{echo L('logo_link');}?></td>
-		<td width="8%" align="center"><?php if($info['passed']=='0'){?><a
-			href='?m=link&c=link&a=check&linkid=<?php echo $info['linkid']?>'
-			onClick="return confirm('<?php echo L('pass_or_not')?>')"><font color=red><?php echo L('audit')?></font></a><?php }else{echo L('passed');}?></td>
 		<td align="center" width="12%"><a href="###"
 			onclick="edit(<?php echo $info['linkid']?>, '<?php echo new_addslashes(new_html_special_chars($info['name']))?>')"
 			title="<?php echo L('edit')?>"><?php echo L('edit')?></a> |  <a
@@ -66,7 +61,7 @@ if(is_array($infos)){
 </div>
 <div class="btn"> 
 <input name="dosubmit" type="submit" class="button"
-	value="<?php echo L('listorder')?>">&nbsp;&nbsp;<input type="submit" class="button" name="dosubmit" onClick="document.myform.action='?m=link&c=link&a=delete'" value="<?php echo L('delete')?>"/></div>
+	value="<?php echo L('listorder')?>">&nbsp;&nbsp;<input type="submit" class="button" name="dosubmit" onClick="document.myform.action='?m=link&c=link&a=delete;'" value="<?php echo L('delete')?>"/></div>
 <div id="pages"><?php echo $pages?></div>
 </form>
 </div>

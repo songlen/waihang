@@ -6,9 +6,7 @@ defined('IN_PHPCMS') or exit('No permission resources.');
  * 视频添加接收接口 在vms系统中添加视频、导入ku6视频时，会调用此接口同步这些视频
  * 
  * @author				chenxuewang
- * @link				http://www.phpcms.cn http://www.ku6.cn
- * @copyright			CopyRight (c) 2006-2012 酷溜网（北京）科技有限公司
- * @license			http://www.phpcms.cn/license/
+
  * 
  * 
  * *************************************

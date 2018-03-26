@@ -13,11 +13,8 @@ class index {
 	}
 	//首页
 	public function init() {
-		if(isset($_GET['siteid'])) {
-			$siteid = intval($_GET['siteid']);
-		} else {
-			$siteid = 1;
-		}
+		$siteid = isset($_GET['siteid']) ? intval($_GET['siteid']) : get_siteid();
+
 		$siteid = $GLOBALS['siteid'] = max($siteid,1);
 		define('SITEID', $siteid);
 		$_userid = $this->_userid;

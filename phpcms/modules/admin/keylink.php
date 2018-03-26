@@ -5,11 +5,13 @@ class keylink extends admin {
 	function __construct() {
 		$this->db = pc_base::load_model('keylink_model');
 		parent::__construct();
+		$siteid = $this->get_siteid();
+  		define("SITEID",$siteid);
 	}
 	
 	function init () {
 		$page = $_GET['page'] ? intval($_GET['page']) : '1';
-		$infos = $this->db->listinfo('','keylinkid DESC',$page ,'20');
+		$infos = $this->db->listinfo(array('siteid'=>SITEID),'keylinkid DESC',$page ,'20');
 		$pages = $this->db->pages;	
 		$big_menu = array('javascript:window.top.art.dialog({id:\'add\',iframe:\'?m=admin&c=keylink&a=add\', title:\''.L('add_keylink').'\', width:\'450\', height:\'130\'}, function(){var d = window.top.art.dialog({id:\'add\'}).data.iframe;var form = d.document.getElementById(\'dosubmit\');form.click();return false;}, function(){window.top.art.dialog({id:\'add\'}).close()});void(0);', L('add_keylink'));
 		include $this->admin_tpl('keylink_list');
@@ -43,6 +45,7 @@ class keylink extends admin {
 	function add() {
 		if(isset($_POST['dosubmit'])){
 				if(empty($_POST['info']['word']) || empty($_POST['info']['url']))return false;
+				$_POST['info']['siteid'] = SITEID;
 				$this->db->insert($_POST['info']);
 				$this->public_cache_file();//更新缓存 
 				showmessage(L('operation_success'),'?m=admin&c=keylink&a=add','', 'add');

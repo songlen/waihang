@@ -18,9 +18,9 @@ class foreground {
 	 */
 	final public function check_member() {
 		$phpcms_auth = param::get_cookie('auth');
-		if(ROUTE_M =='member' && ROUTE_C =='index' && in_array(ROUTE_A, array('login', 'register', 'mini','send_newmail'))) {
+		if(ROUTE_M =='member' && ROUTE_C =='index' && in_array(ROUTE_A, array('login', 'register', 'forgetPassword'))) {
 			if ($phpcms_auth && ROUTE_A != 'mini') {
-				showmessage(L('login_success', '', 'member'), 'index.php?m=member&c=index');
+				showmessage('您已登录', 'index.php?m=member&c=index');
 			} else {
 				return true;
 			}

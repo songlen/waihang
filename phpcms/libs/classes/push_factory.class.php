@@ -1,9 +1,7 @@
 <?php
 /**
  *  push_factory.class.php 推送信息工厂类
- *
- * @copyright			(C) 2005-2010 PHPCMS
- * @license				http://www.phpcms.cn/license/
+
  * @lastmodify			2010-8-2
  */
 

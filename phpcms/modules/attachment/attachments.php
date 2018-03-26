@@ -70,7 +70,8 @@ class attachments {
 					elseif($fileext == 'doc' || $fileext == 'docx') $fileext = 'doc';
 					elseif($fileext == 'xls' || $fileext == 'xlsx') $fileext = 'xls';
 					elseif($fileext == 'ppt' || $fileext == 'pptx') $fileext = 'ppt';
-					elseif ($fileext == 'flv' || $fileext == 'swf' || $fileext == 'rm' || $fileext == 'rmvb') $fileext = 'flv';
+					elseif($fileext == 'pdf') $fileext = 'pdf';
+					elseif ($fileext == 'flv' || $fileext == 'swf' || $fileext == 'rm' || $fileext == 'rmvb' || $fileext == 'mp4') $fileext = 'video';
 					else $fileext = 'do';
 					echo $aids[0].','.$this->upload_url.$attachment->uploadedfiles[0]['filepath'].','.$fileext.','.$filename;
 				}			
@@ -95,6 +96,9 @@ class attachments {
 			//获取临时未处理文件列表
 			$att = $this->att_not_used();
 			$userid_flash=sys_auth($this->userid, 'ENCODE');
+
+			// 隐藏未处理文件
+			$att_not_used = '';
 			include $this->admin_tpl('swfupload');
 		}
 	}

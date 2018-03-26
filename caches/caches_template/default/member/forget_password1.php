@@ -1,0 +1,156 @@
+<?php defined('IN_PHPCMS') or exit('No permission resources.'); ?><!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=1300" /> 
+	<title><?php echo L('retrieve_password');?>-<?php if(isset($SEO['title']) && !empty($SEO['title'])) { ?><?php echo $SEO['title'];?><?php } ?><?php echo $SEO['site_title'];?></title>
+	<meta name="keywords" content="<?php echo $SEO['keyword'];?>">
+	<meta name="description" content="<?php echo $SEO['description'];?>">
+	<link rel="stylesheet" href="statics/default/css/style.css">
+	<link rel="stylesheet" href="statics/plugin/layui/css/modules/layer/default/layer.css">
+	<script type="text/javascript" src="statics/default/js/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="<?php echo JS_PATH;?>jquery.cookie.js"></script>
+	<script type="text/javascript" src="statics/plugin/layui/lay/modules/layer.js"></script>
+</head>
+<body>
+<div class="regbg">
+	<img class="bgimg" src="statics/default/images/regbg.png" alt="">
+</div>
+<div class="regbox">
+	<div class="container">
+		<div class="reg_right">
+			<div class="regform loginform">
+				<div class="person_reg">
+					<div class="tit"><?php echo L('retrieve_password');?></div>
+					<form action="">
+					<input type="text" class="input input-phone" name="info[phone]" id="phone" value="" placeholder="请输入手机号">
+					<div class="vcodebox">
+						<input type="text" name="info[vcode]" id="vcode_phone" value="" placeholder="请输入验证码"><span class="getcode">获取验证码</span>
+					</div>
+					<div class="xieyi"></div>
+					<input type="button" class="submit" name="dosubmit" value="下一步">
+					<input type="hidden" name="dosubmit" value="1">
+					<input type="hidden" name="step" value="<?php echo $step;?>">
+					</form>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		// 提交表单验证
+		$('.submit').click(function(){
+			if($(this).hasClass('disabled')) return false;
+
+			var form = $(this).parents('form');
+
+			// 手机号码验证
+			var phone = form.find('#phone').val();
+			if(!isPhone(phone)){
+				tips('手机号格式错误', '#phone');
+				return false;
+			}
+
+			var vcode = form.find('#vcode_phone').val();
+			if(vcode == ''){
+				tips('请填写验证码', '#vcode_phone');
+				return false;
+			}
+
+			// $(this).addClass('disabled');
+			var load = layer.load();
+			$.ajax({
+				url: '?m=member&a=forgetPassword',
+				type: 'post',
+				dataType: 'json',
+				data: form.serialize(),
+				success: function (data){
+					layer.close(load);
+					if(data.code == 400){
+						layer.msg(data.msg);
+						$('.submit').removeClass('disabled');
+					}
+					if(data.code == 200){
+						window.location='?m=member&a=forgetPassword&step=2';
+					}
+				},
+				error: function (){
+					layer.close(load);
+					layer.msg('服务器错误');
+				}
+			})
+
+		})
+		// 发送手机验证码
+		$('.getcode').click(function(){
+			if($(this).hasClass('disabled')) return false;
+
+			var form = $(this).parents('form');
+			// 手机号码验证
+			var phone = form.find('#phone').val();
+			if(!isPhone(phone)){
+				tips('手机号格式错误', '#phone');
+				return false;
+			}
+
+			// 可以发送验证码
+			$.cookie('second', 60);
+			settime($('.getcode'));
+
+			$.ajax({
+				url: '?m=member&c=register&a=sendMobileCode',
+				type:'post',
+				dataType:'json',
+				data:{phone:phone, type:1},
+				success: function(data){
+					if(data.code == 400){
+						layer.msg(data.msg)
+						$.cookie('second', 0);
+						return false;
+					}
+					if(data.code == 200){
+						
+						layer.msg('验证码发送成功');
+					}
+				},
+				error: function(){
+					layer.msg('服务器错误');
+				}
+			})
+		})
+		
+		// 刷新页面计算验证码发送时间
+		settime($('.getcode'));
+
+		function tips(message, id){
+			layer.tips(message, id, {tips:[1, '#000']})
+		}
+
+		function isPhone(phone){
+			var reg_mobile = /^1[34578]\d{9}$/;
+			return reg_mobile.test(phone);
+		}
+
+		//开始倒计时
+		var countnum;
+		function settime(obj) { 
+		
+			if (countnum == 0) { 
+				obj.removeClass('disabled');
+				obj.html("获取验证码"); 
+				return;
+			} else if(countnum>0){ 
+				obj.addClass('disabled');
+				obj.html("重新发送(" + countnum + ")"); 
+				countnum--;
+				$.cookie("second", countnum);
+			}
+			setTimeout(function() { settime(obj) }, 1000) //每1000毫秒执行一次
+		}
+	})
+
+</script>
+</body>
+</html>

@@ -1,9 +1,7 @@
 <?php
 /**
  *  session mysql 数据库存储类
- *
- * @copyright			(C) 2005-2010 PHPCMS
- * @license				http://www.phpcms.cn/license/
+
  * @lastmodify			2010-6-8
  */
 class session_mysql {

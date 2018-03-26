@@ -3,7 +3,7 @@
  *  contentpage.class.php 文章内容页分页类
  *  
  * @copyright			(C) 2005-2010 PHPCMS
- * @license				http://www.phpcms.cn/license/
+
  * @lastmodify			2010-8-12
  */
 

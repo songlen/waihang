@@ -22,4 +22,6 @@
  */
 return array(
 	'default'=>array('m'=>'content', 'c'=>'index', 'a'=>'init'),
+	'waihang_en.localhost.com'=>array('m'=>'content', 'c'=>'index', 'a'=>'init'),
+	// 'waihang_en.localhost.com'=>array('m'=>'content', 'c'=>'index', 'a'=>'init','data'=>array('GET'=>array('siteid'=>2))),
 );

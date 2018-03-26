@@ -3,7 +3,7 @@
  *  param.class.php	参数处理类
  *
  * @copyright			(C) 2005-2012 PHPCMS
- * @license				http://www.phpcms.cn/license/
+
  * @lastmodify			2012-9-17
  */
 class param {

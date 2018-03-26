@@ -1,8 +1,8 @@
 <?php return array (
   'name' => '默认模板',
-  'author' => 'PHPCMS TEAM',
+  'author' => '匿名',
   'dirname' => 'default',
-  'homepage' => 'http://www.phpcms.cn/',
+  'homepage' => 'javascript:',
   'version' => '1.0',
   'disable' => 0,
   'file_explan' => 

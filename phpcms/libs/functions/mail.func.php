@@ -2,7 +2,7 @@
 /**
  * 邮件发送函数
  * @copyright			(C) 2005-2010 PHPCMS
- * @license				http://www.phpcms.cn/license/
+
  * @lastmodify			2010-6-1
  */
 function runlog($mode = 'SMTP',$b = '',$c = '',$d='') {

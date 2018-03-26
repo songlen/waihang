@@ -3,9 +3,9 @@
 	<div class="container" style="overflow: hidden;">
 		<div class="foot_l">
 			<ul>
-				<li><span class="lable">友情链接：</span><span class="huoban"><a href="">友情链接1</a></span><span class="huoban"><a href="">友情链接2</a></span></li>
-				<li><span class="lable">版权所有：</span>外航服务公司 备案号</li>
-				<li><span class="lable">联系电话：</span>010-84187577 <span class="tousu"><a href="">投诉与建议</a></span></li>
+				<li><span class="lable">友情链接：</span>{pc:get sql="select * from phpcms_keylink where siteid=$siteid order by keylinkid desc"}{loop $data $r}<span class="huoban"><a href="{$r[url]}" target="_blank">{$r[word]}</a></span>{/loop}{/pc}</li>
+				<li><span class="lable">版权所有：</span>{get_extend_setting(copyright)}</li>
+				<li><span class="lable">联系电话：</span>{get_extend_setting(phone)} <span class="tousu"><a href="">投诉与建议</a></span></li>
 			</ul>
 		</div>
 		<div class="foot_r">
@@ -24,6 +24,23 @@
 
 	</div>
 </div>
+
+<!-- 检测浏览器版本 低于ie8-->
+<div class="floating-black" style="display: none;">
+	<div class="close">X</div>
+    <div id="browser-fail" class="alltips">
+        <div class="alltips-box">
+            <div class="pic"></div>
+            <p>您的浏览器版本太低了，<br>赶快去升级或者更换别的浏览器吧！</p>
+        </div>
+    </div>
+
+    <div class="shadow"></div>
+</div>
+<link rel="stylesheet" type="text/css" href="/statics/checkie/checkie.css">
+<script type="text/javascript" src="/statics/checkie/checkie.js"></script>
+<!-- 检测浏览器版本 低于ie8 -->
+
 <!-- banner -->
 <script type="text/javascript" src="{APP_PATH}statics/default/js/jquery.flexslider-min.js"></script>
 <script type="text/javascript">
@@ -40,14 +57,14 @@
 	$(function(){
 		// 显示语言
 
-		$('.language').click(function(){
+		$('.language').click(function(event){
 			visible($('.zh'))
-			return false
+			event.stopPropagation();
 		})
 
-		$('.person').click(function(){
+		$('.person').click(function(event){
 			visible($('.loginreg'))
-			return false
+			event.stopPropagation();
 		})
 		$(document).click(function(){
 			unvisible($('.zh'));

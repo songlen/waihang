@@ -1,0 +1,25 @@
+.memberTopBox {position: relative;}
+.memberTopBox .banner {width: 100%;}
+.memberTopBox .membertop {position: absolute; top: 0; width: 100%}
+.membertop .infobox {width: 280px; margin:50px auto 0; position: relative;}
+.membertop .infobox .headimg {width: 150px; height: 150px; border:1px solid #d7b0b8; overflow: hidden; border-radius:50%; background: #eee; behavior:url('PIE.htc'); position:relative; z-index:2; }
+.membertop .infobox .headimg img {position: absolute; z-index: -1;}
+.membertop .infobox .list {color: #666; margin-top: 10px; font-size: 16px;}
+.membertop .infobox .edit { position: absolute; top: 0; left: 160px; font-size: 16px; color: #d0161b; padding-left: 20px; background: url(../images/edit.png) left center no-repeat; background-size: 15px;}
+#layui_btn {background: #d0161b;}
+
+button#layui_btn.disabled {background: #999;}
+.layui-form-item .layui-input-inline.size410 {width: 390px;}
+
+.basicinfo .tit {overflow: hidden; padding-bottom: 30px; }
+.basicinfo .tit .language { float:right;}
+.basicinfo .tit a {margin-left: 20px; font-size: 18px;}
+.basicinfo .tit a.current{color: #d0161b}
+
+
+.layui-form-en .layui-form-label {width: 120px;}
+.layui-table th {padding: 2px 5px;}
+.layui-table td {padding: 5px}
+.layui-table th, .layui-table td { text-align: center; }
+
+.pad_top20 {padding-top: 20px;}

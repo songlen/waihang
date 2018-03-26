@@ -1,5 +1,11 @@
 <?php
 
+$LANG['change_password_success'] = '密码修改成功';
+$LANG['phone_not_registered'] = '该手机号未注册';
+$LANG['phone_registered'] =  '该手机号已注册';
+$LANG['different_password'] = '两次密码不一致';
+$LANG['phone_number_error'] = '手机号格式错误';
+$LANG['retrieve_password'] = '找回密码';
 $LANG['email'] = '邮箱';
 $LANG['or'] = '或者';
 $LANG['nickname'] = '昵称';

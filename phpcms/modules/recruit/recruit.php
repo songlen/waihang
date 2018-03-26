@@ -36,7 +36,7 @@ class recruit extends admin {
 				$_POST['info']['title'] = safe_replace($_POST['info']['title']);
 			}
 
-			$data = new_addslashes($_POST['info']);
+			$data = $_POST['info'];
 			$data['job_ids'] = ','.implode(',', $data['job_ids']).',';
 
 			$data = array_merge($data, array(
@@ -68,7 +68,7 @@ class recruit extends admin {
 			if(!is_array($_POST['info']) || empty($_POST['info'])) return false;
 			if((!$_POST['info']['title']) || empty($_POST['info']['title'])) return false;
 
-			$data = new_addslashes($_POST['info']);
+			$data = $_POST['info'];
 			$data['job_ids'] = ','.implode(',', $data['job_ids']).',';
 
 			$this->db->update($data, array('id'=>$id));
@@ -164,4 +164,3 @@ class recruit extends admin {
 		return $r;
 	}
 }
-?>

@@ -1,17 +1,16 @@
 <?php
 /**
  *  extention.func.php 用户自定义函数库
- *
- * @copyright			(C) 2005-2010 PHPCMS
- * @license				http://www.phpcms.cn/license/
+
  * @lastmodify			2010-10-27
  */
  
- function extend_setting_get($key=null){
+ // 获取扩展配置 2018-02-01
+ function get_extend_setting($key=null){
  	if($key==null) return false;
  	$db = pc_base::load_model('extend_setting_model');
 
- 	$siteid = get_siteid();
+ 	$siteid = isset($_GET['siteid']) ? intval($_GET['siteid']) : get_siteid();
 
  	$where = array(
  		'key' => $key,
@@ -38,3 +37,43 @@ function strcut($str, $lenght = 60, $suffix = '...'){
  	}
 	
  }
+
+function p(){
+	$args = func_get_args();
+	echo '<pre>';
+	foreach ($args as $item) {
+		print_r($item);
+		echo '---------';
+	}
+	die();
+}
+
+function error($msg = '错误', $jump_url=false){
+	$data = array(
+		'code' => 400,
+		'msg' => $msg
+	);
+
+	if($jump_url) $data['jump_url'] = $jump_url;
+
+	echo json_encode($data);
+	exit;
+}
+
+function success($msg = '成功', $jump_url=false){
+	$data = array(
+		'code' => 200,
+		'msg' => $msg
+	);
+	
+	if($jump_url) $data['jump_url'] = $jump_url;
+
+	echo json_encode($data);
+	exit;
+}
+
+
+function is_login(){
+	pc_base::load_sys_class('param');
+	return (bool)param::get_cookie('auth');
+}

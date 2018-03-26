@@ -43,7 +43,7 @@ class poster extends admin {
 			$id = $this->db->insert($poster, true);
 			if ($id) {
 				$this->s_db->update(array('items'=>'+=1'), array('spaceid'=>$poster['spaceid'], 'siteid'=>$this->get_siteid()));
-				$this->create_js($poster['spaceid']);
+				// $this->create_js($poster['spaceid']);
 				if(is_array($setting['images'])) {
 					foreach ($setting['images'] as $im) {
 						$imgs[] = $im['imageurl'];
@@ -80,7 +80,7 @@ class poster extends admin {
 			$setting = $this->check_setting($_POST['setting'], $poster['type']);
 			$poster['setting'] = array2string($setting);
 			$this->db->update($poster, array('id'=>$_GET['id'], 'siteid'=>$this->get_siteid()));
-			$this->create_js(intval($_GET['spaceid']));
+			// $this->create_js(intval($_GET['spaceid']));
 			foreach ($setting as $im) {
 				$imgs[] = $im['imageurl'];
 			}

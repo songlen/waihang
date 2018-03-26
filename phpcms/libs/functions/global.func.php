@@ -1,9 +1,7 @@
 <?php
 /**
  *  global.func.php 公共函数库
- *
- * @copyright			(C) 2005-2010 PHPCMS
- * @license				http://www.phpcms.cn/license/
+
  * @lastmodify			2010-6-1
  */
 
@@ -445,6 +443,7 @@ function L($language = 'no_language',$pars = array(), $modules = '') {
 		$lang = SYS_STYLE ? SYS_STYLE : 'zh-cn';
 	} else {
 		$lang = pc_base::load_config('system','lang');
+		if(get_siteid() == 2) $lang = 'en';
 	}
 	if(!$LANG) {
 		require_once PC_PATH.'languages'.DIRECTORY_SEPARATOR.$lang.DIRECTORY_SEPARATOR.'system.lang.php';
@@ -543,7 +542,7 @@ function my_error_handler($errno, $errstr, $errfile, $errline) {
 
 /**
  * 提示信息页面跳转，跳转地址如果传入数组，页面会提示多个地址供用户选择，默认跳转地址为数组的第一个值，时间为5秒。
- * showmessage('登录成功', array('默认跳转地址'=>'http://www.phpcms.cn'));
+ * showmessage('登录成功', array('默认跳转地址'=>''));
  * @param string $msg 提示信息
  * @param mixed(string/array) $url_forward 跳转地址
  * @param int $ms 跳转等待时间

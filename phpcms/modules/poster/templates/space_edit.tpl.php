@@ -9,7 +9,7 @@ include $this->admin_tpl('header', 'admin');
 		<th width="80"><strong><?php echo L('boardtype')?>：</strong></th>
 		<td><input name="space[name]" class="input-text" id="name" type="text" value="<?php echo new_html_special_chars($info['name'])?>" size="25"></td>
 	</tr>
-	<tr>
+	<tr style="display: none">
 		<th><strong><?php echo L('ads_type')?>：</strong></th>
 		<td><?php echo form::select($TYPES, $info['type'], 'name="space[type]" id="type" onchange="AdsType(this.value)"')?>&nbsp;&nbsp;<span id="ScrollSpan" style="padding-left:30px;display:none;"><label><input type="checkbox" id="ScrollBox" name="setting[scroll]"<?php if($setting['scroll']) {?> checked<?php }?> value='1'/> <?php echo L('rolling')?></label></span>
       <span id="AlignSpan" style="padding-left:30px;display:none;"><label><input type="checkbox" <?php if($setting['align']) {?> checked<?php }?> id="AlignBox" name="setting[align]" value='1'/> <?php echo L('lightbox')?></label></span></td>

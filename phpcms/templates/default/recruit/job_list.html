@@ -1,0 +1,23 @@
+{template 'content', 'header'}
+
+<div class="ch"></div>
+<div class="container">
+	<div class="joblist">
+		<div class="tab"><a href="{if $type=='1'}javascript:;{else}?m=recruit&a=search&type=1&recruit_keyword={$keyword}{/if}" {if $type=='1'}class="current"{/if}>空乘类</a><span></span><a href="{if $type=='2'}javascript:;{else}?m=recruit&a=search&type=2&recruit_keyword={$keyword}{/if}" {if $type=='2'}class="current"{/if}>非空乘类</a></div>
+
+		<ul>
+			{loop $jobs $r}
+			<li>
+				<div class="info">
+					<p class="tit">{$r[job_name]}</p>
+					<p><label>工作地点</label>{$r[location]}</p>
+					<p><label>公司名称</label>{$r[enterprise_name]}</p>
+				</div>
+				<div class="btn"><a href="?m=recruit&a=enroll&job_id={$r[id]}">应聘职位</a></div>
+			</li>
+			{/loop}
+		</ul>
+	</div>
+	<div id="pages">{$pages}</div>
+</div>
+{template 'content', 'footer'}

@@ -118,7 +118,7 @@ class role extends admin {
 				$menu = pc_base::load_sys_class('tree');
 				$menu->icon = array('│ ','├─ ','└─ ');
 				$menu->nbsp = '&nbsp;&nbsp;&nbsp;';
-				$result = $this->menu_db->select();
+				$result = $this->menu_db->select(array('display'=>'1'));
 				$priv_data = $this->priv_db->select(); //获取权限表数据
 				$modules = 'admin,system';
 				foreach ($result as $n=>$t) {

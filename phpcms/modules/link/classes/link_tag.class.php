@@ -38,12 +38,13 @@ class link_tag {
 		if (empty($siteid)){ 
 			$siteid = get_siteid();
 		}
-  		if($typeid!='' || $typeid=='0'){
- 				$sql = array('typeid'=>$typeid,'linktype'=>$linktype,'siteid'=>$siteid,'passed'=>'1');
+  		if($typeid){
+ 				$sql = array('typeid'=>$typeid,'linktype'=>$linktype,'siteid'=>$siteid);
 			}else {
-				$sql = array('linktype'=>$linktype,'siteid'=>$siteid,'passed'=>'1');
+				$sql = array('linktype'=>$linktype,'siteid'=>$siteid);
 		}
-  		$r = $this->link_db->select($sql, '*', $data['limit'], 'listorder '.$data['order']);
+		
+  		$r = $this->link_db->select($sql, '*', $data['limit'], $data['order']);
 		return new_html_special_chars($r);
 	}
 	
@@ -105,10 +106,10 @@ class link_tag {
 			if (empty($siteid)){ 
 				$siteid = get_siteid();
 			}
-			if($typeid!='' || $typeid=='0'){
-					$sql = array('typeid'=>$typeid,'linktype'=>$linktype,'siteid'=>$siteid,'passed'=>'1');
+			if($typeid){
+					$sql = array('typeid'=>$typeid,'linktype'=>$linktype,'siteid'=>$siteid);
 				}else {
-					$sql = array('linktype'=>$linktype,'siteid'=>$siteid,'passed'=>'1');
+					$sql = array('linktype'=>$linktype,'siteid'=>$siteid);
 			}
  			return $this->link_db->count($sql); 
 		}

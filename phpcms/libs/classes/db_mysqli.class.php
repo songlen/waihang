@@ -3,7 +3,7 @@
  *  db_mysqli.class.php MYSQLI数据库实现类
  *
  * @copyright			(C) 2005-2015 PHPCMS
- * @license				http://www.phpcms.cn/license/
+
  * @lastmodify			2016-02-01
  */
 

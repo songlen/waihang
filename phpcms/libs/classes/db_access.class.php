@@ -1,9 +1,7 @@
 <?php
 /**
  *  access.class.php 数据库实现类
- *
- * @copyright			(C) 2005-2010 PHPCMS
- * @license				http://www.phpcms.cn/license/
+
  * @lastmodify			2010-6-1
  */
 

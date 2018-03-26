@@ -173,8 +173,9 @@ initUeditor;
 	 * @param string $ext 表单扩展属性 如果 js事件等
 	 * @param string $alowexts 允许上传的文件格式
 	 * @param array $file_setting 
+	 * @param array $isselectimage 是否显示图片库
 	 */
-	public static function upfiles($name, $id = '', $value = '', $moudle='', $catid='', $size = 50, $class = '', $ext = '', $alowexts = '',$file_setting = array() ) {
+	public static function upfiles($name, $id = '', $value = '', $moudle='', $catid='', $size = 50, $class = '', $ext = '', $alowexts = '',$file_setting = array(), $isselectimage=0 ) {
 		if(!$id) $id = $name;
 		if(!$size) $size= 50;
 		if(!empty($file_setting) && count($file_setting)) $file_ext = $file_setting[0].','.$file_setting[1];
@@ -184,8 +185,8 @@ initUeditor;
 			$str = '<script type="text/javascript" src="'.JS_PATH.'swfupload/swf2ckeditor.js"></script>';
 			define('IMAGES_INIT', 1);
 		}
-		$authkey = upload_key("1,$alowexts,1,$file_ext");
-		return $str."<input type=\"text\" name=\"$name\" id=\"$id\" value=\"$value\" size=\"$size\" class=\"$class\" $ext/>  <input type=\"button\" class=\"button\" onclick=\"javascript:flashupload('{$id}_files', '".L('attachmentupload')."','{$id}',submit_attachment,'1,{$alowexts},1,{$file_ext}','{$moudle}','{$catid}','{$authkey}')\"/ value=\"".L('filesupload')."\">";
+		$authkey = upload_key("1,$alowexts,$isselectimage,$file_ext");
+		return $str."<input type=\"text\" name=\"$name\" id=\"$id\" value=\"$value\" size=\"$size\" class=\"$class\" $ext readonly />  <input type=\"button\" class=\"button\" onclick=\"javascript:flashupload('{$id}_files', '".L('attachmentupload')."','{$id}',submit_attachment,'1,{$alowexts},$isselectimage,{$file_ext}','{$moudle}','{$catid}','{$authkey}')\"/ value=\"".L('filesupload')."\">";
 	}
 	
 	/**

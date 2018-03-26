@@ -1,5 +1,11 @@
 <?php
 
+$LANG['change_password_success'] = 'change password success';
+$LANG['phone_not_registered'] = 'The phone number is not registered';
+$LANG['phone_registered'] = 'The phone number has been registered';
+$LANG['different_password'] = 'two passwords are different';
+$LANG['phone_number_error'] = 'phone number error';
+$LANG['retrieve_password'] = 'retrieve password';
 $LANG['email'] = 'Email ';
 $LANG['or'] = 'Or';
 $LANG['nickname'] = 'Nickname ';

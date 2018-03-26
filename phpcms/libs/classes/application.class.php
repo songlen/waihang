@@ -1,9 +1,7 @@
 <?php
 /**
  *  application.class.php PHPCMS应用程序创建类
- *
- * @copyright			(C) 2005-2010 PHPCMS
- * @license				http://www.phpcms.cn/license/
+
  * @lastmodify			2010-6-7
  */
 class application {

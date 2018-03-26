@@ -8,10 +8,10 @@ return array(
 'session_savepath' => CACHE_PATH.'sessions/',
 'session_n' => 0,
 //Cookie配置
-'cookie_domain' => '', //Cookie 作用域
+'cookie_domain' => 'localhost.com', //Cookie 作用域
 'cookie_path' => '', //Cookie 作用路径
 'cookie_pre' => 'TZhhQ_', //Cookie 前缀，同一域名下安装多套系统时，请修改Cookie前缀
-'cookie_ttl' => 0, //Cookie 生命周期，0 表示随浏览器进程
+'cookie_ttl' => 60, //Cookie 生命周期，0 表示随浏览器进程
 //模板相关配置
 'tpl_root' => 'templates/', //模板保存物理路径
 'tpl_name' => 'default', //当前模板方案目录
@@ -21,12 +21,12 @@ return array(
 
 //附件相关配置
 'upload_path' => PHPCMS_PATH.'uploadfile/',
-'upload_url' => 'http://waihang.localhost.com/uploadfile/', //附件路径
+'upload_url' => 'uploadfile/', //附件路径
 'attachment_stat' => '1',//是否记录附件使用状态 0 统计 1 统计， 注意: 本功能会加重服务器负担
 
-'js_path' => 'http://waihang.localhost.com/statics/js/', //CDN JS
-'css_path' => 'http://waihang.localhost.com/statics/css/', //CDN CSS
-'img_path' => 'http://waihang.localhost.com/statics/images/', //CDN img
+'js_path' => 'statics/js/', //CDN JS
+'css_path' => 'statics/css/', //CDN CSS
+'img_path' => 'statics/images/', //CDN img
 'app_path' => 'http://waihang.localhost.com/',//动态域名配置地址
 
 'charset' => 'utf-8', //网站字符集

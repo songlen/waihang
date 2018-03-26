@@ -4,7 +4,7 @@
 Add a new file(.lang.php) with your module name at /phpcms/languages/
 translation save at the array:$LANG
 */
-$LANG['poster']							=	'广告';
+$LANG['poster']							=	'图片';
 $LANG['setting_updates_successful']		=	'配置更新完成!';
 $LANG['name_plates_not_empty']			=	'版位名称不能为空';
 $LANG['plate_width_not_empty']			=	'版位的宽度不能为空';
@@ -15,19 +15,19 @@ $LANG['boardtype']						=	'版位名称';
 $LANG['size_format']					=	'版位尺寸';
 $LANG['plate_width']					=	'宽：';
 $LANG['plate_height']					=	'高：';
-$LANG['ad_list']						=	'广告列表';
+$LANG['ad_list']						=	'图片列表';
 $LANG['random_one']						=	'随机列出一个';
 $LANG['random_all']						=	'全部列出';
 $LANG['description']					=	'版位描述';
 $LANG['js_path']						=	'JS路径';
-$LANG['ads_num']						=	'广告数';
+$LANG['ads_num']						=	'图片数';
 $LANG['banner']							=	'矩形横幅';
 $LANG['fixure']							=	'固定位置';
 $LANG['float']							=	'漂浮移动';
-$LANG['couplet']						=	'对联广告';
-$LANG['imagechange']					=	'图片轮换广告';
-$LANG['imagelist']						=	'图片列表广告';
-$LANG['text']							=	'文字广告';
+$LANG['couplet']						=	'对联图片';
+$LANG['imagechange']					=	'图片轮换图片';
+$LANG['imagelist']						=	'图片列表图片';
+$LANG['text']							=	'文字图片';
 $LANG['code']							=	'代码调用';
 $LANG['position']						=	'版位位置';
 $LANG['left_margin']					=	'左边距';
@@ -36,9 +36,9 @@ $LANG['lightbox']						=	'全屏居中';
 $LANG['rolling']						=	'随屏滚动';
 $LANG['ads_type']						=	'版位类型';
 $LANG['remove_all_selected']			=	'删除选定的版位';
-$LANG['poster_title']					=	'广告标题';
+$LANG['poster_title']					=	'图片标题';
 $LANG['for_postion']					=	'所属版位';
-$LANG['poster_type']					=	'广告类型';
+$LANG['poster_type']					=	'图片类型';
 $LANG['line_time']						=	'上线时间';
 $LANG['down_time']						=	'下线时间';
 $LANG['photo_setting']					=	'图片设置';
@@ -56,23 +56,23 @@ $LANG['add_space']						=	'添加版位';
 $LANG['flash']							=	'动画';
 $LANG['photo']							=	'图片';
 $LANG['title']							=	'文字';
-$LANG['add_ads']						=	'添加广告';
-$LANG['add_ads_success']				=	'广告添加成功！';
-$LANG['edit_ads_success']				=	'广告修改成功！';
+$LANG['add_ads']						=	'添加图片';
+$LANG['add_ads_success']				=	'图片添加成功！';
+$LANG['edit_ads_success']				=	'图片修改成功！';
 $LANG['no_create_js']					=	'没有版位ID，不能生成js';
 $LANG['space_exist']					=	'版位已存在';
-$LANG['adsname_no_empty']				=	'广告名称不能为空';
-$LANG['no_ads_type']					=	'广告类型没有选择';
+$LANG['adsname_no_empty']				=	'图片名称不能为空';
+$LANG['no_ads_type']					=	'图片类型没有选择';
 $LANG['no_setting_photo']				=	'没有设置图片';
 $LANG['no_flash_path']					=	'没有设置动画路径';
 $LANG['no_title_info']					=	'没有设置文字信息';
-$LANG['please_input_name']				=	'请输入广告名称!';
-$LANG['name_three_length']				=	'广告名称至少3个汉字以上';
+$LANG['please_input_name']				=	'请输入图片名称!';
+$LANG['name_three_length']				=	'图片名称至少3个汉字以上';
 $LANG['correct']						=	'输入正确!';
 $LANG['server_busy']					=	'服务器没有返回数据，可能服务器忙，请重试';
-$LANG['ads_exist']						=	'该广告已存在';
+$LANG['ads_exist']						=	'该图片已存在';
 $LANG['checking']						=	'正进行合法性校验...';
-$LANG['choose_ads_type']				=	'请选择广告类型';
+$LANG['choose_ads_type']				=	'请选择图片类型';
 $LANG['type_selected']					=	'必须类型选择';
 $LANG['online_time']					=	'请选择上线时间';
 $LANG['one_month_no_select']			=	'默认为一个月';
@@ -88,10 +88,10 @@ $LANG['stop']							=	'停用';
 $LANG['past']							=	'过期';
 $LANG['start']							=	'启用';
 $LANG['stat']							=	'统计';
-$LANG['edit_ads']						=	'编辑广告';
-$LANG['ads_module']						=	'广告模块';
+$LANG['edit_ads']						=	'编辑图片';
+$LANG['ads_module']						=	'图片模块';
 
-//广告统计
+//图片统计
 $LANG['hits_stat']						=	'点击统计';
 $LANG['show_stat']						=	'展示统计';
 $LANG['listorder_f_area']				=	'按地区排序';
@@ -113,8 +113,8 @@ $LANG['click']							=	'点击';
 $LANG['show']							=	'展示';
 
 //setting
-$LANG['ads_setting']					=	'广告模块配置';
-$LANG['ads_show_time']					=	'统计广告展示次数？';
+$LANG['ads_setting']					=	'图片模块配置';
+$LANG['ads_show_time']					=	'统计图片展示次数？';
 $LANG['upload_file_ext']				=	'上传文件类型';
 $LANG['file_size']						=	'文件大小';
 
@@ -126,14 +126,14 @@ $LANG['space_exist']				 	=	'该版位已存在，请更换版位名';
 $LANG['choose_space_type']				=	'选择版位类型';
 $LANG['input_width_height']				=	'输入宽度、高度';
 $LANG['three_numeric']					=	'3位以下数字';
-$LANG['get_code_space']					=	'广告版位调用';
+$LANG['get_code_space']					=	'图片版位调用';
 
 //调用代码
 $LANG['explain']						=	'调用说明';
-$LANG['notice']							=	'1、调用方式一对服务器环境无特殊要求，可统计广告展示次数和自动判断广告是否过期，但是消耗服务器资源，访问速度慢，不支持Google等JS类代码广告；<br />
-2、调用方式二对服务器环境无特殊要求，消耗服务器资源少，访问速度快，但是不能自动判断广告有效期，要时常更新js。不支持Google等JS类代码广告；<br />
-3、调用google、baidu等代码广告，只能使用唯一的一种方式。当网站使用静态页面时，修改广告代码后请更新广告所在的静态页；<br />
-4、根据自身情况选择一种调用方式，然后把调用代码复制粘贴到需要显示广告的模板再更新相关网页即可。';
+$LANG['notice']							=	'1、调用方式一对服务器环境无特殊要求，可统计图片展示次数和自动判断图片是否过期，但是消耗服务器资源，访问速度慢，不支持Google等JS类代码图片；<br />
+2、调用方式二对服务器环境无特殊要求，消耗服务器资源少，访问速度快，但是不能自动判断图片有效期，要时常更新js。不支持Google等JS类代码图片；<br />
+3、调用google、baidu等代码图片，只能使用唯一的一种方式。当网站使用静态页面时，修改图片代码后请更新图片所在的静态页；<br />
+4、根据自身情况选择一种调用方式，然后把调用代码复制粘贴到需要显示图片的模板再更新相关网页即可。';
 $LANG['one_way']						=	'调用方式一';
 $LANG['js_code']						=	'JS调用代码（PHP动态调用）';
 $LANG['this_way_stat_show']				=	'此方式可以统计展示次数。';
@@ -160,10 +160,10 @@ $LANG['show_this_param']				=	'是否出现以下属性';
 $LANG['this_param_selected']			=	'上述属性是否被选中';
 $LANG['is_set_space']					=	'是否设置版位位置';
 $LANG['is_set_size']					=	'是否设置版位尺寸';
-$LANG['space_poster']					=	'版位下的广告';
+$LANG['space_poster']					=	'版位下的图片';
 $LANG['all_list']						=	'全部列出';
 $LANG['only_one']						=	'按排序列出一个';
-$LANG['is_used_type']					=	'可用广告类型';
+$LANG['is_used_type']					=	'可用图片类型';
 $LANG['max_add_param']					=	'一次最多添加的图片等元素数量';
 
 //新增加返回

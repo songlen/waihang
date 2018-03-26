@@ -31,7 +31,7 @@ $not_allow_fields = array('catid','typeid','title','keyword','posid','template',
 //允许添加但必须唯一的字段
 $unique_fields = array('pages','readpoint','author','copyfrom','islink');
 //禁止被禁用的字段列表
-$forbid_fields = array('catid','title','updatetime','inputtime','url','listorder','status','template','username');
+$forbid_fields = array('catid','title','updatetime','inputtime','url','listorder','status','username');
 //禁止被删除的字段列表
 $forbid_delete = array('catid','typeid','title','thumb','keywords','updatetime','inputtime','posids','url','listorder','status','template','username');
 //可以追加 JS和CSS 的字段

@@ -10,10 +10,10 @@ $authkey = upload_key('1,'.$thisExt.',1');
 <script language="javascript" type="text/javascript" src="<?php echo JS_PATH;?>formvalidatorregex.js" charset="UTF-8"></script>
 
 <div class="subnav">
-    <div class="content-menu ib-a blue line-x">
+   <!--  <div class="content-menu ib-a blue line-x">
     <?php if(isset($big_menu)) echo '<a class="add fb" href="'.$big_menu[0].'"><em>'.$big_menu[1].'</em></a>　';?>
     <?php echo admin::submenu($_GET['menuid'],$big_menu); ?><span>|</span><a href="javascript:window.top.art.dialog({id:'setting',iframe:'?m=poster&c=space&a=setting', title:'<?php echo L('module_setting')?>', width:'540', height:'320'}, function(){var d = window.top.art.dialog({id:'setting'}).data.iframe;var form = d.document.getElementById('dosubmit');form.click();return false;}, function(){window.top.art.dialog({id:'setting'}).close()});void(0);"><em><?php echo L('module_setting')?></em></a>
-    </div>
+    </div> -->
 </div>
 
 <form method="post" action="?m=poster&c=poster&a=add" id="myform">
@@ -31,16 +31,16 @@ $authkey = upload_key('1,'.$thisExt.',1');
 			<option value="<?php echo $s['spaceid']?>"><?php echo $s['name']?></option>
 		<?php } ?></select><?php }?></td>
 	</tr>
-	<tr>
+	<tr style="display: none">
     	<th align="right"  valign="top"><?php echo L('poster_type')?>：</th>
         <td valign="top" colspan="2"><?php echo form::select($setting['type'], '', 'name="poster[type]" id="type" onchange="AdsType(this.value)"', $default);?>
         </td>
     </tr>
-	<tr>
+	<tr style="display: none;">
 		<th><?php echo L('line_time')?>：</th>
 		<td><?php echo form::date('poster[startdate]', date('Y-m-d H:i:s', SYS_TIME), 1)?></td>
 	</tr>
-	<tr>
+	<tr style="display: none">
 		<th><?php echo L('down_time')?>：</th>
 		<td><?php echo form::date('poster[enddate]', '', 1)?></td>
 	</tr>

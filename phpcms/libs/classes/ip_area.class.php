@@ -1,9 +1,7 @@
 <?php 
 /**
  * ip_area.class.php 根据ip地址获取ip所在地区的类
- *
- * @copyright			(C) 2005-2010 PHPCMS
- * @license				http://www.phpcms.cn/license/
+
  * @lastmodify			2010-6-7
  */
 class ip_area {

@@ -21,7 +21,7 @@ class job extends admin {
 		}
 
 		if(isset($_GET['keyword']) && $_GET['keyword'] != ''){
-			$keyword = new_addslashes($_GET['keyword']);
+			$keyword = $_GET['keyword'];
 			$where = " and job_name like '%{$keyword}%'";
 		}
 
@@ -44,7 +44,7 @@ class job extends admin {
 			// 生成职位编码
 			$_POST['info']['code'] = $this->generateCode();
 
-			$data = new_addslashes($_POST['info']);
+			$data = $_POST['info'];
 			$data = array_merge($data, array(
 				'inputtime' => SYS_TIME,
 			));

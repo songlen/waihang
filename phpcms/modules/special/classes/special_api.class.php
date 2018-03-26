@@ -1,9 +1,7 @@
 <?php 
 /**
  *  special_api.class.php 专题接口类
- *
- * @copyright			(C) 2005-2010 PHPCMS
- * @license				http://www.phpcms.cn/license/
+
  * @lastmodify			2010-8-3
  */
 

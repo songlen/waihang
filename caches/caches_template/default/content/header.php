@@ -7,11 +7,20 @@
 	<meta name="keywords" content="<?php echo $SEO['keyword'];?>">
 	<meta name="description" content="<?php echo $SEO['description'];?>"> 
 	<title>外航</title>
-	<link rel="stylesheet" href="<?php echo APP_PATH;?>statics/default/css/style.css?v=<?php echo create_randomstr(6);?>">
-	<link rel="stylesheet" href="<?php echo APP_PATH;?>statics/default/css/flexslider.css">
+	<link rel="stylesheet" href="statics/default/css/style.css?v=<?php echo create_randomstr(6);?>">
+	<link rel="stylesheet" href="statics/default/css/flexslider.css">
 	<link rel="stylesheet" href="<?php echo JS_PATH;?>ueditor/themes/table_default.css">
-	<script type="text/javascript" src="<?php echo APP_PATH;?>statics/default/js/jquery-1.11.0.min.js"></script>
-
+	<script type="text/javascript" src="statics/default/js/jquery-1.11.0.min.js"></script>
+	<?php if($layui) { ?>
+	<link rel="stylesheet" href="statics/plugin/layui/css/layui.css">
+	<link rel="stylesheet" href="statics/plugin/layui/css/modules/layer/default/layer.css">
+	<script type="text/javascript" src="statics/plugin/layui/lay/modules/layer.js"></script>
+	<script type="text/javascript" src="statics/plugin/layui/layui.js"></script>
+	<?php } ?>
+	<?php if($dialog) { ?>
+	<link rel="stylesheet" href="<?php echo CSS_PATH;?>dialog.css">
+	<script type="text/javascript" src="<?php echo JS_PATH;?>dialog.js"></script>
+	<?php } ?>
 </head>
 <body>
 <div id="top">
@@ -41,10 +50,15 @@
 			<div class="language">English <div class="zh"><a href="">中文</a></div></div>
 			<div class="shu">|</div>
 			<div class="person">
-				<img src="<?php echo APP_PATH;?>statics/default/images/index_03.jpg" alt="">
+				<img src="statics/default/images/index_03.jpg" alt="">
 				<ul class="loginreg">
-					<li><a href="">登录</a></li>
-					<li style="border-top:1px solid #e5e5e5;"><a href="">注册</a></li>
+					<?php if(is_login()) { ?>
+					<li><a href="?m=member">个人中心</a></li>
+					<li><a href="?m=member&a=logout">退出</a></li>
+					<?php } else { ?>
+					<li><a href="?m=member&a=login" target="_blank">登录</a></li>
+					<li style="border-top:1px solid #e5e5e5;"><a href="?m=member&a=register" target="_blank">注册</a></li>
+					<?php } ?>
 				</ul>
 			</div>
 		</div>
@@ -54,7 +68,7 @@
 </div>
 
 <div class="container logotop">
-	<div class="logo"><a href=""><img src="<?php echo APP_PATH;?>statics/default/images/logo.jpg" width="295" alt=""></a></div>
+	<div class="logo"><a href=""><img src="statics/default/images/logo.jpg" width="295" alt=""></a></div>
 	<div class="searchbox">
 		<div class="search"><input type="text" name="keyword" placeholder="搜索关键词"><span class="sbutton"></span></div>
 		<div class="history">历史搜索：<a href="">员工培训</a></div>

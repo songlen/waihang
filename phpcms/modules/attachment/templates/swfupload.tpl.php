@@ -9,17 +9,17 @@
 <div class="pad-10">
     <div class="col-tab">
         <ul class="tabBut cu-li">
-            <li id="tab_swf_1" <?php echo $tab_status?> onclick="SwapTab('swf','on','',5,1);"><?php echo L('upload_attachment')?></li>
+            <li id="tab_swf_1" class="on" <?php echo $tab_status?> onclick="SwapTab('swf','on','',5,1);"><?php echo L('upload_attachment')?></li>
             <!-- <li id="tab_swf_2" onclick="SwapTab('swf','on','',5,2);"><?php echo L('net_file')?></li> -->
             <?php if($allowupload && $this->admin_username && $_SESSION['userid']) {?>
             <li id="tab_swf_3" onclick="SwapTab('swf','on','',5,3);set_iframe('album_list','index.php?m=attachment&c=attachments&a=album_load&args=<?php echo $args?>');"><?php echo L('gallery')?></li>
-            <li id="tab_swf_4" onclick="SwapTab('swf','on','',5,4);set_iframe('album_dir','index.php?m=attachment&c=attachments&a=album_dir&args=<?php echo $args?>');"><?php echo L('directory_browse')?></li>
+            <!-- <li id="tab_swf_4" onclick="SwapTab('swf','on','',5,4);set_iframe('album_dir','index.php?m=attachment&c=attachments&a=album_dir&args=<?php echo $args?>');"><?php echo L('directory_browse')?></li> -->
             <?php }?>
             <?php if($att_not_used!='') {?>
             <li id="tab_swf_5" class="on icon" onclick="SwapTab('swf','on','',5,5);"><?php echo L('att_not_used')?></li>
             <?php }?>
         </ul>
-         <div id="div_swf_1" class="content pad-10 <?php echo $div_status?>">
+         <div id="div_swf_1" class="content pad-10 <?php echo $div_status?>" style="display: block;">
         	<div>
 				<div class="addnew" id="addnew">
 					<span id="buttonPlaceHolder"></span>
@@ -28,7 +28,8 @@
                 <div id="nameTip" class="onShow"><?php echo L('upload_up_to')?><font color="red"> <?php echo $file_upload_limit?></font> <?php echo L('attachments')?>,<?php echo L('largest')?> <font color="red"><?php echo $file_size_limit?></font></div>
                 <div class="bk3"></div>
 				
-                <div class="lh24"><?php echo L('supported')?> <font style="font-family: Arial, Helvetica, sans-serif"><?php echo str_replace(array('*.',';'),array('','、'),$file_types)?></font> <?php echo L('formats')?></div><input type="checkbox" id="watermark_enable" value="1" <?php if(isset($watermark_enable) &&$watermark_enable == 1) echo 'checked'?> onclick="change_params()"> <?php echo L('watermark_enable')?>
+                <div class="lh24"><?php echo L('supported')?> <font style="font-family: Arial, Helvetica, sans-serif"><?php echo str_replace(array('*.',';'),array('','、'),$file_types)?></font> <?php echo L('formats')?></div><!-- <input type="checkbox" id="watermark_enable" value="1" <?php if(isset($watermark_enable) &&$watermark_enable == 1) echo 'checked'?> onclick="change_params()"> <?php echo L('watermark_enable')?> -->
+                <input type="hidden" id="watermark_enable" value="0">
         	</div> 	
     		<div class="bk10"></div>
         	<fieldset class="blue pad-10" id="swfupload">

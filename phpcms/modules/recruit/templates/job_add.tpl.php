@@ -22,6 +22,14 @@ include $this->admin_tpl('header','admin');
 				<input type="text" name="info[enterprise_name]" id="enterprise_name" readonly="readonly" size="30" class="input-text">
 			</td>
 		</tr>
+
+		<tr>
+			<th width="100">职位类别：</th>
+			<td>
+				<input type="radio" name="info[type]" value="1" checked="checked"> 空乘类
+				<input type="radio" name="info[type]" value="2"> 非空乘类
+			</td>
+		</tr>
 		
 		<tr>
 			<th width="100"><?php echo L('job_name')?>：</th>

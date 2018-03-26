@@ -4,10 +4,10 @@ include $this->admin_tpl('header', 'admin');
 ?>
 
 <div class="subnav">
-    <div class="content-menu ib-a blue line-x">
+    <!-- <div class="content-menu ib-a blue line-x">
     <?php if(isset($big_menu)) echo '<a class="add fb" href="'.$big_menu[0].'"><em>'.$big_menu[1].'</em></a>　';?>
     <?php echo admin::submenu($_GET['menuid'],$big_menu); ?><span>|</span><a href="javascript:window.top.art.dialog({id:'setting',iframe:'?m=poster&c=space&a=setting', title:'<?php echo L('module_setting')?>', width:'540', height:'320'}, function(){var d = window.top.art.dialog({id:'setting'}).data.iframe;var form = d.document.getElementById('dosubmit');form.click();return false;}, function(){window.top.art.dialog({id:'setting'}).close()});void(0);"><em><?php echo L('module_setting')?></em></a>
-    </div>
+    </div> -->
 </div>
 
 <div class="pad-lr-10">
@@ -22,8 +22,8 @@ include $this->admin_tpl('header', 'admin');
 			<th align="center"><?php echo L('poster_title')?></th>
 			<th width="70" align="center"><?php echo L('poster_type')?></th>
 			<th width='200' align="center"><?php echo L('for_postion')?></th>
-			<th width="50" align="center"><?php echo L('status')?></th>
-			<th width='50' align="center"><?php echo L('hits')?></th>
+			<!-- <th width="50" align="center"><?php echo L('status')?></th> -->
+			<!-- <th width='50' align="center"><?php echo L('hits')?></th> -->
 			<th width="130" align="center"><?php echo L('addtime')?></th>
 			<th width="110" align="center"><?php echo L('operations_manage')?></th>
             </tr>
@@ -43,10 +43,10 @@ if(is_array($infos)){
 	<td><?php echo $info['name']?></td>
 	<td align="center"><?php echo $types[$info['type']]?></td>
 	<td align="center"><?php echo $space['name']?></td>
-	<td align="center"><?php if($info['disabled']) { echo L('stop'); } elseif((strtotime($info['enddate'])<SYS_TIME) && (strtotime($info['enddate'])>0)) { echo L('past'); } else { echo L('start'); }?></td>
-	<td align="center"><?php echo $info['clicks']?></td>
+	<!-- <td align="center"><?php if($info['disabled']) { echo L('stop'); } elseif((strtotime($info['enddate'])<SYS_TIME) && (strtotime($info['enddate'])>0)) { echo L('past'); } else { echo L('start'); }?></td> -->
+	<!-- <td align="center"><?php echo $info['clicks']?></td> -->
 	<td align="center"><?php echo format::date($info['addtime'], 1);?></td>
-	<td align="center"><a href="index.php?m=poster&c=poster&a=edit&id=<?php echo $info['id'];?>&pc_hash=<?php echo $_SESSION['pc_hash'];?>&menuid=<?php echo $_GET['menuid']?>" ><?php echo L('edit')?></a>|<a href="?m=poster&c=poster&a=stat&id=<?php echo $info['id']?>&spaceid=<?php echo $_GET['spaceid'];?>"><?php echo L('stat')?></a></td>
+	<td align="center"><a href="index.php?m=poster&c=poster&a=edit&id=<?php echo $info['id'];?>&pc_hash=<?php echo $_SESSION['pc_hash'];?>&menuid=<?php echo $_GET['menuid']?>" ><?php echo L('edit')?></a><!-- |<a href="?m=poster&c=poster&a=stat&id=<?php echo $info['id']?>&spaceid=<?php echo $_GET['spaceid'];?>"><?php echo L('stat')?></a> --></td>
 	</tr>
 <?php 
 	}

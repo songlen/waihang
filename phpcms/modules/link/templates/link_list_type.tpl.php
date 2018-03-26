@@ -1,6 +1,7 @@
 <?php
 defined('IN_ADMIN') or exit('No permission resources.');
 $show_dialog = 1;
+
 include $this->admin_tpl('header', 'admin');
 ?>
 <div class="pad-lr-10">
@@ -17,14 +18,6 @@ include $this->admin_tpl('header', 'admin');
 		</tr>
 	</thead>
 <tbody>
-<tr>
-		<td align="center" width="35"><input type="checkbox"
-			name="typeid[]" value="<?php echo $info['typeid']?>" disabled></td>
-		<td align="center"><input name='listorders[<?php echo $info['typeid']?>]' type='text' size='3' value='<?php echo $info['listorder']?>' class="input_center"></td> 
-		<td>默认分类</td>
-		<td align="center" width="12%"> 0</td>
-		 <td align="center" width="20%" style="color: #999"> 修改  |  删除</td>
-	</tr>
 <?php
 if(is_array($infos)){
 	foreach($infos as $info){
@@ -63,7 +56,7 @@ if(is_array($infos)){
 <script type="text/javascript">
 function edit(id, name) {
 	window.top.art.dialog({id:'edit'}).close();
-	window.top.art.dialog({title:'<?php echo L('edit')?> '+name+' ',id:'edit',iframe:'?m=link&c=link&a=edit_type&typeid='+id,width:'450',height:'280'}, function(){var d = window.top.art.dialog({id:'edit'}).data.iframe;var form = d.document.getElementById('dosubmit');form.click();return false;}, function(){window.top.art.dialog({id:'edit'}).close()});
+	window.top.art.dialog({title:'<?php echo L('edit')?> '+name+' ',id:'edit',iframe:'?m=link&c=link&a=edit_type&typeid='+id,width:'700',height:'450'}, function(){var d = window.top.art.dialog({id:'edit'}).data.iframe;var form = d.document.getElementById('dosubmit');form.click();return false;}, function(){window.top.art.dialog({id:'edit'}).close()});
 }
 function checkuid() {
 	var ids='';

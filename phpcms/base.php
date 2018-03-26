@@ -1,9 +1,7 @@
 <?php
 /**
  *  base.php PHPCMS框架入口文件
- *
- * @copyright			(C) 2005-2010 PHPCMS
- * @license				http://www.phpcms.cn/license/
+
  * @lastmodify			2010-6-7
  */
 define('IN_PHPCMS', true);

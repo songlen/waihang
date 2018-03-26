@@ -23,6 +23,14 @@ include $this->admin_tpl('header','admin');
 				<input type="text" name="info[enterprise_name]" id="enterprise_name" readonly="readonly" size="30" class="input-text" value="<?php echo $enterprise_name;?>">
 			</td>
 		</tr>
+
+		<tr>
+			<th width="100">职位类别：</th>
+			<td>
+				<input type="radio" name="info[type]" value="1" <?php if($type == '1'){echo 'checked="checked"';}?>> 空乘类
+				<input type="radio" name="info[type]" value="2" <?php if($type == '2'){echo 'checked="checked"';}?>> 非空乘类
+			</td>
+		</tr>
 		
 		<tr>
 			<th width="100"><?php echo L('job_name')?>：</th>

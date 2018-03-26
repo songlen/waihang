@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!-- <meta name="viewport" content="width=1200" /> -->
+	<title>{if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}{$SEO['site_title']}</title>
+	<meta name="keywords" content="{$SEO['keyword']}">
+	<meta name="description" content="{$SEO['description']}"> 
+	<title>外航</title>
+	<link rel="stylesheet" href="statics/default/css/style.css?v={create_randomstr(6)}">
+	<link rel="stylesheet" href="statics/default/css/flexslider.css">
+	<link rel="stylesheet" href="{JS_PATH}ueditor/themes/table_default.css">
+	<script type="text/javascript" src="statics/default/js/jquery-1.11.0.min.js"></script>
+
+</head>
+<body>
+<div id="top">
+	<div class="container">
+		<div class="menu">
+			{pc:content action="category" catid="0" num="7" siteid="$siteid" order="listorder ASC"}
+			<ul>
+				<li><a href="{siteurl($siteid)}">首页</a></li>
+				{loop $data $r}
+				<li>
+					<a href="{$r[url]}">{$r[catname]}</a>
+					{pc:content action="category" catid="$r[catid]" return="subcats"}
+					{if !empty($subcats)}
+					<dl>
+						{loop $subcats $sub}
+						<dt><a href="{$sub[url]}">{$sub[catname]}</a></dt>
+						{/loop}
+					</dl>
+					{/if}
+					{/pc}
+				</li>
+				{/loop}
+			</ul>
+			{/pc}
+		</div>
+		<div class="menuright">
+			<div class="language">English <div class="zh"><a href="">中文</a></div></div>
+			<div class="shu">|</div>
+			<div class="person">
+				<img src="statics/default/images/index_03.jpg" alt="">
+				<ul class="loginreg">
+					<li><a href="">登录</a></li>
+					<li style="border-top:1px solid #e5e5e5;"><a href="">注册</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+</div>
+
+<div class="container logotop">
+	<div class="logo"><a href=""><img src="statics/default/images/logo.jpg" width="295" alt=""></a></div>
+	<div class="searchbox">
+		<div class="search"><input type="text" name="keyword" placeholder="搜索关键词"><span class="sbutton"></span></div>
+		<div class="history">历史搜索：<a href="">员工培训</a></div>
+	</div>
+</div>

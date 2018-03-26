@@ -16,7 +16,7 @@ a:active {color:#d32628;}
 
 
 .container {width: 1100px; margin: 0 auto; position: relative;}
-.ch {height: 10px; background: url(../images/ch.jpg) repeat;}
+.ch {height: 10px; background: url(../images/index_h.jpg) repeat;}
 
 #top { height: 60px; background: #d0161b;}
 
@@ -35,7 +35,8 @@ a:active {color:#d32628;}
 .menuright div {float: left;}
 .menuright .language {padding-right: 30px; position: relative; font-size: 18px; cursor: pointer; background: url(../images/index_06.jpg) right center no-repeat;}
 .menuright .shu {padding: 0 30px; font-size: 22px;}
-.menuright .person {padding-right: 30px; position: relative; background: url(../images/index_06.jpg) right 22px no-repeat; margin-top: 6px; cursor: pointer;}
+.menuright .person {padding-right: 30px; position: relative; background: url(../images/index_06.jpg) right center no-repeat; margin-top: 0px; cursor: pointer;}
+.menuright .person img {vertical-align: middle;}
 .menuright .language .zh { background: #FFF; display: none; position: absolute; z-index: 1000; top: 62px; left: 0; width: 96px; height: 40px; line-height: 40px; font-family: "黑体"; color: #333; text-align: center; border: 1px solid #e5e5e5; border-radius: 5px; behavior:url('PIE.htc');}
 .menuright .person .loginreg { background: #FFF;display: none; position: absolute; z-index: 1000; top: 56px; left: 0; font-size: 18px;  width: 96px;  border: 1px solid #e5e5e5; border-radius: 5px; behavior:url('PIE.htc');}
 .menuright .person .loginreg li{text-align: center; height: 40px; line-height: 40px;}
@@ -53,7 +54,7 @@ a:active {color:#d32628;}
 .index_title .more {position: absolute; right: 0; top: 20px;}
 
 .index_news {overflow: hidden; margin-top: 20px;}
-.index_news_video {float: left; width: 550px; height: 400px;}
+.index_news_video {float: left; width: 550px; height: 400px; background: #000;}
 .index_news_box { float: right; width: 520px; }
 .index_news_box li { border-bottom: 1px dotted #ddd; padding-bottom: 17px; margin-top: 16px; overflow: hidden; font-size: 16px;}
 .index_news_box li:first-child {margin-top: 0;}
@@ -77,8 +78,8 @@ a:active {color:#d32628;}
 .indexmidmenu ul{overflow: hidden;}
 .indexmidmenu ul li {float: left; width: 366px; height: 190px;}
 
-.index_customer {margin-top: 30px;}
-.index_customer ul {overflow: hidden; margin-left: -20px;}
+.index_customer {margin-top: 30px; overflow: hidden;}
+.index_customer ul {overflow: hidden; margin-left: -20px; position: relative;}
 .index_customer ul li { width: 260px; margin-left: 20px; float: left; }
 .index_customer ul li img {border-radius: 5px; behavior:url('PIE.htc');}
 .index_customer ul li .title {color: #a0a0a0; margin-top: 15px; font-size: 16px; text-align: center;}
@@ -108,7 +109,6 @@ a:active {color:#d32628;}
 #pages a:hover { background:#f1f1f1; color:#000; text-decoration:none }
 #pages span { display:inline-block; height:30px; line-height:30px; background:#ab3131; border:1px solid #ab3131; color:#fff; text-align:center;padding:0 16px}
 .page .noPage { display:inline-block; width:56px; height:30px; line-height:30px; background:url(../img/icu/titleBg.png) repeat-x 0 -55px ; border:1px solid #e3e3e3; text-align:center; color:#a4a4a4; }
-
 
 
 .categoryimage img {width: 100%; display: block;}
@@ -147,6 +147,11 @@ a:active {color:#d32628;}
 .activity_form {width: 500px; margin-top: 30px;}
 .activity_tit{ font-size: 18px; margin-top: 50px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
 
+.page_list .link {margin-left: -100px; overflow: hidden;}
+.page_list .link li {width: 300px; margin: 30px 0 0 100px; text-align: center; overflow: hidden; float: left;}
+.page_list .link img {width: 298px; height: 150px; border:1px solid #eee;}
+.page_list .link p {padding: 10px 0;}
+
 .page_list .dangjian li {overflow: hidden; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0; }
 .page_list .dangjian li .tit {font-size: 20px; padding: 20px 0 10px 0;}
 .page_list .dangjian .pic {width: 300px;  height: 190px; position: relative; float: left;}
@@ -157,3 +162,70 @@ a:active {color:#d32628;}
 .page_list .dangjian .des {width: 760px; float: right; font-size: 16px; line-height: 1.8em; }
 
 .new_tit {margin-top: 30px;}
+
+.search-recruit-bg	 {background: url(../images/index_h.jpg) repeat; padding: 30px 0;}
+.recruit_form {overflow: hidden;}
+.recruit_form input {float: left; width: 996px; border:2px solid #e5e5e5; height: 40px; line-height: 40px; font-size: 16px; text-indent: 10px; color: #a5a19e; border-right: 0;}
+.recruit_form button {float: left; width: 100px; cursor: pointer; background: #d0161b; color: #FFF; height: 44px; line-height: 44px; font-size: 20px; letter-spacing: 5px; text-align: center; border:none;}
+.hot_recruit {color: #a5a19e; padding-top: 10px;}
+.hot_recruit a {margin-right: 20px; color: #d3252e;}
+.hot_recruit a:hover {color:#b6131c;}
+.recruit_top_title {padding: 30px 0; font-size: 20px; overflow: hidden;}
+.recruit_top_title a {float: left;}
+.recruit_top_title span {padding: 0 72px; float: left; color: #f0f0f0; }
+
+/*招聘服务*/
+.advs {margin-left: -20px; overflow: hidden;}
+.advs img {float: left; margin-left: 20px; margin-top: 20px;}
+.layui-flow-more {padding-top: 50px;}
+
+#form_box {background: #ebebeb; padding: 40px 20px;}
+
+.joblist .tab { margin-top: 50px;}
+.joblist .tab span {display: inline-block; width: 50px;}
+.joblist .tab a {display: inline-block; margin-left: 50px; padding-bottom: 10px;  width: 90px; height: 30px; font-size: 20px; line-height: 30px; text-align: center;}
+.joblist .tab a.current, .joblist .tab a:hover { background: url(../images/tabbg.png) center bottom no-repeat; }
+.joblist .tab a.current {cursor: default;}
+
+.joblist ul {margin-top: 30px;}
+.joblist li {border:1px solid #edebec; margin-top: 10px; border-radius: 3px; behavior:url('PIE.htc');position:relative; z-index:2; overflow: hidden;
+	box-shadow: 1px 2px 3px 2px #e7e6e6;
+	background: #FFF;
+}
+
+
+.joblist li .info {width: 840px; float: left; padding: 30px 0 30px 50px; background: #FFF;}
+.joblist li .info p { color: #999; line-height: 40px; font-size: 18px;}
+.joblist li .info p label {display: inline-block; width: 100px;}
+.joblist li .info .tit { font-size: 20px; color: #000; padding-bottom: 10px; }
+.joblist li .btn {width: 200px; float: left;}
+.joblist li .btn a {display: inline-block; width: 100px; height: 40px; line-height: 40px; background: #d0161b; text-align: center; margin-top: 100px; border-radius: 3px; font-size: 16px; color: #FFF; behavior:url('PIE.htc');}
+.joblist li .btn a:hover {background: #a91115;}
+
+
+/*注册*/
+.regbg img {width: 100%}
+.regbox {position: absolute; top: 0; z-index: 100; width: 100%}
+.regbox .reg_right {float: right;}
+
+.regbox .p1 {margin-top: 230px; font-size: 50px; color: #FFF; letter-spacing: 5px; font-family: "宋体"; margin-left: 200px;}
+.regbox .p2 {margin-top: 30px; font-size: 30px; color: #FFF; margin-left: 200px; font-family: "宋体";}
+.regbox .regform {width: 330px; padding-bottom: 20px; overflow: hidden; margin-top: 100px; margin-right: 150px; background: #FFF; border-radius: 5px; behavior:url('PIE.htc');}
+.regbox .regform.loginform {padding: 20px 0 40px;}
+.regbox .regform .tit {padding-left: 30px; color: #5b6a7d; font-size: 16px; }
+
+.regbox .regform .input, .regbox .vcodebox 	{height: 40px; line-height: 40px; width: 290px; margin: 20px 0 0 20px; border:1px solid #ebebeb; overflow: hidden; border-radius: 5px;  behavior:url('PIE.htc'); text-indent: 10px;}
+.regbox .vcodebox {text-indent: 0; line-height: 38px;}
+.regbox .vcodebox input {border:none; width: 180px; height: 38px; text-indent: 10px; }
+.regbox .vcodebox span{ margin-left: 15px; color: #1980e5; cursor: pointer;}
+.regbox .vcodebox span.disabled{color: #999; cursor: default;}
+.regbox .xieyi {padding: 20px 0 10px 20px;}
+.regbox .submit {height: 40px; line-height: 40px; font-size: 18px; letter-spacing: 3px; font-family: "黑体"; width: 290px; margin-left: 20px; color: #FFF; background: #d42d31; left: 3px; border:none;}
+.regbox .submit:hover{background: #e93338}
+.regbox .submit.disabled:hover {background: #d42d31}
+.subbot {padding: 10px 20px 0 20px; overflow: hidden; color: #5b6a7d;}
+.subbot a {color: #5b6a7d;}
+.subbot a:hover {color: #d32628;}
+.subbot .fuhao {font-size: 18px;}
+.subbot .forgetpwd {float: right;}
+

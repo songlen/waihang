@@ -1,9 +1,7 @@
 <?php
 /**
  *  position_api.class.php 推荐至栏目接口类
- *
- * @copyright			(C) 2005-2010 PHPCMS
- * @license				http://www.phpcms.cn/license/
+
  * @lastmodify			2010-10-14
  */
 
