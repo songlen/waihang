@@ -200,7 +200,7 @@
                         </div>
                     </div>
 
-                    <input type="hidden" name="language" value="<?php echo $language;?>">
+                    <input type="hidden" name="info[language]" value="<?php echo $language;?>">
                     <input type="hidden" name="dosubmit" value="1">
                 </form>
             </div>

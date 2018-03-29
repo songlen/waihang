@@ -5,7 +5,7 @@
 			<ul>
 				<li><span class="lable">友情链接：</span>{pc:get sql="select * from phpcms_keylink where siteid=$siteid order by keylinkid desc"}{loop $data $r}<span class="huoban"><a href="{$r[url]}" target="_blank">{$r[word]}</a></span>{/loop}{/pc}</li>
 				<li><span class="lable">版权所有：</span>{get_extend_setting(copyright)}</li>
-				<li><span class="lable">联系电话：</span>{get_extend_setting(phone)} <span class="tousu"><a href="">投诉与建议</a></span></li>
+				<li><span class="lable">联系电话：</span>{get_extend_setting(phone)}</li>
 			</ul>
 		</div>
 		<div class="foot_r">

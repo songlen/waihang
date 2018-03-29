@@ -599,3 +599,4 @@
 <?php exit;?>03-22 10:34:15 | 2 | substr() expects parameter 1 to be string, array given | phpcms\libs\classes\db_mysqli.class.php | 239
 <?php exit;?>03-22 10:39:57 | 2 | substr() expects parameter 1 to be string, array given | phpcms\libs\classes\db_mysqli.class.php | 239
 <?php exit;?>03-22 10:45:02 | 2 | substr() expects parameter 1 to be string, array given | phpcms\libs\classes\db_mysqli.class.php | 239
+<?php exit;?>03-29 10:16:33 | 8192 | Non-static method form::ueditor() should not be called statically, assuming $this from incompatible context | phpcms\modules\content\templates\content_page.tpl.php | 53

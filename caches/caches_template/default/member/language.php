@@ -6,53 +6,38 @@
     <?php include template('member', 'left'); ?>
     <div class="page_right">
         <div class="current_crumb">
-            <div class="crumb">个人中心 > 教育经历</div>
-            <div class="category_title">教育经历</div>
+            <div class="crumb">个人中心 > 外语经历</div>
+            <div class="category_title">外语经历</div>
         </div>
         <div class="page_content">
             <div class="basicinfo">
-                <div class="tit"><div class="language"><a <?php if($language=='en') { ?> href="?m=member&a=education" <?php } else { ?>class="current"<?php } ?>>中文</a><a <?php if($language=='zh') { ?> href="?m=member&a=education&l=en" <?php } else { ?>class="current"<?php } ?>>英文</a></div>
+                <div class="tit"><div class="language"><a <?php if($language=='en') { ?> href="?m=member&a=language" <?php } else { ?>class="current"<?php } ?>>中文</a><a <?php if($language=='zh') { ?> href="?m=member&a=language&l=en" <?php } else { ?>class="current"<?php } ?>>英文</a></div>
                     <button class="layui-btn layui-btn-normal" onclick="add()">添加</button></div>
                 <table class="layui-table">
                     <colgroup>
-                        <col width="170">
+                        <col width="200">
+                        <col width="200">
+                        <col width="100">
                         <col width="150">
-                        <col width="80">
-                        <col width="80">
-                        <col width="50">
-                        <col width="80">
-                        <col width="50">
-                        <col width="50">
-                        <col width="50">
                         <col width="">
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>学校名称</th>
-                            <th>专业</th>
-                            <th>入学时间</th>
-                            <th>毕业时间</th>
-                            <th>学历</th>
-                            <th>已取得<br>毕业证</th>
-                            <th>留学</th>
-                            <th>民航院校</th>
-                            <th>最高学历</th>
+                            <th>语言</th>
+                            <th>证书</th>
+                            <th>等级</th>
+                            <th>获得时间</th>
                             <th>操作</th>
                         </tr> 
                     </thead>
                     <tbody>
-                        <?php if(!empty($education)) { ?>
-                        <?php $n=1;if(is_array($education)) foreach($education AS $r) { ?>
+                        <?php if(!empty($lists)) { ?>
+                        <?php $n=1;if(is_array($lists)) foreach($lists AS $r) { ?>
                         <tr>
-                            <td><?php echo $r['school_name'];?></td>
-                            <td><?php echo $r['major'];?></td>
-                            <td><?php echo date('Y-m', strtotime($r[start_time]));?></td>
-                            <td><?php echo date('Y-m', strtotime($r[end_time]));?></td>
-                            <td><?php echo $enums['diploma'][$r['diploma']];?></td>
-                            <td><?php if($r[has_diploma]) { ?>是<?php } else { ?>否<?php } ?></td>
-                            <td><?php if($r[study_abroad]) { ?>是<?php } else { ?>否<?php } ?></td>
-                            <td><?php if($r[civil_viation]) { ?>是<?php } else { ?>否<?php } ?></td>
-                            <td><?php if($r[highest_degree]) { ?>是<?php } else { ?>否<?php } ?></td>
+                            <td><?php echo $r['name'];?></td>
+                            <td><?php echo $r['certificate'];?></td>
+                            <td><?php echo $r['level'];?></td>
+                            <td><?php echo date('Y-m', strtotime($r[gettime]));?></td>
                             <td>
                                 <a href="javascript:;" onclick="edit(<?php echo $r['id'];?>)">修改</a>
                                 <a href="javascript:;" onclick="del(<?php echo $r['id'];?>, this)">删除</a>
@@ -76,8 +61,8 @@
             id:'add',
             title: '添加',
             type: 2,
-            area: ['800px', '500px'],
-            content: '?m=member&a=education_modify&l=<?php echo $language;?>',
+            area: ['500px', '500px'],
+            content: '?m=member&a=language_modify&l=<?php echo $language;?>',
             btn: '确定',
             yes: function(index, layero){
                 var btn_submit = layer.getChildFrame('.layui-btn', index);
@@ -90,8 +75,8 @@
             id:'edit',
             title: '修改',
             type: 2,
-            area: ['800px', '500px'],
-            content: '?m=member&a=education_modify&id='+id,
+            area: ['500px', '500px'],
+            content: '?m=member&a=language_modify&id='+id,
             btn: '确定',
             yes: function(index, layero){
                 var btn_submit = layer.getChildFrame('.layui-btn', index);
@@ -106,7 +91,7 @@
             return false;
         }
         $.ajax({
-            url: '?m=member&a=education_del&id='+id,
+            url: '?m=member&a=language_del&id='+id,
             type: 'get',
             dataType: 'json',
             success: function(data){

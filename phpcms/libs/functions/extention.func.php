@@ -63,7 +63,7 @@ function error($msg = '错误', $jump_url=false){
 function success($msg = '成功', $jump_url=false){
 	$data = array(
 		'code' => 200,
-		'msg' => $msg
+		'msg' => $msg,
 	);
 	
 	if($jump_url) $data['jump_url'] = $jump_url;

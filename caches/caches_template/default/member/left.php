@@ -3,8 +3,8 @@
     <ul class="navlist">
         <li <?php if(ROUTE_A == 'init') { ?>class="current"<?php } ?>><a href="?m=member">基本资料</a></li>
         <li <?php if(ROUTE_A == 'education') { ?>class="current"<?php } ?>><a href="?m=member&a=education">教育经历</a></li>
-        <li class=""><a href="">外语经历</a></li>
-        <li class=""><a href="">修改头像</a></li>
+        <li <?php if(ROUTE_A == 'language') { ?>class="current"<?php } ?>><a href="?m=member&a=language">外语经历</a></li>
+        <li <?php if(ROUTE_A == 'pic') { ?>class="current"<?php } ?>><a href="?m=member&a=pic">图像采集</a></li>
         <li <?php if(ROUTE_A == 'changePassword') { ?>class="current"<?php } ?>><a href="?m=member&a=changePassword">修改密码</a></li>
         <li class=""><a href="">职位应聘</a></li>
         <li class=""><a href="">我的课程</a></li>

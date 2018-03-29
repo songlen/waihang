@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<!-- <meta name="viewport" content="width=1200" /> -->
+	<meta name="viewport" content="width=1200" />
 	<title><?php if(isset($SEO['title']) && !empty($SEO['title'])) { ?><?php echo $SEO['title'];?><?php } ?><?php echo $SEO['site_title'];?></title>
 	<meta name="keywords" content="<?php echo $SEO['keyword'];?>">
 	<meta name="description" content="<?php echo $SEO['description'];?>"> 
-	<title>外航</title>
 	<link rel="stylesheet" href="statics/default/css/style.css?v=<?php echo create_randomstr(6);?>">
 	<link rel="stylesheet" href="statics/default/css/flexslider.css">
 	<link rel="stylesheet" href="<?php echo JS_PATH;?>ueditor/themes/table_default.css">

@@ -136,6 +136,7 @@ class index extends foreground {
 		
 	}
 
+	// 教育列表
 	public function education(){
 		$memberinfo = $this->memberinfo;
 		$edu_model = pc_base::load_model('member_education_model');
@@ -158,7 +159,7 @@ class index extends foreground {
 		}
 
 	}
-
+	// 教育增加/修改
 	public function education_modify(){
 		$memberinfo = $this->memberinfo;
 
@@ -214,6 +215,128 @@ class index extends foreground {
 		} else {
 			error('fail');
 		}
+	}
+
+	// 外语经历列表
+	public function language (){
+		$memberinfo = $this->memberinfo;
+		$language_model = pc_base::load_model('member_language_model');
+
+		// 语言
+		$language = isset($_GET['l']) && in_array($_GET['l'], array('zh', 'en')) ? $_GET['l'] : 'zh';
+		
+		$layui = true;
+		$siteid = SITEID;
+		$SEO = seo(SITEID);
+
+		$lists = $language_model->select(array('member_id'=>$memberinfo['userid'], 'language'=>$language));
+
+		if($language == 'zh'){
+			include template('member', 'language');
+		} else {
+			include template('member', 'language_en');
+		}
+
+	}
+	// 外语增加/修改
+	public function language_modify(){
+		$memberinfo = $this->memberinfo;
+
+		// 实例化教育经历模型
+		$member_language_model = pc_base::load_model('member_language_model');
+		// 增加/修改
+		if($_POST['dosubmit']){
+			$info = $_POST['info'];
+			$info['gettime'] = $info['gettime'].'-00';
+
+			if($id = intval($_POST['id'])){
+				$member_language_model->update($info, array('id'=>$id));
+			} else {
+				$info['member_id'] = $memberinfo['userid'];
+				$member_language_model->insert($info);
+			}
+
+			showmessage('success', '', 1500, 'close');
+		} else {
+			// 语言
+			$language = isset($_GET['l']) && in_array($_GET['l'], array('zh', 'en')) ? $_GET['l'] : 'zh';
+
+			$data = array();
+			if(isset($_GET['id']) && $id = intval($_GET['id'])){
+				$data = $member_language_model->get_one(array('id'=>$id));
+				if($data){
+					$language = $data['language'];
+				} else {
+					showmessage('not exist');
+				}
+			}
+
+			$layui = true;
+			$siteid = SITEID;
+			include template('member', 'language_modify');
+		}
+	}
+
+	public function language_del(){
+		$id = intval($_GET['id']);
+
+		$language_model = pc_base::load_model('member_language_model');
+
+		if($language_model->delete(array('id'=>$id))){
+			success('success');
+		} else {
+			error('fail');
+		}
+	}
+
+	public function pic(){
+		$memberinfo = $this->memberinfo;
+
+		if($_POST['dosubmit']){
+			$type = $_GET['type'];
+			if(!in_array($type, array('head', 'body'))){
+				error('异常错误');
+			}
+
+			$attachment = pc_base::load_sys_class('attachment');
+			
+			$a = $attachment->upload('file', 'jpg|png|jpeg|gif');
+
+			if($a){
+				$filepath = $attachment->uploadedfiles[0]['filepath'];
+				$filepath = pc_base::load_config('system', 'upload_url').$filepath;
+				
+				if($type == 'head'){
+					$updata = array('headimg'=>$filepath);
+				}
+				if($type == 'body'){
+					$updata = array('bodyimg'=>$filepath);
+				}
+
+				$member_model = pc_base::load_model('member_model');
+				$member_model->update($updata, array('userid'=>$memberinfo['userid']));
+
+				echo json_encode(array('code'=>200, 'data'=>array('filepath'=>$filepath)));
+				exit;
+			} else {
+				$error = $attachment->error();
+				error($error);
+			}
+		} else {
+			$layui = true;
+			$siteid = SITEID;
+			$SEO = seo(SITEID);
+			include template('member', 'pic');
+		}
+
+
+
+	}
+
+	public function uploadpic(){
+		
+
+		
 	}
 
 	public function register(){
