@@ -3,11 +3,14 @@
     <ul class="navlist">
         <li {if ROUTE_A == 'init'}class="current"{/if}><a href="?m=member">基本资料</a></li>
         <li {if ROUTE_A == 'education'}class="current"{/if}><a href="?m=member&a=education">教育经历</a></li>
+        <li {if ROUTE_A == 'work'}class="current"{/if}><a href="?m=member&a=work">工作经历</a></li>
         <li {if ROUTE_A == 'language'}class="current"{/if}><a href="?m=member&a=language">外语经历</a></li>
         <li {if ROUTE_A == 'pic'}class="current"{/if}><a href="?m=member&a=pic">图像采集</a></li>
         <li {if ROUTE_A == 'changePassword'}class="current"{/if}><a href="?m=member&a=changePassword">修改密码</a></li>
-        <li class=""><a href="">职位应聘</a></li>
-        <li class=""><a href="">我的课程</a></li>
-        <li class=""><a href="">医疗报销</a></li>
+        <li {if ROUTE_A == 'enrolledJob'}class="current"{/if}><a href="?m=member&a=enrolledJob">职位应聘</a></li>
+        <li class=""><a href="javascript:;">我的课程</a></li>
+        {if $memberinfo['is_employee']}
+        <li {if ROUTE_A == 'reimbursement'}class="current"{/if}><a href="?m=member&a=reimbursement">医疗报销</a></li>
+        {/if}
     </ul>
 </div>

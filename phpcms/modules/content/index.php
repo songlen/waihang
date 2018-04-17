@@ -310,6 +310,54 @@ class index {
 		}
 
 	}
+
+	public function search(){
+		$keyword = $_GET['keyword'];
+		if(trim($keyword) == '') showmessage('关键词不能为空', HTTP_PREFERER);
+		
+		$siteid = get_siteid();
+		$page = isset($_GET['page']) ? intval($_GET['page']) : '';
+
+		// 记录搜索历史
+		$auth = param::get_cookie('auth');
+		$userid = param::get_cookie('_userid');
+
+		if($auth){
+			$search_history_model = pc_base::load_model('search_history_model');
+			if($search_history_model->count(array('member_id'=>$userid, 'keyword'=>$keyword))){
+				$search_history_model->delete(array('member_id'=>$userid, 'keyword'=>$keyword));
+			}
+			$data = array(
+				'member_id' => $userid,
+				'keyword' => $keyword,
+				'siteid' => $siteid,
+			);
+			// 写入历史记录
+			$search_history_model->insert($data);
+			// 取出历史记录
+			if($siteid == 1){
+				$news_model = pc_base::load_model('news_model');
+
+				$where = 'title like "%'.$keyword.'%"';
+				$lists = $news_model->listinfo($where, 'listorder desc, id desc', $page);
+			}
+		} else {
+			$historySearch = param::get_cookie('historySearch');
+
+			if($historySearch == ''){
+				$historySearch[] = array('keyword'=>$keyword);
+			} else {
+				$historySearch = array_unshift($historySearch, array('keyword'=>$keyword));
+			}
+
+			// 未登录写入cookie
+			param::set_cookie('historySearch', $historySearch);
+			// 取出历史记录
+			$lists = param::get_cookie('historySearch');
+		}
+
+		include template('content', 'search');
+	}
 	
 	
 	/**

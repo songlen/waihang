@@ -107,22 +107,68 @@ class index {
 		if(!$job_id){
 			showmessage('请选择职位', HTTP_REFERER);
 		}
-		if(!$_SESSION['userid']){
-			showmessage('请先登录，跳转中..', '?m=member&a=login');
+
+		// 检测是否登录
+		$phpcms_auth = param::get_cookie('auth');
+		if(!$phpcms_auth){
+			showmessage('请先登录，跳转中..', '?m=member&a=login&forward='.urlencode(HTTP_REFERER));
+		}
+		$userid = param::get_cookie('_userid');
+
+		// 检测简历是否完整
+		$resume_model = pc_base::load_model('member_resume_model');
+		if($resume_model->count(array('member_id'=>$userid)) < 2){
+			showmessage('请完善简历', '?m=member&a=education');
+		}
+		$edu_model = pc_base::load_model('member_education_model');
+		if($edu_model->count(array('member_id'=>$userid)) < 2){
+			showmessage('请完善简历', '?m=member');
+		}
+		$language_model = pc_base::load_model('member_language_model');
+		if($language_model->count(array('member_id'=>$userid)) < 2){
+			showmessage('请完善简历', '?m=member&a=language');
+		}
+
+		// 检查头像是否上传
+		$member_model = pc_base::load_model('member_model');
+		$member = $member_model->get_one(array('userid'=>$userid), 'headimg, bodyimg, is_working');
+
+		if(empty($member['headimg']) || empty($member['bodyimg'])){
+			showmessage('请完善图像信息', '?m=member&a=pic');
+		}
+
+		// 检测是否在职
+		if($member['is_working'] == '1'){
+			showmessage('您是在职状态，无法申请职位', HTTP_REFERER);
+		}
+		// 检测是否已经报名
+		$enroll_model = pc_base::load_model('recruit_enroll_model');
+		if($enroll_model->count(array('member_id'=>$userid, 'job_id'=>$job_id))){
+			showmessage('您已经申请该职位', HTTP_REFERER);
+		}
+		// 申请写入数据库
+		$data = array(
+			'member_id'=>$userid,
+			'job_id'=>$job_id,
+		);
+		if($enroll_model->insert($data)){
+			showmessage('申请成功，请等待审核', HTTP_REFERER);
+		} else {
+			showmessage('服务器错误，请稍后再试', HTTP_REFERER);
 		}
 	}
 
 	// 职位搜索
 	public function search(){
-		$keyword = isset($_GET['recruit_keyword']) ? $_GET['recruit_keyword'] : '';
+		$recruit_keyword = isset($_GET['recruit_keyword']) ? $_GET['recruit_keyword'] : '';
 		$type = isset($_GET['type']) ? intval($_GET['type']) : 1;
 		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 		
 		$job_model = pc_base::load_model('recruit_job_model');
 
 		$where = 'status=1 and type='.$type;
-		if($keyword){
-			$where .= ' and job_name like "%'.$keyword.'%"';
+		if($recruit_keyword){
+			$where .= ' and job_name like "%'.$recruit_keyword.'%"';
 		}
 
 		$jobs = $job_model->listinfo($where, 'listorder desc, id desc', $page);

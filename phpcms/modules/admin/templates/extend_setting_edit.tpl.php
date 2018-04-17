@@ -21,7 +21,18 @@ include $this->admin_tpl('header','admin');
 				</tr>
 				<tr>
 					<th width="100">首页视频：</th>
-					<td><?php echo form::upfiles('setting[index_video]', 'index_video', "$index_video;?>", '', '', 50, '', '', 'mp4');?></td>
+					<td><?php echo form::upfiles('setting[index_video]', 'index_video', "$index_video", '', '', 50, '', '', 'mp4');?></td>
+				</tr>
+				<tr>
+					<th width="100">热搜职位：</th>
+					<td><input type="text" name="setting[hot_job]" value="<?php echo $hot_job;?>" size="50"></td>
+				</tr>
+				<tr>
+					<th width="100">医疗报销联系方式</th>
+					<td>
+						<textarea name="setting[reimbursement_contact]" id="reimbursement_contact"><?php echo $reimbursement_contact;?></textarea>
+						<?php echo form::ueditor('reimbursement_contact', 'basic');?>
+					</td>
 				</tr>
 
 			</table>

@@ -28,6 +28,7 @@
 					<div class="xieyi"></div>
 					<input type="button" class="submit" name="dosubmit" value="登录">
 					<input type="hidden" name="dosubmit" value="1">
+					<input type="hidden" name="forward" value="{$forward}">
 					<div class="subbot">
 						<a href="?m=member&a=forgetPassword" class="forgetpwd">忘记密码</a>
 						<input type="checkbox" name="remember" value="记住密码"> 记住密码
@@ -75,7 +76,11 @@
 					}
 					if(data.code == 200){
 						layer.msg('登录成功，正在跳转...', function(){
-							window.location='?m=member&c=index';
+							if(data.jump_url){
+								window.location=data.jump_url;
+							} else {
+								window.location='?m=member&c=index';
+							}
 						});
 					}
 				},

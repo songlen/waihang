@@ -68,7 +68,7 @@ include $this->admin_tpl('header','admin');
 			<th width="100">详细介绍：</th>
 			<td>
 				<textarea name="info[content]" id="content"></textarea>
-				<?php echo form::editor('content','full','','','',1,1)?>
+				<?php echo form::ueditor('content')?>
 			</td>
 		</tr>
 

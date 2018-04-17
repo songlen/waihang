@@ -52,191 +52,60 @@ class member extends admin {
 	}
 	
 	/**
-	 * 会员搜索
-	 */
-	function search() {
-
-		//搜索框
-		$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
-		$type = isset($_GET['type']) ? $_GET['type'] : '';
-		$groupid = isset($_GET['groupid']) ? $_GET['groupid'] : '';
-		$modelid = isset($_GET['modelid']) ? $_GET['modelid'] : '';
-		
-		//站点信息
-		$sitelistarr = getcache('sitelist', 'commons');
-		$siteid = isset($_GET['siteid']) ? intval($_GET['siteid']) : '0';
-		foreach ($sitelistarr as $k=>$v) {
-			$sitelist[$k] = $v['name'];
-		}
-		
-		$status = isset($_GET['status']) ? $_GET['status'] : '';
-		$amount_from = isset($_GET['amount_from']) ? $_GET['amount_from'] : '';
-		$amount_to = isset($_GET['amount_to']) ? $_GET['amount_to'] : '';
-		$point_from = isset($_GET['point_from']) ? $_GET['point_from'] : '';
-		$point_to = isset($_GET['point_to']) ? $_GET['point_to'] : '';
-				
-		$start_time = isset($_GET['start_time']) ? $_GET['start_time'] : '';
-		$end_time = isset($_GET['end_time']) ? $_GET['end_time'] : date('Y-m-d', SYS_TIME);
-		$grouplist = getcache('grouplist');
-		foreach($grouplist as $k=>$v) {
-			$grouplist[$k] = $v['name'];
-		}
-		//会员所属模型		
-		$modellistarr = getcache('member_model', 'commons');
-		foreach ($modellistarr as $k=>$v) {
-			$modellist[$k] = $v['name'];
-		}
-				
-		if (isset($_GET['search'])) {
-			
-			//默认选取一个月内的用户，防止用户量过大给数据造成灾难
-			$where_start_time = strtotime($start_time) ? strtotime($start_time) : 0;
-			$where_end_time = strtotime($end_time) + 86400;
-			//开始时间大于结束时间，置换变量
-			if($where_start_time > $where_end_time) {
-				$tmp = $where_start_time;
-				$where_start_time = $where_end_time;
-				$where_end_time = $tmp;
-				$tmptime = $start_time;
-				
-				$start_time = $end_time;
-				$end_time = $tmptime;
-				unset($tmp, $tmptime);
-			}
-			
-			
-			$where = '';
-			
-			//如果是超级管理员角色，显示所有用户，否则显示当前站点用户
-			if($_SESSION['roleid'] == 1) {
-				if(!empty($siteid)) {
-					$where .= "`siteid` = '$siteid' AND ";
-				}
-			} else {
-				$siteid = get_siteid();
-				$where .= "`siteid` = '$siteid' AND ";
-			}
-				
-			if($status) {
-				$islock = $status == 1 ? 1 : 0;
-				$where .= "`islock` = '$islock' AND ";
-			}
-		
-			if($groupid) {
-				$where .= "`groupid` = '$groupid' AND ";
-			}
-			
-			if($modelid) {
-				$where .= "`modelid` = '$modelid' AND ";
-			}	
-			$where .= "`regdate` BETWEEN '$where_start_time' AND '$where_end_time' AND ";
-
-			//资金范围
-			if($amount_from) {
-				if($amount_to) {
-					if($amount_from > $amount_to) {
-						$tmp = $amount_from;
-						$amount_from = $amount_to;
-						$amount_to = $tmp;
-						unset($tmp);
-					}
-					$where .= "`amount` BETWEEN '$amount_from' AND '$amount_to' AND ";
-				} else {
-					$where .= "`amount` > '$amount_from' AND ";
-				}
-			}
-			//点数范围
-			if($point_from) {
-				if($point_to) {
-					if($point_from > $point_to) {
-						$tmp = $amount_from;
-						$point_from = $point_to;
-						$point_to = $tmp;
-						unset($tmp);
-					}
-					$where .= "`point` BETWEEN '$point_from' AND '$point_to' AND ";
-				} else {
-					$where .= "`point` > '$point_from' AND ";
-				}
-			}
-		
-			if($keyword) {
-				if ($type == '1') {
-					$where .= "`username` LIKE '%$keyword%'";
-				} elseif($type == '2') {
-					$where .= "`userid` = '$keyword'";
-				} elseif($type == '3') {
-					$where .= "`email` like '%$keyword%'";
-				} elseif($type == '4') {
-					$where .= "`regip` = '$keyword'";
-				} elseif($type == '5') {
-					$where .= "`nickname` LIKE '%$keyword%'";
-				} else {
-					$where .= "`username` like '%$keyword%'";
-				}
-			} else {
-				$where .= '1';
-			}
-			
-		} else {
-			$where = '';
-		}
-
-		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$memberlist = $this->db->listinfo($where, 'userid DESC', $page, 15);
-		//查询会员头像
-		foreach($memberlist as $k=>$v) {
-			$memberlist[$k]['avatar'] = get_memberavatar($v['phpssouid']);
-		}
-		$pages = $this->db->pages;
-		$big_menu = array('?m=member&c=member&a=manage&menuid=72', L('member_research'));
-		include $this->admin_tpl('member_list');
-	}
-	
-	/**
 	 * member list
 	 */
 	function manage() {
-		$sitelistarr = getcache('sitelist', 'commons');
-		foreach ($sitelistarr as $k=>$v) {
-			$sitelist[$k] = $v['name'];
-		}
-	
-		$groupid = isset($_GET['groupid']) ? intval($_GET['groupid']) : '';
-		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		
-		//如果是超级管理员角色，显示所有用户，否则显示当前站点用户
-		if($_SESSION['roleid'] == 1) {
-			$where = '';
-		} else {
-			$siteid = get_siteid();
-			$where .= "`siteid` = '$siteid'";
-		}
-		
-		$memberlist_arr = $this->db->listinfo($where, 'userid DESC', $page, 15);
-		$pages = $this->db->pages;
-
 		//搜索框
+		
+		$start_time = isset($_GET['start_time']) ? $_GET['start_time'] : '';
+		$end_time = isset($_GET['end_time']) ? $_GET['end_time'] : '';
+
+		$status = isset($_GET['status']) ? $_GET['status'] : '';	
 		$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 		$type = isset($_GET['type']) ? $_GET['type'] : '';
-		$start_time = isset($_GET['start_time']) ? $_GET['start_time'] : '';
-		$end_time = isset($_GET['end_time']) ? $_GET['end_time'] : date('Y-m-d', SYS_TIME);
-		$grouplist = getcache('grouplist');
-		foreach($grouplist as $k=>$v) {
-			$grouplist[$k] = $v['name'];
-		}
+		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+
+		$where = '1';
+		if (isset($_GET['search'])) {
+			
+			if($start_time && $end_time){
+				//开始时间大于结束时间，置换变量
+				if($start_time > $end_time) {
+					$tmp = $start_time;
+					$start_time = $end_time;
+					$end_time = $tmp;
+					$tmptime = $start_time;
+					
+					$start_time = $end_time;
+					$end_time = $tmptime;
+					unset($tmp, $tmptime);
+				}
+				$where .= "and `regdate` BETWEEN '$where_start_time' AND '$where_end_time' ";
+			}
+
+			if($status) {
+				$islock = $status == 1 ? 1 : 0;
+				$where .= " and `islock` = '$islock' ";
+			}
+
 		
-		//会员所属模型		
-		$modellistarr = getcache('member_model', 'commons');
-		foreach ($modellistarr as $k=>$v) {
-			$modellist[$k] = $v['name'];
+			if($keyword) {
+				if ($type == 'mobile') {
+					$where .= " and `mobile` = $keyword";
+				}
+			}
 		}
-		
-		//查询会员头像
-		foreach($memberlist_arr as $k=>$v) {
-			$memberlist[$k] = $v;
-			$memberlist[$k]['avatar'] = get_memberavatar($v['phpssouid']);
-		}
+
+		$memberlist = $this->db->listinfo($where, 'userid DESC', $page, 15);
+		$pages = $this->db->pages;
+
+		// if($memberlist && is_array($memberlist)){
+		// 	$member_resume = pc_base::load_model('member_resume_model');
+		// 	foreach ($memberlist as &$item) {
+		// 		$resume = $member_resume->get_one(array('member_id'=>$item['userid']), 'email');
+		// 		$item['email'] = $resume['email'];
+		// 	}
+		// }
 
 		$big_menu = array('javascript:window.top.art.dialog({id:\'add\',iframe:\'?m=member&c=member&a=add\', title:\''.L('member_add').'\', width:\'700\', height:\'500\', lock:true}, function(){var d = window.top.art.dialog({id:\'add\'}).data.iframe;var form = d.document.getElementById(\'dosubmit\');form.click();return false;}, function(){window.top.art.dialog({id:\'add\'}).close()});void(0);', L('member_add'));
 		include $this->admin_tpl('member_list');
@@ -578,77 +447,8 @@ class member extends admin {
 		if(empty($memberinfo)) {
 			showmessage(L('user').L('not_exists'), HTTP_REFERER);
 		}
-		
-		$memberinfo['avatar'] = get_memberavatar($memberinfo['phpssouid'], '', 90);
 
-		$grouplist = getcache('grouplist');
-		//会员模型缓存
-		$modellist = getcache('member_model', 'commons');
 
-		$modelid = !empty($_GET['modelid']) ? intval($_GET['modelid']) : $memberinfo['modelid'];
-		//站群缓存
-		$sitelist =getcache('sitelist', 'commons');
-
-		$this->db->set_model($modelid);
-		$member_modelinfo = $this->db->get_one(array('userid'=>$userid));
-		//模型字段名称
-		$model_fieldinfo = getcache('model_field_'.$modelid, 'model');
-	
-		//图片字段显示图片
-		foreach($model_fieldinfo as $k=>$v) {
-			if($v['formtype'] == 'image') {
-				$member_modelinfo[$k] = "<a href='.$member_modelinfo[$k].' target='_blank'><img src='.$member_modelinfo[$k].' height='40' widht='40' onerror=\"this.src='$phpsso_api_url/statics/images/member/nophoto.gif'\"></a>";
-			} elseif($v['formtype'] == 'images') {
-				$tmp = string2array($member_modelinfo[$k]);
-				$member_modelinfo[$k] = '';
-				if(is_array($tmp)) {
-					foreach ($tmp as $tv) {
-						$member_modelinfo[$k] .= " <a href='$tv[url]' target='_blank'><img src='$tv[url]' height='40' widht='40' onerror=\"this.src='$phpsso_api_url/statics/images/member/nophoto.gif'\"></a>";
-					}
-					unset($tmp);
-				}
-			} elseif($v['formtype'] == 'box') {	//box字段，获取字段名称和值的数组
-				$tmp = explode("\n",$v['options']);
-				if(is_array($tmp)) {
-					foreach($tmp as $boxv) {
-						$box_tmp_arr = explode('|', trim($boxv));
-						if(is_array($box_tmp_arr) && isset($box_tmp_arr[1]) && isset($box_tmp_arr[0])) {
-							$box_tmp[$box_tmp_arr[1]] = $box_tmp_arr[0];
-							$tmp_key = intval($member_modelinfo[$k]);
-						}
-					}
-				}
-				if(isset($box_tmp[$tmp_key])) {
-					$member_modelinfo[$k] = $box_tmp[$tmp_key];
-				} else {
-					$member_modelinfo[$k] = $member_modelinfo_arr[$k];
-				}
-				unset($tmp, $tmp_key, $box_tmp, $box_tmp_arr);
-			} elseif($v['formtype'] == 'linkage') {	//如果为联动菜单
-				$tmp = string2array($v['setting']);
-				$tmpid = $tmp['linageid'];
-				$linkagelist = getcache($tmpid, 'linkage');
-				$fullname = $this->_get_linkage_fullname($member_modelinfo[$k], $linkagelist);
-				
-				$member_modelinfo[$v['name']] = substr($fullname, 0, -1);
-				unset($tmp, $tmpid, $linkagelist, $fullname);
-			} else {
-				$member_modelinfo[$k] = $member_modelinfo[$k];
-			}
-		}
-
-		$member_fieldinfo = array();
-		//交换数组key值
-		foreach($model_fieldinfo as $v) {
-			if(!empty($member_modelinfo) && array_key_exists($v['field'], $member_modelinfo)) {
-				$tmp = $member_modelinfo[$v['field']];
-				unset($member_modelinfo[$v['field']]);
-				$member_fieldinfo[$v['name']] = $tmp;
-				unset($tmp);
-			} else {
-				$member_fieldinfo[$v['name']] = '';
-			}
-		}
 
 		include $this->admin_tpl('member_moreinfo');
 	}
@@ -762,5 +562,21 @@ class member extends admin {
 		}
 	}
 	
+	public function public_checkmobile_ajax() {
+		$mobile = isset($_GET['mobile']) && trim($_GET['mobile']) ? trim($_GET['mobile']) : exit(0);
+		$userid = isset($_GET['userid']) ? intval($_GET['userid']) : '';
+
+		$where = "mobile = $mobile";
+		if($userid){
+			$where .= " and userid != $userid";
+		}
+
+		$count = $this->db->count($where);
+
+		if($count){
+			exit('0');
+		} else {
+			exit('1');
+		}
+	}
 }
-?>

@@ -1,0 +1,20 @@
+{template 'content', 'header'}
+
+<div class="ch"></div>
+
+<div class="container">
+	<div class="current_crumb" style="margin-top: 30px;">
+		<div class="category_title">搜索结果</div>
+	</div>
+	<div class="page_list">
+		<ul class="activity">
+
+			{loop $lists $r}
+			<li><a href="{$r[url]}" target="_blank"><span>{date('Y-m-d', $r[inputtime])}</span>{$r[title]}</a></li>
+			{/loop}
+		</ul>
+		<div id="pages">{$pages}</div>
+	</div>
+</div>
+
+{template 'content', 'footer'}

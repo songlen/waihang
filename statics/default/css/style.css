@@ -1,7 +1,7 @@
 body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div, input, dl, dt{margin:0;padding:0;border:0;} 
 body{background:#fff;color:#000; font-size:14px; font-family:"Microsoft Yahei","微软雅黑",arial,"\5b8b\4f53";} 
 
-ul,ol{list-style-type:none;} 
+ul,ol,li{list-style-type:none;} 
 input, a {outline: none;}
  
 a {color:#000; text-decoration:none;} 
@@ -47,7 +47,7 @@ a:active {color:#d32628;}
 .logotop .searchbox {width: 500px; float: left; margin-left: 200px; margin-top: 18px;}
 .logotop .searchbox .search { height: 40px; width: 500px; border:1px solid #f3f3f3; border-radius: 23px;  behavior:url('PIE.htc');}
 .logotop .searchbox .search input {float: left; height: 40px; line-height: 40px; margin-left: 23px; width: 415px; font-size: 16px; color: #999;}
-.logotop .searchbox .search .sbutton { cursor: pointer; width: 40px; height: 40px; float: left; background: url(../images/index_14.jpg) center center no-repeat;}
+.logotop .searchbox .search .sbutton { cursor: pointer; width: 40px; height: 40px; float: left; background: url(../images/searchbtn.png) center center no-repeat; background-size: 80%;}
 .logotop .history {padding-left: 25px; padding-top: 6px; font-size: 14px;}
 
 .index_title { position: relative; margin-top: 60px;}
@@ -56,7 +56,7 @@ a:active {color:#d32628;}
 .index_news {overflow: hidden; margin-top: 20px;}
 .index_news_video {float: left; width: 550px; height: 400px; background: #000;}
 .index_news_box { float: right; width: 520px; }
-.index_news_box li { border-bottom: 1px dotted #ddd; padding-bottom: 17px; margin-top: 16px; overflow: hidden; font-size: 16px;}
+.index_news_box li { border-bottom: 1px dotted #ddd; padding-bottom: 17px; margin-top: 12px; overflow: hidden; font-size: 16px;}
 .index_news_box li:first-child {margin-top: 0;}
 .index_news_box li .time {margin-right: 20px;}
 .index_news_box li .pic {width: 200px; height: 125px; float: left;}
@@ -71,7 +71,7 @@ a:active {color:#d32628;}
 .index_zhaopin li .pic {float: left; width: 190px; height: 210px;}
 .index_zhaopin li .infor {width: 325px; float: right;}
 .index_zhaopin li .infor .title { font-size: 16px; line-height: 1.6em; margin-top: 10px;}
-.index_zhaopin li .infor .des { color: #a5a5a5; margin-top: 15px; font-size: 14px; }
+.index_zhaopin li .infor .des { color: #a5a5a5; margin-top: 15px; padding-right: 10px; text-align: justify; font-size: 14px; }
 .index_zhaopin li .infor .time {color: #a5a5a5; margin-top: 15px}
 
 .indexmidmenu {margin-top: 60px;}
@@ -189,19 +189,24 @@ a:active {color:#d32628;}
 
 .joblist ul {margin-top: 30px;}
 .joblist li {border:1px solid #edebec; margin-top: 10px; border-radius: 3px; behavior:url('PIE.htc');position:relative; z-index:2; overflow: hidden;
-	box-shadow: 1px 2px 3px 2px #e7e6e6;
+	box-shadow: 1px 2px 3px 2px #fff;
 	background: #FFF;
 }
-
+.joblist li:hover {box-shadow: 1px 2px 3px 2px #e7e6e6;}
 
 .joblist li .info {width: 840px; float: left; padding: 30px 0 30px 50px; background: #FFF;}
 .joblist li .info p { color: #999; line-height: 40px; font-size: 18px;}
 .joblist li .info p label {display: inline-block; width: 100px;}
 .joblist li .info .tit { font-size: 20px; color: #000; padding-bottom: 10px; }
 .joblist li .btn {width: 200px; float: left;}
-.joblist li .btn a {display: inline-block; width: 100px; height: 40px; line-height: 40px; background: #d0161b; text-align: center; margin-top: 100px; border-radius: 3px; font-size: 16px; color: #FFF; behavior:url('PIE.htc');}
+.joblist li .btn a, .enrolledlist li .btn span {display: inline-block; width: 100px; height: 40px; line-height: 40px; background: #d0161b; text-align: center; margin-top: 100px; border-radius: 3px; font-size: 16px; color: #FFF; behavior:url('PIE.htc');}
 .joblist li .btn a:hover {background: #a91115;}
 
+.enrolledlist li .info {width: 540px;}
+.enrolledlist li .btn {width: 260px;}
+.enrolledlist li .btn span.sorry{ background: #e8924d }
+.enrolledlist li .btn span.pass{ background: #5e71a4; }
+.joblist li .btn a.resume{ margin-left: 20px; }
 
 /*注册*/
 .regbg img {width: 100%}

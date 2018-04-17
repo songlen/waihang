@@ -15,7 +15,16 @@
 				<button class="button" type="button">搜索</button>
 			</form>
 		</div>
-		<div class="hot_recruit">热门搜索：<a href="">外航是多少空乘</a><a href="">外航空dsd说的乘</a><a href="">外航空乘</a></div>
+		<div class="hot_recruit">热门搜索：
+			<?php
+				$hot_jobs = get_extend_setting('hot_job');
+				$hot_jobs = trim($hot_jobs, '|');
+				$hot_jobs = explode('|', $hot_jobs);
+			?>
+			{loop $hot_jobs $r}
+			<a href="?m=recruit&a=search&recruit_keyword={$r}">{$r}</a>
+			{/loop}
+		</div>
 	</div>
 </div>
 <div class="container">

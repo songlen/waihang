@@ -69,7 +69,23 @@
 <div class="container logotop">
 	<div class="logo"><a href=""><img src="statics/default/images/logo.jpg" width="295" alt=""></a></div>
 	<div class="searchbox">
-		<div class="search"><input type="text" name="keyword" placeholder="搜索关键词"><span class="sbutton"></span></div>
-		<div class="history">历史搜索：<a href="">员工培训</a></div>
+		<div class="search"><input type="text" name="keyword" value="{if $keyword}{$keyword}{/if}" placeholder="搜索关键词"><span class="sbutton"></span></div>
+		<div class="history">历史搜索：
+			{php $historySearch = historySearch();}
+			{loop $historySearch $item}
+				<a href="?m=content&a=search&keyword={$item[keyword]}">{$item[keyword]}</a>
+			{/loop}
+		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	$(function(){
+		$('.sbutton').click(function(){
+			var keyword = $('input[name=keyword]').val();
+
+			if(keyword.trim() == '') return false;
+
+			window.location="?m=content&a=search&keyword="+keyword;
+		})
+	})
+</script>

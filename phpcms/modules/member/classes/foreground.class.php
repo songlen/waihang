@@ -33,14 +33,12 @@ class foreground {
 				//验证用户，获取用户信息
 				$this->memberinfo = $this->db->get_one(array('userid'=>$userid));
 				if($this->memberinfo['islock']) exit('<h1>Bad Request!</h1>');
-				//获取用户模型信息
-				$this->db->set_model($this->memberinfo['modelid']);
-
-				$this->_member_modelinfo = $this->db->get_one(array('userid'=>$userid));
-				$this->_member_modelinfo = $this->_member_modelinfo ? $this->_member_modelinfo : array();
-				$this->db->set_model();
-				if(is_array($this->memberinfo)) {
-					$this->memberinfo = array_merge($this->memberinfo, $this->_member_modelinfo);
+				$member_resume = pc_base::load_model('member_resume_model');
+				$resume = $member_resume->get_one(array('member_id'=>$this->memberinfo['userid'], 'language'=>'zh'));
+				if($resume){
+					$this->memberinfo['fullname'] = $resume['surname'].$resume['firstname'];
+					$this->memberinfo['mobile_phone'] = $resume['mobile_phone'];
+					$this->memberinfo['email'] = $resume['email'];
 				}
 				
 				if($this->memberinfo && $this->memberinfo['password'] === $password) {
@@ -48,26 +46,7 @@ class foreground {
 					if (!defined('SITEID')) {
 					   define('SITEID', $this->memberinfo['siteid']);
 					}
-					
-					if($this->memberinfo['groupid'] == 1) {
-						param::set_cookie('auth', '');
-						param::set_cookie('_userid', '');
-						param::set_cookie('_username', '');
-						param::set_cookie('_groupid', '');
-						showmessage(L('userid_banned_by_administrator', '', 'member'), 'index.php?m=member&c=index&a=login');
-					} elseif($this->memberinfo['groupid'] == 7) {
-						param::set_cookie('auth', '');
-						param::set_cookie('_userid', '');
-						param::set_cookie('_groupid', '');
-						
-						//设置当前登录待验证账号COOKIE，为重发邮件所用
-						param::set_cookie('_regusername', $this->memberinfo['username']);
-						param::set_cookie('_reguserid', $this->memberinfo['userid']);
-						param::set_cookie('_reguseruid', $this->memberinfo['phpssouid']);
-						
-						param::set_cookie('email', $this->memberinfo['email']);
-						showmessage(L('need_emial_authentication', '', 'member'), 'index.php?m=member&c=index&a=register&t=2');
-					}
+
 				} else {
 					param::set_cookie('auth', '');
 					param::set_cookie('_userid', '');

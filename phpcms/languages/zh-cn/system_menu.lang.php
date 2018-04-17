@@ -464,4 +464,11 @@ $LANG['position'] = '职位管理';
 $LANG['job'] = '职位管理';
 $LANG['poster'] = '图片位';
 $LANG['extend_setting'] = '扩展配置';
+$LANG['activity'] = '活动报名';
+$LANG['employee activity'] = '员工活动';
+$LANG['party activity'] = '党员活动';
+$LANG['reimbursement manage'] = '报销管理';
+$LANG['reimbursement'] = '报销人汇总';
+$LANG['enroll'] = '应聘管理';
+$LANG['summary'] = '报销汇总';
 ?>

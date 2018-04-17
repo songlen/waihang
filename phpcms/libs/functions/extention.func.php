@@ -77,3 +77,18 @@ function is_login(){
 	pc_base::load_sys_class('param');
 	return (bool)param::get_cookie('auth');
 }
+
+function historySearch(){
+	$historySearch = array();
+	if(is_login()){
+		$userid = param::get_cookie('_userid');
+		$history_model = pc_base::load_model('search_history_model');
+
+		$siteid = get_siteid();
+		$history_keyword = $history_model->select(array('member_id'=>$userid, 'siteid'=>$siteid), 'keyword', 3, 'id desc');
+	} else {
+		$historySearch = param::get_cookie('historySearch');
+	}
+
+	return $history_keyword;
+}

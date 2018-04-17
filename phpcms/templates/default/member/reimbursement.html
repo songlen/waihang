@@ -1,0 +1,125 @@
+{template 'content', 'header'}
+
+{template 'member', 'top'}
+<!-- <script type="text/javascript" src="{JS_PATH}placeholder.js"></script> -->
+<div class="container">
+    {template 'member', 'left'}
+    <div class="page_right">
+        <div class="current_crumb">
+            <div class="crumb">个人中心 > 医疗报销</div>
+            <div class="category_title">医疗报销</div>
+        </div>
+        <div class="page_content">
+            <div class="contactinfo">
+                {get_extend_setting('reimbursement_contact')}
+
+            </div>
+            <div class="baoxiaolist">
+                <div class="tit">
+                    {$resume['surname']}{$resume['firstname']}
+                    <span>{if $resume['sex'] == '1'}男{else}女{/if}</span>
+                    <span>身份证：{$resume[ID_number]}</span>
+                    <!-- <span>医保手册：</span> -->
+                </div>
+                <table class="layui-table" width="100%">
+                    <colgroup>
+                        <col width="250">
+                        <col width="150">
+                        <col width="120">
+                        <col width="120">
+                        <col width="">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>单据号</th>
+                            <th>交易日期</th>
+                            <th>收据张数</th>
+                            <th>自付-金额</th>
+                            <th>状态</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        {if !empty($lists)}
+                        {loop $lists $r}
+                        <tr>
+                            <td>{$r[ordernum]}</td>
+                            <td>{$r[date]}</td>
+                            <td>{$r[number]}</td>
+                            <td>{$r[amount]}</td>
+                            <td>{$reimbursement_status[$r[status]]}</td>
+                        </tr>
+                        {/loop}
+                        {/if}
+                    </tbody>
+                </table>
+                <div id="pages">{$pages}</div>
+            </div>
+
+            <div class="activity_tit">报销信息</div>
+            <div class="activity_form">
+                <form class="layui-form" id="myform" action="?m=member&a=reimbursement" method="post">
+                   <!--  <div class="layui-form-item">
+                        <label class="layui-form-label">姓名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="info[fullname]" id="fullname" lay-verify="required" placeholder="请输入姓名" class="layui-input">
+                        </div>
+                    </div> -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">单据号</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="info[ordernum]" id="ordernum" lay-verify="required" placeholder="请输入单据号" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">交易日期</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="info[date]" id="date" lay-verify="required" placeholder="请输入交易日期" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">收据张数</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="info[number]" id="number" lay-verify="required|number" placeholder="请输入收据张数" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">自付-金额</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="info[amount]" id="amount" lay-verify="required" placeholder="请输入自付-金额" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">其他说明</label>
+                        <div class="layui-input-block">
+                            <textarea name="info[remark]" id="remark" placeholder="其他说明" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                        <button style="background: #d0161b;" class="layui-btn" lay-submit=""  lay-filter="submit">提交信息</button>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="dosubmit" value="1">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<script type="text/javascript">
+    layui.use(['form', 'laydate'], function(){
+        var form = layui.form
+        ,layer = layui.layer
+        ,laydate = layui.laydate;
+
+        //出生日期
+        laydate.render({
+            elem: '#date',
+        });
+        //监听提交
+        form.on('submit(submit)');
+    })
+</script>
+{template 'content', 'footer'}

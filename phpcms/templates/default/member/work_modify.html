@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="statics/default/css/member.css">
+<link rel="stylesheet" href="statics/plugin/layui/css/layui.css">
+<script type="text/javascript" src="statics/plugin/layui/layui.js"></script>
+<div class="pad_top20"></div>
+<form class="layui-form" action="?m=member&a=work_modify" method="post">
+    <div class="layui-form-item">
+        <label class="layui-form-label">单位名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="info[company_name]" value="{$work[company_name]}" placeholder="单位名称" autocomplete="off" class="layui-input" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">职位</label>
+        <div class="layui-input-inline">
+            <input type="text" name="info[position]" placeholder="职位" value="{$work[position]}" autocomplete="off" class="layui-input" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">在职时间</label>
+        <div class="layui-input-inline">
+            <input type="text" name="info[start_time]" value="{if $work[start_time]}{$work[start_time]}{/if}" id="start_time" placeholder="入职时间" autocomplete="off" class="layui-input" lay-verify="required">
+        </div>
+        <div class="layui-form-mid">-</div>
+        <div class="layui-input-inline">
+            <input type="text" name="info[end_time]" value="{if $work[start_time]}{$work[end_time]}{/if}" id="end_time" placeholder="离职时间" autocomplete="off" class="layui-input" lay-verify="required">
+        </div>
+    </div>
+    <!-- 提交按钮 -->
+    <div class="layui-form-item" style="display: none;">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="submit">保存</button>
+        </div>
+    </div>
+    <input type="hidden" name="id" value="{$id}">
+    <input type="hidden" name="info[language]" value="{$language}">
+    <input type="hidden" name="dosubmit" value="1">
+</form>
+
+<script type="text/javascript">
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form
+        ,layer = layui.layer
+        ,layedit = layui.layedit
+        ,laydate = layui.laydate;
+
+        //在校时间
+        laydate.render({
+            elem: '#start_time',
+        });
+        laydate.render({
+            elem: '#end_time',
+        });
+        //监听提交
+        form.on('submit(submit)');
+    })
+</script>

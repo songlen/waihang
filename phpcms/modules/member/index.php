@@ -19,8 +19,8 @@ class index extends foreground {
 
   		$this->member_model = pc_base::load_model('member_model');
   		$this->member_resume_model = pc_base::load_model('member_resume_model');
-
 	}
+
 	/*public function excel(){
 		// die('hao');
 		include 'spreadsheet-reader/php-excel-reader/excel_reader2.php';
@@ -125,6 +125,7 @@ class index extends foreground {
 			
 			$layui = true;
 			$siteid = SITEID;
+			$SEO = seo(SITEID);
 
 			$basicinfo = $this->member_resume_model->get_one(array('member_id'=>$memberinfo['userid'], 'language'=>$language));
 			if($language == 'zh'){
@@ -149,6 +150,7 @@ class index extends foreground {
 		
 		$layui = true;
 		$siteid = SITEID;
+		$SEO = seo(SITEID);
 
 		$education = $edu_model->select(array('member_id'=>$memberinfo['userid'], 'language'=>$language));
 
@@ -159,6 +161,7 @@ class index extends foreground {
 		}
 
 	}
+
 	// 教育增加/修改
 	public function education_modify(){
 		$memberinfo = $this->memberinfo;
@@ -201,6 +204,7 @@ class index extends foreground {
 
 			$layui = true;
 			$siteid = SITEID;
+			$SEO = seo(SITEID);
 			include template('member', 'education_modify');
 		}
 	}
@@ -211,6 +215,79 @@ class index extends foreground {
 		$edu_model = pc_base::load_model('member_education_model');
 
 		if($edu_model->delete(array('id'=>$id))){
+			success('success');
+		} else {
+			error('fail');
+		}
+	}
+
+	// 工作列表
+	public function work(){
+		$memberinfo = $this->memberinfo;
+		$work_model = pc_base::load_model('member_work_model');
+
+		// 语言
+		$language = isset($_GET['l']) && in_array($_GET['l'], array('zh', 'en')) ? $_GET['l'] : 'zh';
+		
+		$layui = true;
+		$siteid = SITEID;
+		$SEO = seo(SITEID);
+
+		$work = $work_model->select(array('member_id'=>$memberinfo['userid'], 'language'=>$language));
+
+		if($language == 'zh'){
+			include template('member', 'work');
+		} else {
+			include template('member', 'work_en');
+		}
+
+	}
+
+	// 教育增加/修改
+	public function work_modify(){
+		$memberinfo = $this->memberinfo;
+
+		// 实例化教育经历模型
+		$work_model = pc_base::load_model('member_work_model');
+		// 增加/修改
+		if($_POST['dosubmit']){
+			$info = $_POST['info'];
+
+			if($id = intval($_POST['id'])){
+				$work_model->update($info, array('id'=>$id));
+			} else {
+				$info['member_id'] = $memberinfo['userid'];
+				$work_model->insert($info);
+			}
+
+			showmessage('success', '', 1500, 'close');
+		} else {
+			// 语言
+			$language = isset($_GET['l']) && in_array($_GET['l'], array('zh', 'en')) ? $_GET['l'] : 'zh';
+
+			$work = array();
+			if(isset($_GET['id']) && $id = intval($_GET['id'])){
+				$work = $work_model->get_one(array('id'=>$id));
+				if($work){
+					$language = $work['language'];
+				} else {
+					showmessage('not exist');
+				}
+			}
+
+			$layui = true;
+			$siteid = SITEID;
+			$SEO = seo(SITEID);
+			include template('member', 'work_modify');
+		}
+	}
+
+	public function work_del(){
+		$id = intval($_GET['id']);
+
+		$work_model = pc_base::load_model('member_work_model');
+
+		if($work_model->delete(array('id'=>$id))){
 			success('success');
 		} else {
 			error('fail');
@@ -273,6 +350,7 @@ class index extends foreground {
 
 			$layui = true;
 			$siteid = SITEID;
+			$SEO = seo(SITEID);
 			include template('member', 'language_modify');
 		}
 	}
@@ -328,15 +406,6 @@ class index extends foreground {
 			$SEO = seo(SITEID);
 			include template('member', 'pic');
 		}
-
-
-
-	}
-
-	public function uploadpic(){
-		
-
-		
 	}
 
 	public function register(){
@@ -406,15 +475,16 @@ class index extends foreground {
 			if(isset($_POST['remember'])) $cookietime = time() + 7*86400;
 
 			$phpcms_auth = sys_auth($memberInfo['userid']."\t".$memberInfo['password'], 'ENCODE', get_auth_key('login'));
-			
+
 			param::set_cookie('auth', $phpcms_auth, $cookietime);
 			param::set_cookie('_userid', $memberInfo['userid'], $cookietime);
 			param::set_cookie('_username', $memberInfo['username'], $cookietime);
 			param::set_cookie('_nickname', $memberInfo['nickname'], $cookietime);
 			param::set_cookie('cookietime', $_cookietime, $cookietime);
-			success('登录成功, 正在跳转...');
+			success('登录成功, 正在跳转...', $_POST['forward']);
 		} else {
 			$SEO = seo(SITEID);
+			$forward = $_GET['forward'];
 			include template('member', 'login');
 		}
 	}
@@ -482,6 +552,7 @@ class index extends foreground {
 	}
 
 	public function changePassword(){
+		$memberinfo = $this->memberinfo;
 		if($_POST['dosubmit']){
 			$info = $_POST['info'];
 			if(trim($info['old_pwd'] == '')) error('旧密码必填');
@@ -504,7 +575,127 @@ class index extends foreground {
 
 			$layui = true;
 			$siteid = SITEID;
+			$SEO = seo(SITEID);
 			include template('member', 'change_password');
+		}
+	}
+
+	// 职位申请列表
+	public function enrolledJob(){
+		$memberinfo = $this->memberinfo;
+		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+
+		$recruit_enroll = pc_base::load_model('recruit_enroll_model');
+		$enrolled = $recruit_enroll->listinfo(array('member_id'=>$memberinfo['userid']), 'id DESC', $page, 15);
+		$page = $this->db->page;
+
+		$lists = array();
+		if(!empty($enrolled) && is_array($enrolled)){
+			$job_model = pc_base::load_model('recruit_job_model');
+			foreach ($enrolled as $v) {
+				$jobinfo = $job_model->get_one(array('id'=>$v['job_id']));
+				if(!empty($jobinfo)){
+					$lists[] = array(
+						'id' => $v['id'],
+						'job_name' => $jobinfo['job_name'],
+						'location' => $jobinfo['location'],
+						'enterprise_name' => $jobinfo['enterprise_name'],
+						'status' => $v['status'],
+					);
+				}
+			}
+		}
+
+		$siteid = SITEID;
+		$SEO = seo(SITEID);
+		include template('member', 'enrolled_job');
+	}
+
+	// 简历表格查看
+	public function personalResume(){
+
+		$id = intval($_GET['id']);
+		$recruit_enroll_model = pc_base::load_model('recruit_enroll_model');
+		$member_model = pc_base::load_model('member_model');
+		$member_resume_model = pc_base::load_model('member_resume_model');
+		$member_education_model = pc_base::load_model('member_education_model');
+		$member_work_model = pc_base::load_model('member_work_model');
+		$member_language_model = pc_base::load_model('member_language_model');
+
+		$enrollinfo = $recruit_enroll_model->get_one(array('id'=>$id));
+		
+		$memberinfo = $this->memberinfo;
+		if($enrollinfo['member_id'] != $memberinfo['userid']){
+			showmessage('非法访问');
+		}
+
+		if($enrollinfo['status'] != '2'){
+			showmessage('审核未通过');
+		}
+
+		// 获取基本信息
+		$basicinfo = $member_resume_model->get_one(array('member_id'=>$enrollinfo['member_id']));
+
+		// 头像
+		$memberinfo = $member_model->get_one(array('userid'=>$enrollinfo['member_id']), 'headimg');
+		// 教育经历
+		$educationlist = $member_education_model->select(array('member_id'=>$enrollinfo['member_id'], 'language'=>'zh'), '*', '', 'start_time desc, end_time desc');
+		// 工作经历
+		$worklist = $member_work_model->select(array('member_id'=>$enrollinfo['member_id'], 'language'=>'zh'), '*', '', 'start_time desc, end_time desc');
+		// 外语经历
+		$languagelist = $member_language_model->select(array('member_id'=>$enrollinfo['member_id'], 'language'=>'zh'), '*', '', 'id desc');
+
+		
+		$enums = pc_base::load_config('enums', 'member');
+
+		$siteid = SITEID;
+		$SEO = seo(SITEID);
+		include template('member', 'personalResume');
+	}
+
+	// 报销
+	public function reimbursement(){
+		$memberinfo = $this->memberinfo;
+		if(!$memberinfo['is_employee']){
+			showmessage('您不是员工，无权访问', HTTP_REFERER);
+		}
+
+		$reimbursement_model = pc_base::load_model('member_reimbursement_model');
+
+		if($_POST['dosubmit']){
+			$info = $_POST['info'];
+
+			if(empty($info['ordernum']) || empty($info['date']) || empty($info['number']) || empty($info['amount'])){
+				showmessage('信息填写不完整', HTTP_REFERER);
+			}
+
+			$info['member_id'] = $memberinfo['userid'];
+			// 获取用户姓名、电话、身份证
+			$resume_model = pc_base::load_model('member_resume_model');
+			$oneinfo = $resume_model->get_one(array('member_id'=>$memberinfo['userid']));
+			$info['fullname'] = $oneinfo['surname'].$oneinfo['firstname'];
+			$info['ID_number'] = $oneinfo['ID_number'];
+			$info['phone'] = $oneinfo['mobile'];
+
+			
+			if($reimbursement_model->insert($info)){
+				showmessage('申请成功', HTTP_REFERER);
+			} else {
+				showmessage('服务器错误', HTTP_REFERER);
+			}
+		} else {
+			$resume_model = pc_base::load_model('member_resume_model');
+			$resume = $resume_model->get_one(array('member_id'=>$memberinfo['userid'], 'language'=>'zh'), 'surname, firstname, sex, ID_number');
+
+			$lists = $reimbursement_model->listinfo(array('member_id'=>$memberinfo['userid']));
+			$page = $this->db->page;
+
+			$reimbursement_status = pc_base::load_config('enums', 'reimbursement_status_admin');
+
+			$layui = true;
+			$siteid = SITEID;
+			$SEO = seo(SITEID);
+			include template('member', 'reimbursement');
 		}
 	}
  }

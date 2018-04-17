@@ -18,7 +18,7 @@ include $this->admin_tpl('header');?>
             <th align='left' width="50"><?php echo L('modelname');?></th>
             <th align='center' width="40"><?php echo L('items');?></th>
             <th align='center' width="30"><?php echo L('vistor');?></th>
-            <th align='center' width="80"><?php echo L('domain_help');?></th>
+            <th align='center' width="80"></th>
 			<th ><?php echo L('operations_manage');?></th>
             </tr>
         </thead>

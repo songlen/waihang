@@ -100,7 +100,7 @@ class form {
 
 		// 工具栏图标
 		if($toolbars == 'basic'){
-			$toolbars = "[['fullscreen', 'source', 'undo', 'redo', 'bold']]";
+			$toolbars = "[['fullscreen', 'source', 'undo', 'redo', 'bold','justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', 'rowspacingtop', 'rowspacingbottom', 'lineheight', 'indent',]]";
 		} else if ($toolbars == 'full'){
 			$toolbars = "[[
 				'fullscreen', 'source', '|', 'undo', 'redo', '|',

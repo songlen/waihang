@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>职位申请表</title>
+	<link rel="stylesheet" type="text/css" href="/statics/default/css/resume.css">
+</head>
+<body>
+	<div class="container">
+		<div class="company_head"><img src="statics/default/images/resumelogo.png" alt=""></div>
+		<div class="headimg"><img src="{if $memberinfo['headimg']}{$memberinfo['headimg']}{else}/statics/images/nophoto.gif{/if}" width="80" height="100" alt=""></div>
+		<div class="clear"></div>
+		<div class="title">空乘职位申请表</div>
+	</div>
+	<div class="container">
+		<table class="basicinfo">
+			<tr>
+				<td colspan="6"><b>基本信息</b></td>
+			</tr>
+			<tr>
+				<td width="15%">姓名</td>
+				<td width="15%">{$basicinfo[fullname]}</td>
+				<td width="15%">性别</td>
+				<td width="15%">{$enums[sex][$basicinfo[sex]]}</td>
+				<td width="15%">户口所在地</td>
+				<td width="25%"></td>
+			</tr>
+			<tr>
+				<td width="15%">生日</td>
+				<td width="15%">{$basicinfo[birthday]}</td>
+				<td width="15%">年龄</td>
+				<td width="15%">{$basicinfo[age]}</td>
+				<td width="15%">所学专业</td>
+				<td width="25%">{$basicinfo[profession]}</td>
+			</tr>
+			<tr>
+				<td>身份证号</td>
+				<td colspan="3">{$basicinfo[ID_number]}</td>
+				<td>最高学历</td>
+				<td>{$basicinfo[education]}</td>
+			</tr>
+			<tr>
+				<td>电子邮箱</td>
+				<td colspan="3">{$basicinfo[email]}</td>
+				<td>政治面貌</td>
+				<td>{$enums[political_outlook][$basicinfo[political_outlook]]}</td>
+			</tr>
+			<tr>
+				<td>护照号</td>
+				<td colspan="3"></td>
+				<td>护照有效期</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td rowspan="3">居住地址</td>
+				<td rowspan="3" colspan="3"></td>
+				<td>矫正视力</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>身高(cm)</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>体重(kg)</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td rowspan="3">邮寄地址</td>
+				<td rowspan="3" colspan="3"></td>
+				<td>手机</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>电话</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>婚姻状况</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="6"><b>外语水平</b></td>
+			</tr>
+			<tr>
+				<td><b>语言</b></td>
+				<td colspan="3"><b>证书</b></td>
+				<td><b>等级</b></td>
+				<td><b>获得时间</b></td>
+			</tr>
+			{loop $languagelist $language}
+			<tr>
+				<td>{$language[name]}</td>
+				<td colspan="3">{$language[certification]}</td>
+				<td>{$language[level]}</td>
+				<td>{$language[gettime]}</td>
+			</tr>
+			{/loop}
+		</table>
+		<table class="noneBorderTop">
+			<tr class="noneBorderTop">
+				<td colspan="7"><b>教育背景</b></td>
+			</tr>
+			<tr>
+				<td width="40%" rowspan="2" colspan="2">学校名称</td>
+				<td width="20%" colspan="2">在校时间</td>
+				<td width="20%" rowspan="2">专业</td>
+				<td width="10%" rowspan="2">学历</td>
+				<td width="" rowspan="2">获得毕业证</td>
+			</tr>
+			<tr>
+				<td>自年月</td>
+				<td>到年月</td>
+			</tr>
+			{loop $educationlist $r}
+			<tr>
+				<td width="40%" colspan="2">{$r[school_name]}</td>
+				<td width="10%">{date('Y-m', strtotime($r[start_time]))}</td>
+				<td width="10%">{date('Y-m', strtotime($r[end_time]))}</td>
+				<td width="20%">{$r[major]}</td>
+				<td width="10%">{$enums['diploma'][$r[diploma]]}</td>
+				<td width="">{if $r[has_diploma]}是{else}否{/if}</td>
+			</tr>
+			{/loop}
+			<tr class="noneBorderTop">
+				<td colspan="7"><b>工作经历</b></td>
+			</tr>
+			<tr>
+				<td width="20%" rowspan="2">公司名称</td>
+				<td width="20%" rowspan="2">行业</td>
+				<td width="10%" colspan="2">工作时间</td>
+				<td width="10%" rowspan="2">职位</td>
+				<td width="10%" rowspan="2">薪水</td>
+				<td width="10%" rowspan="2">证明人及联系方式</td>
+			</tr>
+			<tr>
+				<td>自年月</td>
+				<td>到年月</td>
+			</tr>
+			{loop $worklist $r}
+			<tr>
+				<td width="20%">{$r[company_name]}</td>
+				<td width="20%"></td>
+				<td width="10%">{date('Y-m', strtotime($r[start_time]))}</td>
+				<td width="10%">{date('Y-m', strtotime($r[end_time]))}</td>
+				<td width="20%">{$r[position]}</td>
+				<td width="10%"></td>
+				<td width="10%"></td>
+			</tr>
+			{/loop}
+			<tr>
+				<td colspan="2">游泳能力</td>
+				<td colspan="5"></td>
+			</tr>
+			<tr>
+				<td colspan="2">身上是否有疤痕及纹身</td>
+				<td colspan="5"></td>
+			</tr>
+			<tr>
+				<td colspan="2">何时可开始工作（注明具体日期）</td>
+				<td colspan="5"></td>
+			</tr>
+			<tr>
+				<td colspan="2">存档机构</td>
+				<td colspan="5"></td>
+			</tr>
+			<tr>
+				<td colspan="7">
+					本人承诺，以上内容均真实有效。若有虚假，本人将承担一切后果。
+					<div class="qian">
+						申请人签名：<span></span>
+						填表时间：<span></span>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

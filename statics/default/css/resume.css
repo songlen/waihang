@@ -1,0 +1,17 @@
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div, input, dl, dt{margin:0;padding:0;border:0;} 
+body{background:#fff;color:#000; font-size:14px; font-family:"Microsoft Yahei","微软雅黑",arial,"\5b8b\4f53";} 
+
+ul,ol,li{list-style-type:none;} 
+input, a {outline: none;}
+
+.clear {clear: both;height: 0; font-size: 0;}
+.container{width: 800px; margin: 20px auto;}
+.company_head {float: left;}
+.headimg {float: right;}
+.title { font-size: 18px; text-align: center; font-weight: bold;}
+
+table {border:1px solid #000; width: 100%; border-spacing: 0; border-collapse: collapse; table-layout: fixed; word-break:break-all;}
+td {border:1px solid #000; padding: 5px 5px; text-align: center;}
+table.noneBorderTop, table.noneBorderTop td {border-top: none;}
+.qian{margin:20px 0; text-align: right;}
+.qian span {display: inline-block; width: 100px;}

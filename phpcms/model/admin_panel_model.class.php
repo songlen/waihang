@@ -9,4 +9,3 @@ class admin_panel_model extends model {
 		parent::__construct();
 	}
 }
-?>
