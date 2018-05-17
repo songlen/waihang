@@ -16,10 +16,11 @@ include $this->admin_tpl('header');?>
 						<td>
 							<div class="explain-col">
 									审核日期：
-									<?php echo form::date('start_time');?>
+									<?php echo form::date('start_time', $start_time);?>
 									- &nbsp;
-									<?php echo form::date('end_time');?>
+									<?php echo form::date('end_time', $end_time);?>
 									<input type="submit" name="search" class="button" value="<?php echo L('search');?>" />
+									<input type="submit" name="export" class="button" value="导出" />
 							</div>
 						</td>
 					</tr>

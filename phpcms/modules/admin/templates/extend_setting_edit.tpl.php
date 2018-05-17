@@ -28,10 +28,28 @@ include $this->admin_tpl('header','admin');
 					<td><input type="text" name="setting[hot_job]" value="<?php echo $hot_job;?>" size="50"></td>
 				</tr>
 				<tr>
+					<th width="100">引导页合作伙伴：</th>
+					<td><?php echo form::images('setting[partner]', 'partner', "$partner");?></td>
+				</tr>
+				<tr>
+					<th width="100">简历logo</th>
+					<td><?php echo form::images('setting[resume_logo]', 'resume_logo', "$resume_logo");?></td>
+				</tr>
+					<th width="100">付款二维码</th>
+					<td><?php echo form::images('setting[pay_code]', 'pay_code', "$pay_code");?></td>
+				</tr>
+				<tr>
 					<th width="100">医疗报销联系方式</th>
 					<td>
 						<textarea name="setting[reimbursement_contact]" id="reimbursement_contact"><?php echo $reimbursement_contact;?></textarea>
 						<?php echo form::ueditor('reimbursement_contact', 'basic');?>
+					</td>
+				</tr>
+				<tr>
+					<th width="100">注册协议</th>
+					<td>
+						<textarea name="setting[registration_agreement]" id="registration_agreement"><?php echo $registration_agreement;?></textarea>
+						<?php echo form::ueditor('registration_agreement', 'full');?>
 					</td>
 				</tr>
 

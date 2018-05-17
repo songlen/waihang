@@ -1,0 +1,46 @@
+{template 'content', 'header'}
+
+<div class="search-recruit-bg">
+	<div class="container">
+		<div class="recruit_form">
+			<form class="lessonSearchForm" action="" method="get">
+				<input type="hidden" name="m" value="train">
+				<input type="hidden" name="a" value="init">
+				<input type="text" name="lesson_keyword" value="{$lesson_keyword}" placeholder="搜索课程">
+				<button class="button" type="button">搜索</button>
+			</form>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="lesson">
+			<ul>
+				{loop $lists $r}
+				<li>
+					<a href="{$r[url]}" target="_blank"><img src="{$r[thumb]}" width="538" height="258" alt=""></a>
+					<div class="info">
+						<div class="tit"><a href="{$r[url]}" target="_blank">{$r[title]}</a></div>
+						<div class="des"><a href="{$r[url]}" target="_blank">{strcut($r[description], 76)}</a></div>
+						<div class="price">￥{$r[price]} <a href="{$r[url]}" target="_blank">购买</a></div>
+					</div>
+				</li>
+				{/loop}
+			</ul>
+		</div>
+		
+		<div id="pages">{$pages}</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$('.lessonSearchForm button').click(function(){
+		var form = $('.lessonSearchForm');
+		var lesson_keyword = form.find('input[name=lesson_keyword]').val();
+		if($.trim(lesson_keyword) == '') return false;
+
+		form.submit();
+	})
+</script>
+
+
+{template 'content', 'footer'}

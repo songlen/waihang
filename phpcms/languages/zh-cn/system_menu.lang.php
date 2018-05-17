@@ -471,4 +471,8 @@ $LANG['reimbursement manage'] = '报销管理';
 $LANG['reimbursement'] = '报销人汇总';
 $LANG['enroll'] = '应聘管理';
 $LANG['summary'] = '报销汇总';
+$LANG['train'] = '培训';
+$LANG['train'] = '培训';
+$LANG['train manage'] = '培训管理';
+$LANG['lesson manage'] = '课程管理';
 ?>

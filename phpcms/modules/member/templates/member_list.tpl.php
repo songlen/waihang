@@ -70,7 +70,7 @@
 		<td align="left"><?php echo format::date($v['lastdate'], 1);?></td>
 		<td align="left">
 			<a href="javascript:member_infomation(<?php echo $v['userid']?>)">查看</a> <span>|</span>
-			<a href="javascript:edit(<?php echo $v['userid']?>, '<?php echo $v['username']?>')"><?php echo L('edit')?></a>
+			<a href="javascript:edit(<?php echo $v['userid']?>)"><?php echo L('edit')?></a>
 		</td>
     </tr>
 <?php
@@ -92,9 +92,9 @@
 </div>
 <script type="text/javascript">
 <!--
-function edit(id, name) {
+function edit(id) {
 	window.top.art.dialog({id:'edit'}).close();
-	window.top.art.dialog({title:'<?php echo L('edit').L('member')?>《'+name+'》',id:'edit',iframe:'?m=member&c=member&a=edit&userid='+id,width:'700',height:'500'}, function(){var d = window.top.art.dialog({id:'edit'}).data.iframe;d.document.getElementById('dosubmit').click();return false;}, function(){window.top.art.dialog({id:'edit'}).close()});
+	window.top.art.dialog({title:'<?php echo L('edit').L('member')?>',id:'edit',iframe:'?m=member&c=member&a=edit&userid='+id,width:'700',height:'500'}, function(){var d = window.top.art.dialog({id:'edit'}).data.iframe;d.document.getElementById('dosubmit').click();return false;}, function(){window.top.art.dialog({id:'edit'}).close()});
 }
 function move() {
 	var ids='';

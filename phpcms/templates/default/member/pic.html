@@ -19,6 +19,7 @@
                             <img class="layui-upload-img" id="headimg" src="{$memberinfo['headimg']}">
                             <p id="demoText"></p>
                         </div>
+                        <div class="headpictip">提示：2寸照片大小（不能超过 100*150 像素）图片大小不能超过500像素</div>
                     </div>
                 </div>
             </fieldset>
@@ -32,6 +33,7 @@
                             <img class="layui-upload-img" id="bodyimg" src="{$memberinfo['bodyimg']}">
                             <p id="demoText"></p>
                         </div>
+                        <div class="headpictip">提示：2寸照片大小（不能超过 100*150 像素）图片大小不能超过500像素</div>
                     </div>
                 </div>
             </fieldset> 
@@ -49,17 +51,18 @@
         var uploadhead = upload.render({
             elem: '#headimgbtn'
             ,url: '?m=member&a=pic&type=head'
+            ,size: 500
             ,data: {dosubmit:1}
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
-                obj.preview(function(index, file, result){
-                    $('#headimg').attr('src', result); //图片链接（base64）
-                });
+                // obj.preview(function(index, file, result){
+                //     $('#headimg').attr('src', result); //图片链接（base64）
+                // });
             }
             ,done: function(res){
                 //如果上传失败
                 if(res.code == 400){
-                    return layer.msg('上传失败');
+                    return layer.msg(res.msg);
                 }
                 //上传成功
                 if(res.code == 200){
@@ -76,17 +79,18 @@
         var uploadhead = upload.render({
             elem: '#bodyimgbtn'
             ,url: '?m=member&a=pic&type=body'
+            ,size: 500
             ,data: {dosubmit:1}
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
-                obj.preview(function(index, file, result){
-                    $('#bodyimg').attr('src', result); //图片链接（base64）
-                });
+                // obj.preview(function(index, file, result){
+                //     $('#bodyimg').attr('src', result); //图片链接（base64）
+                // });
             }
             ,done: function(res){
                 //如果上传失败
                 if(res.code == 400){
-                    return layer.msg('上传失败');
+                    return layer.msg(res.msg);
                 }
                 //上传成功
                 if(res.code == 200){

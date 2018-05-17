@@ -46,17 +46,17 @@
 			{/pc}
 		</div>
 		<div class="menuright">
-			<div class="language">English <div class="zh"><a href="">中文</a></div></div>
+			<div class="language">中文 <!-- <div class="zh"><a href="{siteurl(2)}">English</a></div> --></div>
 			<div class="shu">|</div>
 			<div class="person">
 				<img src="statics/default/images/index_03.jpg" alt="">
 				<ul class="loginreg">
 					{if is_login()}
-					<li><a href="?m=member">个人中心</a></li>
-					<li><a href="?m=member&a=logout">退出</a></li>
+					<li><a href="index.php?m=member">个人中心</a></li>
+					<li><a href="index.php?m=member&a=logout">退出</a></li>
 					{else}
-					<li><a href="?m=member&a=login" target="_blank">登录</a></li>
-					<li style="border-top:1px solid #e5e5e5;"><a href="?m=member&a=register" target="_blank">注册</a></li>
+					<li><a href="index.php?m=member&a=login" target="_blank">登录</a></li>
+					<li style="border-top:1px solid #e5e5e5;"><a href="index.php?m=member&a=register" target="_blank">注册</a></li>
 					{/if}
 				</ul>
 			</div>
@@ -67,15 +67,15 @@
 </div>
 
 <div class="container logotop">
-	<div class="logo"><a href=""><img src="statics/default/images/logo.jpg" width="295" alt=""></a></div>
+	<div class="logo"><a href="{siteurl($siteid)}"><img src="statics/default/images/logo.png" width="300" alt=""></a></div>
 	<div class="searchbox">
 		<div class="search"><input type="text" name="keyword" value="{if $keyword}{$keyword}{/if}" placeholder="搜索关键词"><span class="sbutton"></span></div>
-		<div class="history">历史搜索：
+		<!-- <div class="history">历史搜索：
 			{php $historySearch = historySearch();}
 			{loop $historySearch $item}
 				<a href="?m=content&a=search&keyword={$item[keyword]}">{$item[keyword]}</a>
 			{/loop}
-		</div>
+		</div> -->
 	</div>
 </div>
 <script type="text/javascript">

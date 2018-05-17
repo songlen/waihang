@@ -5,13 +5,20 @@
 	<link rel="stylesheet" type="text/css" href="/statics/default/css/resume.css">
 </head>
 <body>
-	<div class="container">
-		<div class="company_head"><img src="statics/default/images/resumelogo.png" alt=""></div>
-		<div class="headimg"><img src="{if $memberinfo['headimg']}{$memberinfo['headimg']}{else}/statics/images/nophoto.gif{/if}" width="80" height="100" alt=""></div>
+	<div class="container_resume">
+		<div class="barCode">{$barcode} <br><span>No.{$enrollinfo['enroll_number']}</span></div>
+		
+		<div class="resume_logo"><img src="{get_extend_setting(resume_logo)}" alt=""></div>
+		<div class="headimg"><img src="{if $memberinfo['headimg']}{$memberinfo['headimg']}{else}/statics/images/nophoto.gif{/if}" width="80" height="105" alt=""></div>
+		<div class="company_head">
+			{if $logo}<img src="{$logo}" alt="" width="110" height="55">{/if}
+			<div class="title">空乘职位申请表</div>
+		</div>
+
 		<div class="clear"></div>
-		<div class="title">空乘职位申请表</div>
+		
 	</div>
-	<div class="container">
+	<div class="container_resume">
 		<table class="basicinfo">
 			<tr>
 				<td colspan="6"><b>基本信息</b></td>
@@ -22,7 +29,7 @@
 				<td width="15%">性别</td>
 				<td width="15%">{$enums[sex][$basicinfo[sex]]}</td>
 				<td width="15%">户口所在地</td>
-				<td width="25%"></td>
+				<td width="25%">{$basicinfo[registered_residence]}</td>
 			</tr>
 			<tr>
 				<td width="15%">生日</td>
@@ -36,7 +43,7 @@
 				<td>身份证号</td>
 				<td colspan="3">{$basicinfo[ID_number]}</td>
 				<td>最高学历</td>
-				<td>{$basicinfo[education]}</td>
+				<td>{$enums['diploma'][$basicinfo[diploma]]}</td>
 			</tr>
 			<tr>
 				<td>电子邮箱</td>
@@ -46,37 +53,37 @@
 			</tr>
 			<tr>
 				<td>护照号</td>
-				<td colspan="3"></td>
+				<td colspan="3">{$basicinfo[passport_number]}</td>
 				<td>护照有效期</td>
-				<td></td>
+				<td>{$basicinfo[passport_deadline]}</td>
 			</tr>
 			<tr>
 				<td rowspan="3">居住地址</td>
-				<td rowspan="3" colspan="3"></td>
+				<td rowspan="3" colspan="3">{$basicinfo[living_city]}</td>
 				<td>矫正视力</td>
-				<td></td>
+				<td>{$basicinfo[correct_vision]}</td>
 			</tr>
 			<tr>
 				<td>身高(cm)</td>
-				<td></td>
+				<td>{$basicinfo[height]}</td>
 			</tr>
 			<tr>
 				<td>体重(kg)</td>
-				<td></td>
+				<td>{$basicinfo[weight]}</td>
 			</tr>
 			<tr>
-				<td rowspan="3">邮寄地址</td>
-				<td rowspan="3" colspan="3"></td>
+				<td rowspan="3">通讯地址</td>
+				<td rowspan="3" colspan="3">{$basicinfo[address]}</td>
 				<td>手机</td>
-				<td></td>
+				<td>{$basicinfo[mobile_phone]}</td>
 			</tr>
 			<tr>
 				<td>电话</td>
-				<td></td>
+				<td>{$basicinfo[telphone]}</td>
 			</tr>
 			<tr>
 				<td>婚姻状况</td>
-				<td></td>
+				<td>{$enums[marital_status][$basicinfo[marital_status]]}</td>
 			</tr>
 			<tr>
 				<td colspan="6"><b>外语水平</b></td>
@@ -90,7 +97,7 @@
 			{loop $languagelist $language}
 			<tr>
 				<td>{$language[name]}</td>
-				<td colspan="3">{$language[certification]}</td>
+				<td colspan="3">{$language[certificate]}</td>
 				<td>{$language[level]}</td>
 				<td>{$language[gettime]}</td>
 			</tr>
@@ -139,29 +146,29 @@
 			{loop $worklist $r}
 			<tr>
 				<td width="20%">{$r[company_name]}</td>
-				<td width="20%"></td>
+				<td width="20%">{$r[industry]}</td>
 				<td width="10%">{date('Y-m', strtotime($r[start_time]))}</td>
 				<td width="10%">{date('Y-m', strtotime($r[end_time]))}</td>
 				<td width="20%">{$r[position]}</td>
-				<td width="10%"></td>
-				<td width="10%"></td>
+				<td width="10%">{$r[salary]}</td>
+				<td width="10%">{$r[witness]}</td>
 			</tr>
 			{/loop}
 			<tr>
 				<td colspan="2">游泳能力</td>
-				<td colspan="5"></td>
+				<td colspan="5">{$enums[swimming_ability][$basicinfo['swimming_ability']]}</td>
 			</tr>
 			<tr>
 				<td colspan="2">身上是否有疤痕及纹身</td>
-				<td colspan="5"></td>
+				<td colspan="5">{$basicinfo['scar_tattoo']}</td>
 			</tr>
 			<tr>
 				<td colspan="2">何时可开始工作（注明具体日期）</td>
-				<td colspan="5"></td>
+				<td colspan="5">{$basicinfo['start_work_date']}</td>
 			</tr>
 			<tr>
 				<td colspan="2">存档机构</td>
-				<td colspan="5"></td>
+				<td colspan="5">{$basicinfo[archiving_organization]}</td>
 			</tr>
 			<tr>
 				<td colspan="7">

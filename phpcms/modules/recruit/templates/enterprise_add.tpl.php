@@ -20,6 +20,11 @@ include $this->admin_tpl('header','admin');
 			<th width="100"><?php echo L('enterprise_name')?>：</th>
 			<td><input type="text" name="enterprise[name]" id="name" size="30" class="input-text"></td>
 		</tr>
+
+		<tr>
+			<th width="100">公司缩写：</th>
+			<td><input type="text" name="enterprise[abbreviation]" id="name" size="30" class="input-text"></td>
+		</tr>
 		
 		<tr id="logolink">
 			<th width="100"><?php echo L('enterprise_logo')?>：</th>

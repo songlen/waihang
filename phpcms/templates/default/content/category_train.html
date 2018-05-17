@@ -1,0 +1,145 @@
+{template 'content', 'header'}
+	<style type="text/css">
+		.flex-control-nav {bottom: 30px;}
+		.flex-control-nav li{display:inline-block;width:13px;height:13px;margin:0 5px;*display:inline;zoom:1;}
+		.flex-control-nav a{display:inline-block;width:13px;height:13px;line-height:40px;overflow:hidden;background:url(statics/default/images/dot.png) right 0 no-repeat;cursor:pointer;}
+
+	</style>
+<!-- <div class="search-recruit-bg">
+	<div class="container">
+		<div class="recruit_form">
+			<form class="jobSearchForm" action="" method="get">
+				<input type="hidden" name="m" value="recruit">
+				<input type="hidden" name="a" value="search">
+				<input type="text" name="recruit_keyword" placeholder="搜索职位">
+				<button class="button" type="button">搜索</button>
+			</form>
+		</div>
+		<div class="hot_recruit">热门搜索：
+			<?php
+				$hot_jobs = get_extend_setting('hot_job');
+				$hot_jobs = trim($hot_jobs, '|');
+				$hot_jobs = explode('|', $hot_jobs);
+			?>
+			{loop $hot_jobs $r}
+			<a href="?m=recruit&a=search&recruit_keyword={$r}">{$r}</a>
+			{/loop}
+		</div>
+	</div>
+</div> -->
+<div class="container">
+	<div class="jq22-container min-width-1300">
+		<div class="flexslider">
+			<ul class="slides">
+				{pc:get sql="SELECT setting FROM phpcms_poster WHERE spaceid = 14 AND disabled=0 ORDER BY listorder ASC"}
+					{loop $data $r}
+					<?php 
+						$r = json_decode($r['setting'], true);
+						$r = $r[1];
+					?>
+					<li><a href="{if $r[linkurl] != ''}{$r[linkurl]}{else}javascript:;{/if}" target="_blank"><img src="{$r[imageurl]}" alt="{$r[alt]}" title="{$r[alt]}"></a></li>
+					{/loop}
+				{/pc}
+			</ul>
+		</div>
+	</div>
+	
+	<div class="container index_title">
+		<a href="{$CATEGORYS[32][url]}" class="more"><img src="statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
+		<img src="{APP_PATH}statics/default/images/pxtitle1.png" alt="外航人">
+	</div>
+
+	<div class="container index_zhaopin train_index_box">
+		<ul>
+
+			{pc:content action="lists" catid="32" num="6" siteid="$siteid" order="listorder desc"}
+			{loop $data $r}
+			{if $n <= 2}
+			<li>
+				<div class="pic"><a href="{$r[url]}"><img src="{thumb($r[thumb], 190, 210)}" width="190" height="210" alt="{$r[title]}"></a></div>
+				<div class="infor">
+					<div class="title"><a href="{$r[url]}">{$r[title]}</a></div>
+					<div class="des">{str_cut($r[description], 260)}</div>
+					<div class="time">{date('Y-m-d', $r[inputtime])}</div>
+				</div>
+			</li>
+			{else}
+			<li class="nobg">
+				<div class="tit"><a href="{$r[url]}">{$r[title]}</a></div>
+				<div class="des">{str_cut($r[description], 260)}</div>
+				<div class="time">{date('Y-m-d', $r[inputtime])}</div>
+			</li>
+			{/if}
+			{/loop}
+			{/pc}
+	</div>
+	
+	<div class="container index_title">
+		<a href="{$CATEGORYS[33][url]}" class="more"><img src="statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
+		<img src="{APP_PATH}statics/default/images/pxtitle2.png" alt="培训介绍">
+	</div>
+
+	<div class="container index_zhaopin train_index_box">
+		<ul>
+			{pc:content action="lists" catid="33" num="6" siteid="$siteid" order="listorder desc"}
+			{loop $data $r}
+			{if $n <= 2}
+			<li>
+				<div class="pic"><a href="{$r[url]}"><img src="{thumb($r[thumb], 190, 210)}" width="190" height="210" alt="{$r[title]}"></a></div>
+				<div class="infor">
+					<div class="title"><a href="{$r[url]}">{$r[title]}</a></div>
+					<div class="des">{str_cut($r[description], 260)}</div>
+					<div class="time">{date('Y-m-d', $r[inputtime])}</div>
+				</div>
+			</li>
+			{else}
+			<li class="nobg">
+				<div class="tit"><a href="{$r[url]}">{$r[title]}</a></div>
+				<div class="des">{str_cut($r[description], 260)}</div>
+				<div class="time">{date('Y-m-d', $r[inputtime])}</div>
+			</li>
+			{/if}
+			{/loop}
+			{/pc}
+	</div>
+	
+	<div class="container index_title">
+		<a href="{$CATEGORYS[34][url]}" class="more"><img src="statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
+		<img src="{APP_PATH}statics/default/images/pxtitle3.png" alt="扩展宣传">
+	</div>
+	<div class="container indexmidmenu kuozhan">
+		<ul>
+			{pc:content action="lists" catid="34" num="4" siteid="$siteid" order="listorder desc"}
+			{loop $data $r}
+			<li><a href="{$r[url]}"><img src="{$r[thumb]}" width="275" height="190" alt=""></a></li>
+			{/loop}
+			{/pc}
+		</ul>
+	</div>
+
+
+</div>
+
+<script type="text/javascript">
+	$('.jobSearchForm button').click(function(){
+		var form = $('.jobSearchForm');
+		var recruit_keyword = form.find('input[name=recruit_keyword]').val();
+		if($.trim(recruit_keyword) == '') return false;
+
+		form.submit();
+	})
+
+	// 图片移入特效
+	$(function(){
+		$('.indexmidmenu img').hover(function(){
+			$(this).stop(false, true);
+			$(this).animate({opacity: 0.6}, 300);
+		}, function(){
+			$(this).stop(false, true);
+			$(this).animate({opacity: 1}, 300);
+		})
+	})
+</script>
+
+
+{template 'content', 'footer'}

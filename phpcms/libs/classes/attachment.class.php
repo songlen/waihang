@@ -63,6 +63,7 @@ class attachment {
 		} else {
 			$this->uploads = 1;
 			if(!$description) $description = '';
+			
 			$uploadfiles[0] = array('tmp_name' => $_FILES[$field]['tmp_name'], 'name' => $_FILES[$field]['name'], 'type' => $_FILES[$field]['type'], 'size' => $_FILES[$field]['size'], 'error' => $_FILES[$field]['error'], 'description'=>$description,'fn'=>$fn);
 		}
 

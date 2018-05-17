@@ -104,8 +104,8 @@ class attachments {
 	}
 	
 	public function crop_upload() {
-		if (isset($GLOBALS["HTTP_RAW_POST_DATA"])) {
-			$pic = $GLOBALS["HTTP_RAW_POST_DATA"];
+		// if (isset($GLOBALS["HTTP_RAW_POST_DATA"])) {
+			$pic = file_get_contents("php://input");
 			if (isset($_GET['width']) && !empty($_GET['width'])) {
 				$width = intval($_GET['width']);
 			}
@@ -150,7 +150,7 @@ class attachments {
 			}
 			echo pc_base::load_config('system', 'upload_url').$filepath.$new_file;
 			exit;
-		}
+		// }
 	}
 	
 	/**

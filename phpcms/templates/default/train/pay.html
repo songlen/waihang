@@ -1,0 +1,26 @@
+{template 'content', 'header'}
+
+<div class="search-recruit-bg">
+	<div class="container">
+		<div class="lesson_show_crumbs">培训课程 > 课程详情 > 购买课程</div>
+		<div class="lesson_baseinfo payinfo">
+			<div class="gtit">购买课程</div>
+			<div class="lsinfo">
+				
+				<div class="thumb"><img src="{$thumb}" width="540" height="260" alt=""></div>
+				<div class="info">
+					<div class="tit">{$title}</div>
+					<div class="des">{$description}</div>
+					<div class="price"><span>应付金额：</span>￥{$price}</div>
+				</div>
+			</div>
+			<div class="pay_code">
+				<img src="{get_extend_setting(pay_code)}" alt="支付二维码"> <br>
+				<span>请扫码支付</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{template 'content', 'footer'}

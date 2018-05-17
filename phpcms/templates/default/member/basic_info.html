@@ -14,21 +14,30 @@
                 <div class="tit"><div class="language"><a {if $language=='en'} href="?m=member" {else}class="current"{/if}>中文</a><a {if $language=='zh'} href="?m=member&l=en" {else}class="current"{/if}>英文</a></div>完善基本资料</div>
                 <form class="layui-form" action="?m=member" method="post">
                     <div class="layui-form-item">
-                        <label class="layui-form-label">姓（拼音）</label>
+                        <label class="layui-form-label">姓</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[surname]" value="{$basicinfo[surname]}" lay-verify="required" autocomplete="off" placeholder="姓" class="layui-input">
                         </div>
+                        <label class="layui-form-label">姓拼音</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[surname_spell]" value="{$basicinfo[surname_spell]}" lay-verify="required" autocomplete="off" placeholder="姓拼音" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">名（拼音）</label>
+                        <label class="layui-form-label">名</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[firstname]" value="{$basicinfo[firstname]}" lay-verify="required" autocomplete="off" placeholder="名" class="layui-input">
                         </div>
+                        <label class="layui-form-label">名拼音</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[firstname_spell]" value="{$basicinfo[firstname_spell]}" lay-verify="required" autocomplete="off" placeholder="名拼音" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">英文名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="info[foreign_name]" value="{$basicinfo[foreign_name]}" lay-verify="required" autocomplete="off" placeholder="英文名" class="layui-input">
                         </div>
                     </div>
 
@@ -39,16 +48,6 @@
                             <input type="radio" name="info[sex]" value="{$k}" title="{$v}" {if $n=='1' || $basicinfo[sex]==="$k"}checked{/if}>
                             {/loop}
                         </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">身份证号</label>
-                        <div class="layui-input-inline size410">
-                            <input type="text" name="info[ID_number]" value="{$basicinfo[ID_number]}" lay-verify="required|identity" autocomplete="off" placeholder="身份证号" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
                         <label class="layui-form-label">民族</label>
                         <div class="layui-input-inline">
                             <select name="info[nation]" lay-verify="required" placeholder="汉族" lay-search="">
@@ -60,9 +59,66 @@
                     </div>
 
                     <div class="layui-form-item">
+                        <label class="layui-form-label">身份证号</label>
+                        <div class="layui-input-inline size410">
+                            <input type="text" name="info[ID_number]" value="{$basicinfo[ID_number]}" lay-verify="required|identity" autocomplete="off" placeholder="身份证号" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        
+                    </div>
+
+                    <div class="layui-form-item">
                         <label class="layui-form-label">出生日期</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[birthday]" value="{$basicinfo[birthday]}" id="birthday" lay-verify="date" placeholder="出生日期" autocomplete="off" class="layui-input">
+                        </div>
+                        <label class="layui-form-label">年龄</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="info[age]" value="{$basicinfo[age]}" id="age" placeholder="年龄" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">所学专业</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="info[profession]" value="{$basicinfo[profession]}" id="profession" placeholder="所学专业" autocomplete="off" class="layui-input">
+                        </div>
+                        <label class="layui-form-label">最高学历</label>
+                        <div class="layui-input-inline">
+                            <select name="info[diploma]" lay-verify="required" placeholder="汉族" lay-search="">
+                                {loop $enums[diploma] $k $v}
+                                <option value="{$k}" {if $basicinfo[diploma]==$k}selected{/if}>{$v}</option>
+                                {/loop}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">毕业院校</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="info[graduation_university]" value="{$basicinfo[graduation_university]}" id="graduation_university" placeholder="毕业院校" autocomplete="off" class="layui-input">
+                        </div>
+                        <label class="layui-form-label">毕业日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="info[graduation_date]" value="{$basicinfo[graduation_date]}" id="graduation_date" lay-verify="date" placeholder="毕业日期" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">工作年限(年)</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="info[work_experience]" value="{$basicinfo[work_experience]}" id="work_experience" lay-verify="require|number" placeholder="工作年限(年)" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">空乘经验(年)</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="info[aviation_experience]" value="{$basicinfo[aviation_experience]}" id="aviation_experience" lay-verify="require|number" placeholder="空乘经验(年)" autocomplete="off" class="layui-input">
+                        </div>
+                        <label class="layui-form-label">航空经验(年)</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="info[flight_experience]" value="{$basicinfo[flight_experience]}" id="flight_experience" lay-verify="require|number" placeholder="航空经验(年)" autocomplete="off" class="layui-input">
                         </div>
                     </div>
 
@@ -72,17 +128,6 @@
                             {loop $enums[political_outlook] $k $v}
                             <input type="radio" name="info[political_outlook]" value="{$k}" title="{$v}" {if $n=='1' || $basicinfo[political_outlook] == $k}checked{/if}>
                             {/loop}
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">学历</label>
-                        <div class="layui-input-inline">
-                            <select name="info[diploma]" lay-verify="required" placeholder="汉族" lay-search="">
-                                {loop $enums[diploma] $k $v}
-                                <option value="{$k}" {if $basicinfo[diploma]==$k}selected{/if}>{$v}</option>
-                                {/loop}
-                            </select>
                         </div>
                     </div>
 
@@ -107,9 +152,6 @@
                         <div class="layui-input-inline">
                             <input type="text" name="info[height]" value="{$basicinfo[height]}" lay-verify="required|number" autocomplete="off" placeholder="身高" class="layui-input">
                         </div>
-                    </div>
-
-                    <div class="layui-form-item">
                         <label class="layui-form-label">体重(kg)</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[weight]" value="{$basicinfo[weight]}" lay-verify="required|number" autocomplete="off" placeholder="体重" class="layui-input">
@@ -121,26 +163,58 @@
                         <div class="layui-input-inline">
                             <input type="text" name="info[mobile_phone]" value="{$basicinfo[mobile_phone]}" lay-verify="required|phone" autocomplete="off" placeholder="手机号" class="layui-input">
                         </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">家庭电话</label>
+                        <label class="layui-form-label">电话</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="info[telphone]" value="{$basicinfo[telphone]}" lay-verify="required" autocomplete="off" placeholder="家庭电话" class="layui-input">
+                            <input type="text" name="info[telphone]" value="{$basicinfo[telphone]}" lay-verify="required" autocomplete="off" placeholder="电话" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">现居住城市</label>
-                        <div class="layui-input-inline size410">
-                            <input type="text" name="info[living_city]" value="{$basicinfo[living_city]}" lay-verify="required" autocomplete="off" placeholder="现居住城市" class="layui-input">
+                        <label class="layui-form-label">护照号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="info[passport_number]" value="{$basicinfo[passport_number]}" lay-verify="" autocomplete="off" placeholder="护照号" class="layui-input">
+                        </div>
+                        <label class="layui-form-label">护照有效期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="info[passport_deadline]" value="{$basicinfo[passport_deadline]}" id="passport_deadline" lay-verify="" placeholder="护照有效期" autocomplete="off" lay-verify="date" class="layui-input">
                         </div>
                     </div>
 
-                    <div class="layui-form-item">
+                    <div class="layui-form-item layui-form" lay-filter="living_city_id">
+                        <label class="layui-form-label">现居住地</label>
+                        <div class="layui-input-inline">
+                            <select name="info[living_province_id]" lay-verify="required" lay-filter="living_province_id" lay-search="">
+                                <option value="">请选择</option>
+                                {loop $province $v}
+                                <option value="{$v['linkageid']}" {if $basicinfo[living_province_id]==$v['linkageid']}selected{/if}>{$v['name']}</option>
+                                {/loop}
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="info[living_city_id]" lay-verify="required"" lay-filter="" lay-search="">
+                                {loop $living_city_list $v}
+                                 <option value="{$v['linkageid']}" {if $basicinfo[living_city_id]==$v['linkageid']}selected{/if}>{$v['name']}</option>
+                                {/loop}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item layui-form" lay-filter="hukou_city_id">
                         <label class="layui-form-label">户口所在地</label>
-                        <div class="layui-input-inline size410">
-                            <input type="text" name="info[registered_residence]" value="{$basicinfo[registered_residence]}" lay-verify="required" autocomplete="off" placeholder="户口所在地" class="layui-input">
+                        <div class="layui-input-inline">
+                            <select name="info[hukou_province_id]" lay-verify="required" lay-filter="hukou_province_id" lay-search="">
+                                <option value="">请选择</option>
+                                {loop $province $v}
+                                <option value="{$v['linkageid']}" {if $basicinfo[hukou_province_id]==$v['linkageid']}selected{/if}>{$v['name']}</option>
+                                {/loop}
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="info[hukou_city_id]" lay-verify="required"" lay-filter="" lay-search="">
+                                {loop $hukou_city_list $v}
+                                 <option value="{$v['linkageid']}" {if $basicinfo[hukou_city_id]==$v['linkageid']}selected{/if}>{$v['name']}</option>
+                                {/loop}
+                            </select>
                         </div>
                     </div>
 
@@ -167,8 +241,35 @@
 
                     <div class="layui-form-item">
                         <label class="layui-form-label">游泳能力</label>
+                        <div class="layui-input-inline">
+                            <select name="info[swimming_ability]" lay-verify="required" placeholder="游泳能力" lay-search="">
+                                <option value="">请选择游泳能力</option>
+                                {loop $enums[swimming_ability] $k $v}
+                                <option value="{$k}" {if $basicinfo[swimming_ability]==$k}selected{/if}>{$v}</option>
+                                {/loop}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">矫正视力</label>
                         <div class="layui-input-inline size410">
-                            <input type="text" name="info[swimming_ability]" value="{$basicinfo[swimming_ability]}" lay-verify="required" autocomplete="off" placeholder="游泳能力" class="layui-input">
+                            <input type="text" name="info[correct_vision]" value="{$basicinfo[correct_vision]}" lay-verify="required" autocomplete="off" placeholder="矫正视力" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">身上是否有疤痕及纹身</label>
+                        <div class="layui-input-inline size410">
+                             <input type="radio" name="info[scar_tattoo]" value="是" title="是">
+                             <input type="radio" name="info[scar_tattoo]" value="否" title="否" checked="checked">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">何时可开始工作</label>
+                        <div class="layui-input-inline size410">
+                            <input type="text" name="info[start_work_date]" value="{$basicinfo[start_work_date]}" id="start_work_date" lay-verify="date" placeholder="何时可开始工作" autocomplete="off" class="layui-input">
                         </div>
                     </div>
 
@@ -229,9 +330,71 @@
         //出生日期
         laydate.render({
             elem: '#birthday',
+        });        
+        //护照有效期
+        laydate.render({
+            elem: '#passport_deadline',
         });
+        // 开始工作日期
+        laydate.render({
+            elem: '#start_work_date',
+        })
+        // 毕业日期
+        laydate.render({
+            elem: '#graduation_date',
+        })
         //监听提交
         form.on('submit(submit)');
+
+        // 监听省份select 现居住地
+        form.on('select(living_province_id)', function(data){
+            var province_id = data.value;
+
+            if(province_id == '') return false;
+            $.ajax({
+                url:'index.php?m=member&a=ajaxGetCity',
+                type: 'post',
+                dataType:'json',
+                // async: false,
+                data:{province_id:province_id},
+                success:function(data){
+                    if(data.code == 200){
+                        var city = '';
+                        $(data.data).each(function(i){
+                            city += '<option value="'+this.linkageid+'">'+this.name+'</option>';
+                        })
+                        $('select[name="info[living_city_id]"').html(city);
+                        
+                        form.render('select', 'living_city_id');
+                    }
+                }
+            })
+        });
+
+        // 监听省份select 户口所在地
+        form.on('select(hukou_province_id)', function(data){
+            var province_id = data.value;
+            if(province_id == '') return false;
+
+            $.ajax({
+                url:'index.php?m=member&a=ajaxGetCity',
+                type: 'post',
+                dataType:'json',
+                // async: false,
+                data:{province_id:province_id},
+                success:function(data){
+                    if(data.code == 200){
+                        var city = '';
+                        $(data.data).each(function(i){
+                            city += '<option value="'+this.linkageid+'">'+this.name+'</option>';
+                        })
+                        $('select[name="info[hukou_city_id]"').html(city);
+                        
+                        form.render('select', 'hukou_city_id');
+                    }
+                }
+            })
+        });
     })
 </script>
 

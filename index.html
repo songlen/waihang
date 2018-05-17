@@ -2,17 +2,15 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<!-- <meta name="viewport" content="width=1200" /> -->
+	<meta name="viewport" content="width=1200" />
 	<title>北京外航服务公司</title>
 	<meta name="keywords" content="北京外航服务公司">
 	<meta name="description" content="北京外航服务公司"> 
-	<title>外航</title>
-	<link rel="stylesheet" href="http://waihang.localhost.com/statics/default/css/style.css?v=rFZSur">
-	<link rel="stylesheet" href="http://waihang.localhost.com/statics/default/css/flexslider.css">
-	<link rel="stylesheet" href="http://waihang.localhost.com/statics/js/ueditor/themes/table_default.css">
-	<script type="text/javascript" src="http://waihang.localhost.com/statics/default/js/jquery-1.11.0.min.js"></script>
-
-</head>
+	<link rel="stylesheet" href="statics/default/css/style.css?v=1XJFpE">
+	<link rel="stylesheet" href="statics/default/css/flexslider.css">
+	<link rel="stylesheet" href="statics/js/ueditor/themes/table_default.css">
+	<script type="text/javascript" src="statics/default/js/jquery-1.11.0.min.js"></script>
+		</head>
 <body>
 <div id="top">
 	<div class="container">
@@ -65,8 +63,13 @@
 											</dl>
 														</li>
 								<li>
-					<a href="http://waihang.localhost.com#">培训服务</a>
-																			</li>
+					<a href="http://waihang.localhost.com/index.php?m=content&c=index&a=lists&catid=21">培训服务</a>
+															<dl>
+												<dt><a href="http://waihang.localhost.com/index.php?m=content&c=index&a=lists&catid=32">外航人</a></dt>
+												<dt><a href="http://waihang.localhost.com/index.php?m=content&c=index&a=lists&catid=33">培训介绍</a></dt>
+												<dt><a href="http://waihang.localhost.com/index.php?m=content&c=index&a=lists&catid=34">扩展宣传</a></dt>
+											</dl>
+														</li>
 								<li>
 					<a href="http://waihang.localhost.com/index.php?m=content&c=index&a=lists&catid=30">新闻中心</a>
 															<dl>
@@ -80,11 +83,11 @@
 			<div class="language">English <div class="zh"><a href="">中文</a></div></div>
 			<div class="shu">|</div>
 			<div class="person">
-				<img src="http://waihang.localhost.com/statics/default/images/index_03.jpg" alt="">
+				<img src="statics/default/images/index_03.jpg" alt="">
 				<ul class="loginreg">
-					<li><a href="">登录</a></li>
-					<li style="border-top:1px solid #e5e5e5;"><a href="">注册</a></li>
-				</ul>
+										<li><a href="?m=member">个人中心</a></li>
+					<li><a href="?m=member&a=logout">退出</a></li>
+									</ul>
 			</div>
 		</div>
 		<div class="clear"></div>
@@ -93,12 +96,27 @@
 </div>
 
 <div class="container logotop">
-	<div class="logo"><a href=""><img src="http://waihang.localhost.com/statics/default/images/logo.jpg" width="295" alt=""></a></div>
+	<div class="logo"><a href=""><img src="statics/default/images/logo.jpg" width="295" alt=""></a></div>
 	<div class="searchbox">
-		<div class="search"><input type="text" name="keyword" placeholder="搜索关键词"><span class="sbutton"></span></div>
-		<div class="history">历史搜索：<a href="">员工培训</a></div>
+		<div class="search"><input type="text" name="keyword" value="" placeholder="搜索关键词"><span class="sbutton"></span></div>
+		<div class="history">历史搜索：
+										<a href="?m=content&a=search&keyword=外航人">外航人</a>
+							<a href="?m=content&a=search&keyword=北京外航">北京外航</a>
+							<a href="?m=content&a=search&keyword=入党">入党</a>
+					</div>
 	</div>
 </div>
+<script type="text/javascript">
+	$(function(){
+		$('.sbutton').click(function(){
+			var keyword = $('input[name=keyword]').val();
+
+			if(keyword.trim() == '') return false;
+
+			window.location="?m=content&a=search&keyword="+keyword;
+		})
+	})
+</script>
 <div class="jq22-container min-width-1300">
 	<div class="flexslider">
 		<ul class="slides">
@@ -116,18 +134,33 @@
 
 	<div class="index_news container">
 		<div class="index_news_video">
-			<video id="video" src="http://waihang.localhost.com/uploadfile/2018/0313/20180313111833293.mp4" width="550" height="370" controls preload>
+			<video id="video" src="uploadfile/2018/0404/20180404094804883.mp4" autoplay="autoplay" width="550" height="370" controls preload>
 				您的浏览器暂不支持播放该视频，请升级至最新版浏览器。
 			</video>
 		</div>
 		<div class="index_news_box">
 			<ul>
 																<li>
-					<div class="pic"><a href="http://waihang.localhost.com/index.php?m=content&c=index&a=show&catid=30&id=6"><img src="http://waihang.localhost.com/uploadfile/2018/0312/thumb_200_125_20180312044703361.png" width="200" height="125" alt=""></a></div>
+					<div class="pic"><a href="http://waihang.localhost.com/index.php?m=content&c=index&a=show&catid=30&id=20"><img src="uploadfile//ueditor/image/20180428/thumb_200_125_1524902972673361.jpg" width="200" height="125" alt=""></a></div>
 					<div class="infor">
-						<span class="title"><a href="http://waihang.localhost.com/index.php?m=content&c=index&a=show&catid=30&id=6">国务院办公厅关于2018年部分节假日安排的通知</a></span>
-						<span class="des" title="$r[description]">各省、自治区、直辖市人民政府，国务院各部委、各直属机构：经国务院批准，现...</span>
+						<span class="title"><a href="http://waihang.localhost.com/index.php?m=content&c=index&a=show&catid=30&id=20">图片浮动测试</a></span>
+						<span class="des" title="$r[description]">4月27日晚10点35分，小米科技董事长兼CEO雷军通过内部邮件的方式传...</span>
 					</div>
+				</li>
+																<li>
+					<div class="title"><a href="http://waihang.localhost.com/index.php?m=content&c=index&a=show&catid=30&id=19" target="_blank"><span class="time">[2018-04-24]</span>会五次吗</a></div>
+				</li>
+																<li>
+					<div class="title"><a href="http://waihang.localhost.com/index.php?m=content&c=index&a=show&catid=30&id=18" target="_blank"><span class="time">[2018-04-24]</span>会四次吗</a></div>
+				</li>
+																<li>
+					<div class="title"><a href="http://waihang.localhost.com/index.php?m=content&c=index&a=show&catid=30&id=17" target="_blank"><span class="time">[2018-04-24]</span>会三次吗</a></div>
+				</li>
+																<li>
+					<div class="title"><a href="http://waihang.localhost.com/index.php?m=content&c=index&a=show&catid=30&id=16" target="_blank"><span class="time">[2018-04-24]</span>会三次吗</a></div>
+				</li>
+																<li>
+					<div class="title"><a href="http://waihang.localhost.com/index.php?m=content&c=index&a=show&catid=30&id=15" target="_blank"><span class="time">[2018-04-24]</span>会两次吗</a></div>
 				</li>
 															</ul>
 		</div>
@@ -139,39 +172,23 @@
 	</div>
 	<div class="container index_zhaopin">
 		<ul>
-			<li>
-				<div class="pic"><a href=""><img src="http://waihang.localhost.com/statics/default/images/index_39.jpg" width="190" height="210" alt=""></a></div>
+									<li>
+				<div class="pic"><a target="_blank" href="index.php?m=recruit&a=show&id=4"><img src="http://waihang.localhost.com/uploadfile/2018/0315/20180315100356991.png" width="190" height="210" alt=""></a></div>
 				<div class="infor">
-					<div class="title"><a href="">是的记录圣诞节施蒂利克是的记录圣诞节施蒂利克</a></div>
-					<div class="des">睡觉了是都结束了的空间是地脚螺栓肯德基是的两款圣诞节沙德雷克</div>
-					<div class="time">2018-12-12</div>
+					<div class="title"><a target="_blank" href="index.php?m=recrurit&a=show&id=4">广告111</a></div>
+					<div class="des">一、招聘基本条件:1. 年龄在26周岁以下，未婚;2. 具有全日制大专以上毕业证书;(本次招聘欢迎2018届应届毕业生参加)3. 掌握流利英语及普通话，持大学英语四级或其它相等水平的英语测试证书，掌握流利广东话优先；4. 伸手可触及208 公分高度，并且必须通过体格检查;5. 身...</div>
+					<div class="time">2018-01-20</div>
 				</div>
 			</li>
-			<li>
-				<div class="pic"><a href=""><img src="http://waihang.localhost.com/statics/default/images/index_39.jpg" width="190" height="210" alt=""></a></div>
+						<li>
+				<div class="pic"><a target="_blank" href="index.php?m=recruit&a=show&id=3"><img src="http://waihang.localhost.com/uploadfile/2018/0315/20180315100356991.png" width="190" height="210" alt=""></a></div>
 				<div class="infor">
-					<div class="title"><a href="">是的记录圣诞节施蒂利克是的记录圣诞节施蒂利克</a></div>
-					<div class="des">睡觉了是都结束了的空间是地脚螺栓肯德基是的两款圣诞节沙德雷克</div>
-					<div class="time">2018-12-12</div>
+					<div class="title"><a target="_blank" href="index.php?m=recrurit&a=show&id=3">广告11111</a></div>
+					<div class="des">是的塑料袋肯德基</div>
+					<div class="time">2018-01-20</div>
 				</div>
 			</li>
-			<li>
-				<div class="pic"><a href=""><img src="http://waihang.localhost.com/statics/default/images/index_39.jpg" width="190" height="210" alt=""></a></div>
-				<div class="infor">
-					<div class="title"><a href="">是的记录圣诞节施蒂利克是的记录圣诞节施蒂利克</a></div>
-					<div class="des">睡觉了是都结束了的空间是地脚螺栓肯德基是的两款圣诞节沙德雷克</div>
-					<div class="time">2018-12-12</div>
-				</div>
-			</li>
-			<li>
-				<div class="pic"><a href=""><img src="http://waihang.localhost.com/statics/default/images/index_39.jpg" width="190" height="210" alt=""></a></div>
-				<div class="infor">
-					<div class="title"><a href="">是的记录圣诞节施蒂利克是的记录圣诞节施蒂利克</a></div>
-					<div class="des">睡觉了是都结束了的空间是地脚螺栓肯德基是的两款圣诞节沙德雷克</div>
-					<div class="time">2018-12-12</div>
-				</div>
-			</li>
-		</ul>
+								</ul>
 	</div>
 
 	<div class="container index_title">
@@ -328,7 +345,7 @@
 			<ul>
 				<li><span class="lable">友情链接：</span><span class="huoban"><a href="http://www.fasco.com.cn" target="_blank">北京外航服务公司</a></span></li>
 				<li><span class="lable">版权所有：</span>北京外航服务公司 京ICP备05008797号</li>
-				<li><span class="lable">联系电话：</span>010-84187577 <span class="tousu"><a href="">投诉与建议</a></span></li>
+				<li><span class="lable">联系电话：</span>010-84187577</li>
 			</ul>
 		</div>
 		<div class="foot_r">
@@ -340,6 +357,23 @@
 
 	</div>
 </div>
+
+<!-- 检测浏览器版本 低于ie8-->
+<div class="floating-black" style="display: none;">
+	<div class="close">X</div>
+    <div id="browser-fail" class="alltips">
+        <div class="alltips-box">
+            <div class="pic"></div>
+            <p>您的浏览器版本太低了，<br>赶快去升级或者更换别的浏览器吧！</p>
+        </div>
+    </div>
+
+    <div class="shadow"></div>
+</div>
+<link rel="stylesheet" type="text/css" href="/statics/checkie/checkie.css">
+<script type="text/javascript" src="/statics/checkie/checkie.js"></script>
+<!-- 检测浏览器版本 低于ie8 -->
+
 <!-- banner -->
 <script type="text/javascript" src="http://waihang.localhost.com/statics/default/js/jquery.flexslider-min.js"></script>
 <script type="text/javascript">
@@ -356,14 +390,14 @@
 	$(function(){
 		// 显示语言
 
-		$('.language').click(function(){
+		$('.language').click(function(event){
 			visible($('.zh'))
-			return false
+			event.stopPropagation();
 		})
 
-		$('.person').click(function(){
+		$('.person').click(function(event){
 			visible($('.loginreg'))
-			return false
+			event.stopPropagation();
 		})
 		$(document).click(function(){
 			unvisible($('.zh'));

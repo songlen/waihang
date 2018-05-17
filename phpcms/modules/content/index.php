@@ -25,7 +25,21 @@ class index {
 		$sitelist  = getcache('sitelist','commons');
 		$default_style = $sitelist[$siteid]['default_style'];
 		$CATEGORYS = getcache('category_content_'.$siteid,'commons');
-		include template('content','index',$default_style);
+
+
+		if($_GET['enter']=='1'){
+			setcookie('yindao', 1);
+		}
+
+		if($_COOKIE['yindao']){
+			include template('content','index',$default_style);
+		} else if($_GET['enter'] == '1') {
+			include template('content','index',$default_style);
+		} else {
+			include template('content','yindao',$default_style);
+		}
+
+		
 	}
 	//内容页
 	public function show() {
@@ -197,6 +211,18 @@ class index {
 		if(empty($next_page)) {
 			$next_page = array('title'=>L('last_page'), 'thumb'=>IMG_PATH.'nopic_small.gif', 'url'=>'javascript:alert(\''.L('last_page').'\');');
 		}
+
+
+		// 党员活动页面判断是否党员
+		$dangyuan_enroll_show = 1; // 默认显示报名表单
+		if($catid == 19){
+			$userid = $this->_userid;
+			if(!$userid) $dangyuan_enroll_show = 0;
+			$member_resume_model = pc_base::load_model('member_resume_model');
+			$resume = $member_resume_model->get_one(array('member_id'=>$userid, 'language'=>'zh'));
+			if(!$resume || $resume['political_outlook'] != '1') $dangyuan_enroll_show = 0;
+		}
+
 		include template('content',$template);
 	}
 	//列表页
@@ -334,13 +360,14 @@ class index {
 			);
 			// 写入历史记录
 			$search_history_model->insert($data);
-			// 取出历史记录
+			// 搜索结果
 			if($siteid == 1){
 				$news_model = pc_base::load_model('news_model');
-
-				$where = 'title like "%'.$keyword.'%"';
-				$lists = $news_model->listinfo($where, 'listorder desc, id desc', $page);
+			} else {
+				$news_model = pc_base::load_model('news_en_model');
 			}
+			$where = 'title like "%'.$keyword.'%"';
+			$lists = $news_model->listinfo($where, 'listorder desc, id desc', $page);
 		} else {
 			$historySearch = param::get_cookie('historySearch');
 

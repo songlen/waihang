@@ -6,25 +6,44 @@
     {template 'member', 'left'}
     <div class="page_right">
         <div class="current_crumb">
-            <div class="crumb">个人中心 >>职位应聘</div>
+            <div class="crumb">个人中心 > 职位应聘</div>
             <div class="category_title">职位应聘</div>
         </div>
         <div class="page_content">
             <div class="joblist enrolledlist">
                 {loop $lists $r}
-                <li>
+                <li class="list" style="position: relative;">
                     <div class="info">
                         <p class="tit">{$r[job_name]}</p>
                         <p><label>工作地点</label>{$r[location]}</p>
                         <p><label>公司名称</label>{$r[enterprise_name]}</p>
                     </div>
-                    <div class="btn">
-                        {if $r[status] == '1'}<span>审核中</span>{/if}
-                        {if $r[status] == '2'}<span class="pass">通过</span>
-                        <a class="resume" target="_blank" href="?m=member&a=personalResume&id={$r[id]}">简历</a>{/if}
-                        {if $r[status] == '3'}<span class="sorry">很抱歉</span> {/if}
-                    </div>
+
+                       
+                    <ul class="layui-nav">
+                         {if $r[status] == '1'}
+                         <li class="layui-nav-item layui-this"><a class="abtn" href="javascript:;">审核中</a></li>
+                        {/if}
+                        {if $r[status] == '2'}
+                        <li class="layui-nav-item layui-this pass"><a class="abtn" href="javascript:;">通过</a></li>
+                        <li class="layui-nav-item layui-this">
+                            <a class="abtn" href="javascript:;">简历</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="?m=member&a=personalResume&id={$r[id]}&language=zh" target="_blank">中文简历</a></dd>
+                                <dd><a href="?m=member&a=personalResume&id={$r[id]}&language=en" target="_blank">英文简历</a></dd>
+                            </dl>
+                        </li>
+                        {/if}
+                        {if $r[status] == '3'}
+                        <li class="layui-nav-item layui-this sorry"><a class="abtn" href="javascript:;">很抱歉</a></li>
+                        {/if}
+                    </ul>
+                    {if $r[status]=='2'}
+                    <div class="enroll_number">报名号：{$r[enroll_number]}</div>
+                    {/if}
+                    <div class="clear"></div>
                 </li>
+
                 {/loop}
             </div>
             <div id="pages">{$pages}</div>
@@ -34,18 +53,10 @@
 </div>
 
 <script type="text/javascript">
-    layui.use(['form', 'layedit', 'laydate'], function(){
-        var form = layui.form
-        ,layer = layui.layer
-        ,layedit = layui.layedit
-        ,laydate = layui.laydate;
+    layui.use(['form', 'layedit', 'laydate', 'element'], function(){
+        var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+  
 
-        //出生日期
-        laydate.render({
-            elem: '#birthday',
-        });
-        //监听提交
-        form.on('submit(submit)');
     })
 </script>
 

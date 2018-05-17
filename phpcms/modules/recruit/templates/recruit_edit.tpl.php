@@ -33,8 +33,9 @@ include $this->admin_tpl('header','admin');
 		<tr>
 			<th width="100">广告类型：</th>
 			<td>
-				<input class="type" type="radio" name="info[type]" value="1" <?php if($type == '1'){echo 'checked="checked"';}?>> 广告一类
-				<input class="type" type="radio" name="info[type]" value="2" <?php if($type == '2'){echo 'checked="checked"';}?>> 广告二类
+				<input class="type" type="radio" name="info[type]" value="1" <?php if($type == '1'){echo 'checked="checked"';}?>> 宽图广告
+				<input class="type" type="radio" name="info[type]" value="2" <?php if($type == '2'){echo 'checked="checked"';}?>> 方图广告
+				<input class="type" type="radio" name="info[type]" value="3" <?php if($type == '3'){echo 'checked="checked"';}?>> 文字广告
 			</td>
 		</tr>
 		
@@ -44,8 +45,15 @@ include $this->admin_tpl('header','admin');
 				<?php if($type == '1'){ ?>
 				<span class="tip">图片尺寸 540*270</span> 
 				<?php } else { ?>
-				<span class="tip"">图片尺寸 260*260</span> 
+				<span class="tip">图片尺寸 260*260</span> 
 				<?php } ?>
+			</td>
+		</tr>
+		
+		<tr>
+			<th width="100">首页缩略图：</th>
+			<td> <?php echo form::images('info[index_thumb]', 'index_thumb', $index_thumb, 'recruit')?><br>
+				<span class="tip">图片尺寸 190*210</span> 
 			</td>
 		</tr>
 
@@ -77,6 +85,13 @@ include $this->admin_tpl('header','admin');
 			<td>
 				<input type="radio" name="info[status]" value="1"  <?php if($status == '1'){echo 'checked="checked"';}?>> 正常
 				<input type="radio" name="info[status]" value="0"  <?php if($status == '0'){echo 'checked="checked"';}?>> 关闭
+			</td>
+		</tr>
+		<tr>
+			<th width="100">广告分类：</th>
+			<td>
+				<input type="radio" name="info[category]" value="1"  <?php if($category == '1'){echo 'checked="checked"';}?>> 空乘类
+				<input type="radio" name="info[category]" value="2"  <?php if($category == '2'){echo 'checked="checked"';}?>> 非空乘类
 			</td>
 		</tr>
 		<tr>

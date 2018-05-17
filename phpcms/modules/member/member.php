@@ -118,38 +118,24 @@ class member extends admin {
 		header("Cache-control: private");
 		if(isset($_POST['dosubmit'])) {
 			$info = array();
-			if(!$this->_checkname($_POST['info']['username'])){
-				showmessage(L('member_exist'));
-			}
-			$info = $this->_checkuserinfo($_POST['info']);
+			// if(!$this->_checkname($_POST['info']['username'])){
+			// 	showmessage(L('member_exist'));
+			// }
+			// $info = $this->_checkuserinfo($_POST['info']);
+			$info = $_POST['info'];
 			if(!$this->_checkpasswd($info['password'])){
 				showmessage(L('password_format_incorrect'));
 			}
+
+			unset($info['pwdconfirm']);			
 			$info['regip'] = ip();
-			$info['overduedate'] = strtotime($info['overduedate']);
-
-			$status = $this->client->ps_member_register($info['username'], $info['password'], $info['email'], $info['regip']);
-
-			if($status > 0) {
-				unset($info[pwdconfirm]);
-				$info['phpssouid'] = $status;
-				//取phpsso密码随机数
-				$memberinfo = $this->client->ps_get_member_info($status);
-				$memberinfo = unserialize($memberinfo);
-				$info['encrypt'] = $memberinfo['random'];
-				$info['password'] = password($info['password'], $info['encrypt']);
-				$info['regdate'] = $info['lastdate'] = SYS_TIME;
-				
-				$this->db->insert($info);
-				if($this->db->insert_id()){
-					showmessage(L('operation_success'),'?m=member&c=member&a=add', '', 'add');
-				}
-			} elseif($status == -4) {
-				showmessage(L('username_deny'), HTTP_REFERER);
-			} elseif($status == -5) {
-				showmessage(L('email_deny'), HTTP_REFERER);
-			} else {
-				showmessage(L('operation_failure'), HTTP_REFERER);
+			$info['encrypt'] = create_randomstr(6);
+			$info['password'] = password($info['password'], $info['encrypt']);
+			$info['regdate'] = $info['lastdate'] = SYS_TIME;
+			
+			$this->db->insert($info);
+			if($this->db->insert_id()){
+				showmessage(L('operation_success'),'?m=member&c=member&a=add', '', 'add');
 			}
 		} else {
 			$show_header = $show_scroll = true;
@@ -177,82 +163,46 @@ class member extends admin {
 	 */
 	function edit() {
 		if(isset($_POST['dosubmit'])) {
-			$memberinfo = $info = array();
-			$basicinfo['userid'] = $_POST['info']['userid'];
-			$basicinfo['username'] = $_POST['info']['username'];
-			$basicinfo['nickname'] = $_POST['info']['nickname'];
-			$basicinfo['email'] = $_POST['info']['email'];
-			$basicinfo['point'] = $_POST['info']['point'];
-			$basicinfo['password'] = $_POST['info']['password'];
-			$basicinfo['groupid'] = $_POST['info']['groupid'];
-			$basicinfo['modelid'] = $_POST['info']['modelid'];
-			$basicinfo['vip'] = $_POST['info']['vip'];
-			$basicinfo['mobile'] = $_POST['info']['mobile'];
-			$basicinfo['overduedate'] = strtotime($_POST['info']['overduedate']);
 
-			//会员基本信息
-			$info = $this->_checkuserinfo($basicinfo, 1);
-
-			//会员模型信息
-			$modelinfo = array_diff_key($_POST['info'], $info);
-			//过滤vip过期时间
-			unset($modelinfo['overduedate']);
-			unset($modelinfo['pwdconfirm']);
-
+			$info = $_POST['info'];
 			$userid = $info['userid'];
 			
-			//如果是超级管理员角色，显示所有用户，否则显示当前站点用户
-			if($_SESSION['roleid'] == 1) {
-				$where = array('userid'=>$userid);
+			unset($info['userid']);
+			
+			//如果密码不为空，修改用户密码。
+			if($info['password'] && $info['pwdconfirm']) {
+				if($info['password'] != $info['pwdconfirm']){
+					showmessage('两次密码不一致');
+				}
+				$encrypt = create_randomstr(6);
+				$info['encrypt'] = $encrypt;
+				$info['password'] = password($info['password'], $encrypt);
+				unset($info['pwdconfirm']);
 			} else {
-				$siteid = get_siteid();
-				$where = array('userid'=>$userid, 'siteid'=>$siteid);
+				unset($info['password']);
+				unset($info['pwdconfirm']);
+			}
+
+			$this->db->update($info, array('userid'=>$userid));
+			// 政治面貌
+			$political_outlook = $_POST['political_outlook'];
+			if($political_outlook){
+				$member_resume_model = pc_base::load_model('member_resume_model');
+				$count = $member_resume_model->count(array('member_id'=>$userid, 'language'=>'zh'));
+				if($count){
+					$member_resume_model->update(array('political_outlook'=>$political_outlook), array('member_id'=>$userid));
+				} else {
+					$resume = array(
+						'member_id'=>$userid,
+						'political_outlook' => $political_outlook,
+						'language'=>'zh',
+					);
+					$member_resume_model->insert($resume);
+				}
 			}
 			
-		
-			$userinfo = $this->db->get_one($where);
-			if(empty($userinfo)) {
-				showmessage(L('user_not_exist').L('or').L('no_permission'), HTTP_REFERER);
-			}
-
-			//删除用户头像
-			if(!empty($_POST['delavatar'])) {
-				$this->client->ps_deleteavatar($userinfo['phpssouid']);
-			}
-
-			$status = $this->client->ps_member_edit($info['username'], $info['email'], '', $info['password'], $userinfo['phpssouid'], $userinfo['encrypt']);
-  			if($status >= 0) { 
-				unset($info['userid']);
-				unset($info['username']);
-				
-				//如果密码不为空，修改用户密码。
-				if(isset($info['password']) && !empty($info['password'])) {
-					$info['password'] = password($info['password'], $userinfo['encrypt']);
-				} else {
-					unset($info['password']);
-				}
-
-				$this->db->update($info, array('userid'=>$userid));
-				
-				require_once CACHE_MODEL_PATH.'member_input.class.php';
-		        require_once CACHE_MODEL_PATH.'member_update.class.php';
-				$member_input = new member_input($basicinfo['modelid']);
-				$modelinfo = $member_input->get($modelinfo);
-
-				//更新模型表，方法更新了$this->table
-				$this->db->set_model($info['modelid']);
-				$userinfo = $this->db->get_one(array('userid'=>$userid));
-				if($userinfo) {
-					$this->db->update($modelinfo, array('userid'=>$userid));
-				} else {
-					$modelinfo['userid'] = $userid;
-					$this->db->insert($modelinfo);
-				}
-				
-				showmessage(L('operation_success'), '?m=member&c=member&a=manage', '', 'edit');
-			} else {
-				showmessage(L('operation_failure'), HTTP_REFERER);
-			}
+			showmessage(L('operation_success'), '?m=member&c=member&a=manage', '', 'edit');
+			
 		} else {
 			$show_header = $show_scroll = true;
 			$siteid = get_siteid();
@@ -313,6 +263,9 @@ class member extends admin {
 					}
 				}
 			}
+
+			$enums_member = pc_base::load_config('enums', 'member');
+
 			$show_dialog = 1;
 			include $this->admin_tpl('member_edit');		
 		}
@@ -448,6 +401,23 @@ class member extends admin {
 			showmessage(L('user').L('not_exists'), HTTP_REFERER);
 		}
 
+		$member_resume_model = pc_base::load_model('member_resume_model');
+		$member_education_model = pc_base::load_model('member_education_model');
+		$member_work_model = pc_base::load_model('member_work_model');
+		$member_language_model = pc_base::load_model('member_language_model');
+
+		// 获取基本信息
+		$basicinfo = $member_resume_model->get_one(array('member_id'=>$userid, 'language'=>'zh'));
+
+		// 教育经历
+		$educationlist = $member_education_model->select(array('member_id'=>$userid, 'language'=>'zh'), '*', '', 'start_time desc, end_time desc');
+		// 工作经历
+		$worklist = $member_work_model->select(array('member_id'=>$userid, 'language'=>'zh'), '*', '', 'start_time desc, end_time desc');
+		// 外语经历
+		$languagelist = $member_language_model->select(array('member_id'=>$userid, 'language'=>'zh'), '*', '', 'id desc');
+
+		
+		$enums = pc_base::load_config('enums');
 
 
 		include $this->admin_tpl('member_moreinfo');

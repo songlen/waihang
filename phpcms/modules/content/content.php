@@ -93,7 +93,7 @@ class content extends admin {
 				$where .= " AND `posids` = '$posids'";
 			}
 			
-			$datas = $this->db->listinfo($where,'id desc',$_GET['page']);
+			$datas = $this->db->listinfo($where,'listorder desc, id desc',$_GET['page']);
 			$pages = $this->db->pages;
 			$pc_hash = $_SESSION['pc_hash'];
 			for($i=1;$i<=$workflow_steps;$i++) {
@@ -136,6 +136,14 @@ class content extends admin {
 				} else {
 					$_POST['info']['status'] = 99;
 				}
+				// 检测标题
+				$title = $_POST['info']['title'];
+				if(CHARSET=='gbk') $title = iconv('utf-8','gbk',$title);
+				$r = $this->db->get_one(array('title'=>$title));
+				if($r){
+					showmessage('数据重复', 'close');
+				}
+
 				$this->db->add_content($_POST['info']);
 				if(isset($_POST['dosubmit'])) {
 					showmessage(L('add_success').L('2s_close'),'blank','','','function set_time() {$("#secondid").html(1);}setTimeout("set_time()", 500);setTimeout("window.close()", 1200);');

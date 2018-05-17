@@ -20,7 +20,9 @@ include $this->admin_tpl('header','admin');
 			<th width="100">所属公司：</th>
 			<td>
 				<input type="hidden" name="info[enterprise_id]" id="enterprise_id" size="30" value="<?php echo $enterprise_id;?>">
-				<input type="text" name="info[enterprise_name]" id="enterprise_name" readonly="readonly" size="30" class="input-text" value="<?php echo $enterprise_name;?>">
+				<input type="hidden" name="info[enterprise_name]" id="enterprise_name" size="30" value="<?php echo $enterprise_name;?>">
+				<?php echo $enterprise_name;?>
+				<!-- <input type="text" name="info[enterprise_name]" id="enterprise_name" readonly="readonly" size="30" class="input-text" value="<?php echo $enterprise_name;?>"> -->
 			</td>
 		</tr>
 
@@ -55,6 +57,11 @@ include $this->admin_tpl('header','admin');
 		<tr>
 			<th width="100">工作地点：</th>
 			<td><input type="text" name="info[location]" id="location" size="30" class="input-text" value="<?php echo $location;?>"></td>
+		</tr>
+		
+		<tr>
+			<th width="100">面试地点：</th>
+			<td><input type="text" name="info[interview_place]" id="interview_place" size="30" class="input-text" value="<?php echo $interview_place;?>"></td>
 		</tr>
 
 		<tr>

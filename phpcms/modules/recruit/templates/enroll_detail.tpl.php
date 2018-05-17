@@ -1,7 +1,14 @@
 <?php defined('IN_ADMIN') or exit('No permission resources.');?>
 <?php include $this->admin_tpl('header', 'admin');?>
-
+<style type="text/css">
+	.zh_en {padding: 20px 0;}
+	.zh_en a {border: 1px solid #eee; padding: 5px; background: #eee;}
+</style>
 <div class="pad-lr-10">
+	<div class="zh_en">
+		<a href="?m=recruit&c=enroll&a=detail&id=<?php echo $id;?>&language=en">英文简历</a>
+		<a target="_blank" href="?m=recruit&c=enroll&a=detail&id=<?php echo $id;?>&resume=1">预览简历</a>
+	</div>
 <div class="table-list">
 <div class="common-form">
 	<fieldset>
@@ -32,6 +39,30 @@
 				<td><?php echo $basicinfo['birthday'];?></td>
 			</tr>
 			<tr>
+				<td>年龄</td>
+				<td><?php echo $basicinfo['age'];?></td>
+			</tr>
+			<tr>
+				<td>所学专业</td>
+				<td><?php echo $basicinfo['profession'];?></td>
+			</tr>
+			<tr>
+				<td>最高学历</td>
+				<td><?php echo $enums['member']['diploma'][$basicinfo['diploma']];?></td>
+			</tr>
+			<tr>
+				<td>毕业院校</td>
+				<td><?php echo $basicinfo['graduation_university'];?></td>
+			</tr>
+			<tr>
+				<td>毕业日期</td>
+				<td><?php echo $basicinfo['graduation_date'];?></td>
+			</tr>
+			<tr>
+				<td>工作年限</td>
+				<td><?php echo $basicinfo['work_experience'];?> 年</td>
+			</tr>
+			<tr>
 				<td>政治面貌</td>
 				<td><?php echo $enums['member']['political_outlook'][$basicinfo['political_outlook']];?></td>
 			</tr>
@@ -52,11 +83,19 @@
 				<td><?php echo $basicinfo['mobile_phone'];?></td>
 			</tr>
 			<tr>
-				<td>家庭电话</td>
+				<td>电话</td>
 				<td><?php echo $basicinfo['telphone'];?></td>
 			</tr>
 			<tr>
-				<td>现居住城市</td>
+				<td>护照</td>
+				<td><?php echo $basicinfo['passport_number'];?></td>
+			</tr>
+			<tr>
+				<td>护照有效期</td>
+				<td><?php echo $basicinfo['passport_deadline'];?></td>
+			</tr>
+			<tr>
+				<td>现居住地址</td>
 				<td><?php echo $basicinfo['living_city'];?></td>
 			</tr>
 			<tr>
@@ -78,6 +117,18 @@
 			<tr>
 				<td>游泳能力</td>
 				<td><?php echo $basicinfo['swimming_ability'];?></td>
+			</tr>
+			<tr>
+				<td>矫正视力</td>
+				<td><?php echo $basicinfo['correct_vision'];?></td>
+			</tr>
+			<tr>
+				<td>身上是否有疤痕及纹身</td>
+				<td><?php echo $basicinfo['scar_tattoo'];?></td>
+			</tr>
+			<tr>
+				<td>何时可开始工作</td>
+				<td><?php echo $basicinfo['start_work_date'];?></td>
 			</tr>
 			
 		</table>
@@ -127,6 +178,8 @@
 					<th align="center">职位</th>	
 					<th align="center">入职时间</th>	
 					<th align="center">离职时间</th>
+					<th align="center">薪水</th>
+					<th align="center">证明人及联系方式</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -136,6 +189,8 @@
 					<td align="center"><?php echo $work['position'] ?></td>
 					<td align="center"><?php echo $work['start_time'] ?></td>
 					<td align="center"><?php echo $work['end_time'] ?></td>
+					<td align="center"><?php echo $work['salary'] ?></td>
+					<td align="center"><?php echo $work['witness'] ?></td>
 				</tr>
 				<?php }?>
 			</tbody>

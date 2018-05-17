@@ -16,7 +16,7 @@ button#layui_btn.disabled {background: #999;}
 .basicinfo .tit a {margin-left: 20px; font-size: 18px;}
 .basicinfo .tit a.current{color: #d0161b}
 
-
+.layui-form-label {width: 100px;}
 .layui-form-en .layui-form-label {width: 120px;}
 .layui-table th {padding-left: 5px; padding-right: 5px;}
 .layui-table td {padding: 5px}
@@ -24,9 +24,20 @@ button#layui_btn.disabled {background: #999;}
 
 .pad_top20 {padding-top: 20px;}
 
-.enrolledlist li .info p { color: #999; line-height: 40px; font-size: 18px;}
-.enrolledlist li .info p label {display: inline-block; width: 100px;}
-.enrolledlist li .info .tit { font-size: 20px; color: #000; padding-bottom: 10px; }
+.enrolledlist li.list {overflow: visible;}
+.enrolledlist li.list .info p { color: #999; line-height: 40px; font-size: 18px;}
+.enrolledlist li.list .info p label {display: inline-block; width: 100px;}
+.enrolledlist li.list .info .tit { font-size: 20px; color: #000; padding-bottom: 10px; }
+.enrolledlist .layui-nav { position: absolute;  top:40px; right: 0; background-color: #FFF; z-index: 1000; }
+.enrolledlist .layui-nav .layui-this:after{ background-color: #FFF; display: none; }
+.enrolledlist .layui-nav-bar {display: none;}
+.enrolledlist .layui-nav .layui-nav-item a.abtn{ display: inline-block; width: 60px; height: 40px; line-height: 40px; background: #d0161b; text-align: center; border-radius: 3px; font-size: 16px; color: #FFF; behavior:url('PIE.htc');}
+.enrolledlist .layui-nav li {margin-right: 10px;}
+.enrolledlist .layui-nav .layui-nav-item.sorry a.abtn{background: #e8924d;}
+.enrolledlist .layui-nav .layui-nav-item.pass a.abtn{background: #5e71a4;}
+/*.enrolledlist .layui-val .layui-nav-child { position: relative; z-index: 10000; }*/
 
 .baoxiaolist {background: #eee; padding: 30px; margin-top: 50px;}
 .baoxiaolist .tit span {margin-left: 20px;}
+
+.headpictip {font-size: 12px; color: #666;}

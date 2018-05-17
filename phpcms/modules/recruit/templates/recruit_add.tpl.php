@@ -33,8 +33,9 @@ include $this->admin_tpl('header','admin');
 		<tr>
 			<th width="100">广告类型：</th>
 			<td>
-				<input class="type" type="radio" name="info[type]" value="1"> 广告一类
-				<input class="type" type="radio" name="info[type]" value="2" checked="checked"> 广告二类
+				<input class="type" type="radio" name="info[type]" value="1"> 宽图广告
+				<input class="type" type="radio" name="info[type]" value="2" checked="checked"> 方图广告
+				<input class="type" type="radio" name="info[type]" value="3" checked="checked"> 文字广告
 			</td>
 		</tr>
 		
@@ -42,7 +43,14 @@ include $this->admin_tpl('header','admin');
 			<th width="100">缩略图：</th>
 			<td> <?php echo form::images('info[image]', 'image', '', 'recruit')?><br>
 				<span class="tip" style="display: none;">图片尺寸 540*270</span> 
-				<span class="tip"">图片尺寸 260*260</span> 
+				<span class="tip">图片尺寸 260*260</span> 
+			</td>
+		</tr>
+		
+		<tr>
+			<th width="100">首页缩略图：</th>
+			<td> <?php echo form::images('info[index_thumb]', 'index_thumb', '', 'recruit')?><br>
+				<span class="tip">图片尺寸 190*210</span> 
 			</td>
 		</tr>
 
@@ -69,6 +77,13 @@ include $this->admin_tpl('header','admin');
 			<td>
 				<input type="radio" name="info[status]" value="1" checked="checked"> 正常
 				<input type="radio" name="info[status]" value="0"> 关闭
+			</td>
+		</tr>
+		<tr>
+			<th width="100">广告分类：</th>
+			<td>
+				<input type="radio" name="info[category]" value="1" checked="checked"> 空乘类
+				<input type="radio" name="info[category]" value="2"> 非空乘类
 			</td>
 		</tr>
 		<tr>

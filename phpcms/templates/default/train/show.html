@@ -1,0 +1,49 @@
+{template 'content', 'header'}
+
+<div class="search-recruit-bg">
+	<div class="container">
+		<div class="lesson_show_crumbs">培训课程 > 课程详情</div>
+		<div class="lesson_baseinfo">
+			<div class="video"><img src="{$video}" width="590" height="430" alt=""></div>
+			<div class="info">
+				<div class="tit">{$title}</div>
+				<div class="des">{$description}</div>
+				<div class="price">￥{$price}</div>
+				<a href="javascript:;" class="gobuy" interview="{$is_interview}">购买</a>
+			</div>
+		</div>
+		<div class="lesson_content">
+			<div class="tit"><span>课程介绍</span></div>
+			<div class="content">{$content}</div>
+		</div>
+	</div>
+</div>
+<link rel="stylesheet" type="text/css" href="statics/plugin/layui/css/layui.css">
+<script type="text/javascript" src="statics/plugin/layui/layui.js"></script>
+
+<script type="text/javascript">
+	$(function(){
+		$('.gobuy').click(function(){
+			var interview = $(this).attr('interview');
+			var text = '';
+
+			if(interview == '1'){
+				text = '请确定您已经通过面试';
+			} else {
+				text = '您确定购买该课程吗？';
+			}
+
+			layui.use(['layer'], function(){
+				layer.confirm(text, {
+						btn: ['确定','取消'],
+					}, function(){
+						window.location="index.php?m=train&a=buy&id={$id}";
+					}
+				);
+			})
+		})
+	})
+</script>
+
+
+{template 'content', 'footer'}

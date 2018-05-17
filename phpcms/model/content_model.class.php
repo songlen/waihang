@@ -72,7 +72,7 @@ class content_model extends model {
 		if(isset($_POST['add_introduce']) && $systeminfo['description'] == '' && isset($modelinfo['content'])) {
 			$content = stripslashes($modelinfo['content']);
 			$introcude_length = intval($_POST['introcude_length']);
-			$systeminfo['description'] = str_cut(str_replace(array("'","\r\n","\t",'[page]','[/page]','&ldquo;','&rdquo;','&nbsp;'), '', strip_tags($content)),$introcude_length);
+			$systeminfo['description'] = str_cut(str_replace(array("'","\r\n","\t",'[page]','[/page]','&nbsp;'), '', strip_tags($content)),$introcude_length);
 			$inputinfo['system']['description'] = $systeminfo['description'] = addslashes($systeminfo['description']);
 		}
 		//自动提取缩略图

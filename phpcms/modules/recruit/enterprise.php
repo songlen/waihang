@@ -18,7 +18,7 @@ class enterprise extends admin {
 		$where = 'is_delete = 0';
 		if(isset($_GET['keyword']) && $_GET['keyword'] != ''){
 			$keyword = new_addslashes($_GET['keyword']);
-			$where = " and name like '%{$keyword}%'";
+			$where .= " and name like '%{$keyword}%'";
 		}
 		$page = isset($_GET['page']) && intval($_GET['page']) ? intval($_GET['page']) : 1;
 		$infos = $this->db->listinfo($where, $order = 'listorder desc, id desc', $page, 20);

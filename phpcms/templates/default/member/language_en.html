@@ -6,13 +6,13 @@
     {template 'member', 'left'}
     <div class="page_right">
         <div class="current_crumb">
-            <div class="crumb">个人中心 > 外语经历</div>
-            <div class="category_title">外语经历</div>
+            <div class="crumb">User Center > Language Skill</div>
+            <div class="category_title">Language Skill</div>
         </div>
         <div class="page_content">
             <div class="basicinfo">
                 <div class="tit"><div class="language"><a {if $language=='en'} href="?m=member&a=language" {else}class="current"{/if}>中文</a><a {if $language=='zh'} href="?m=member&a=language&l=en" {else}class="current"{/if}>英文</a></div>
-                    <button class="layui-btn layui-btn-normal" onclick="add()">添加</button></div>
+                    <button class="layui-btn layui-btn-normal" onclick="add()">Add</button></div>
                 <table class="layui-table">
                     <colgroup>
                         <col width="200">
@@ -23,11 +23,11 @@
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>语言</th>
-                            <th>证书</th>
-                            <th>等级</th>
-                            <th>获得时间</th>
-                            <th>操作</th>
+                            <th>Language</th>
+                            <th>Certificate</th>
+                            <th>Level</th>
+                            <th>Date of Issue</th>
+                            <th>Operator</th>
                         </tr> 
                     </thead>
                     <tbody>
@@ -39,8 +39,8 @@
                             <td>{$r[level]}</td>
                             <td>{date('Y-m', strtotime($r[gettime]))}</td>
                             <td>
-                                <a href="javascript:;" onclick="edit({$r[id]})">修改</a>
-                                <a href="javascript:;" onclick="del({$r[id]}, this)">删除</a>
+                                <a href="javascript:;" onclick="edit({$r[id]})">Edit</a>
+                                <a href="javascript:;" onclick="del({$r[id]}, this)">Delete</a>
                             </td>
                         </tr>
                         {/loop}
@@ -59,11 +59,11 @@
 
         layer.open({
             id:'add',
-            title: '添加',
+            title: 'Add',
             type: 2,
             area: ['500px', '500px'],
             content: '?m=member&a=language_modify&l={$language}',
-            btn: '确定',
+            btn: 'Save',
             yes: function(index, layero){
                 var btn_submit = layer.getChildFrame('.layui-btn', index);
                 btn_submit.click();
@@ -73,11 +73,11 @@
     function edit(id) {
         layer.open({
             id:'edit',
-            title: '修改',
+            title: 'Edit',
             type: 2,
             area: ['500px', '500px'],
             content: '?m=member&a=language_modify&id='+id,
-            btn: '确定',
+            btn: 'Save',
             yes: function(index, layero){
                 var btn_submit = layer.getChildFrame('.layui-btn', index);
                 btn_submit.click();
@@ -87,7 +87,7 @@
 
     function del(id, obj){
         debugger
-        if(!confirm('确定删除吗')){
+        if(!confirm('Confirm Delete ?')){
             return false;
         }
         $.ajax({
@@ -102,7 +102,7 @@
                 }
             },
             error: function(){
-                layer.msg('服务器错误');
+                layer.msg('Server Error');
             }
         })
     }

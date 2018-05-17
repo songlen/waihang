@@ -7,13 +7,13 @@
 
 		<ul>
 			{loop $jobs $r}
-			<li>
+			<li class="list">
 				<div class="info">
 					<p class="tit">{$r[job_name]}</p>
 					<p><label>工作地点</label>{$r[location]}</p>
 					<p><label>公司名称</label>{$r[enterprise_name]}</p>
 				</div>
-				<div class="btn"><a href="?m=recruit&a=enroll&job_id={$r[id]}">应聘职位</a></div>
+				<div class="btn"><a class="yingpin" href="?m=recruit&a=enroll&job_id={$r[id]}">应聘职位</a></div>
 			</li>
 			{/loop}
 		</ul>

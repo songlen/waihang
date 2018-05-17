@@ -56,6 +56,13 @@ if(isset($show_dialog)) {
 	}
 <?php } ?>
 </script>
+
+<?php if($layui) { ?>
+<link rel="stylesheet" href="statics/plugin/layui/css/layui.css">
+<link rel="stylesheet" href="statics/plugin/layui/css/modules/layer/default/layer.css">
+<script type="text/javascript" src="statics/plugin/layui/lay/modules/layer.js"></script>
+<script type="text/javascript" src="statics/plugin/layui/layui.js"></script>
+<?php } ?>
 </head>
 <body>
 <?php if(!isset($show_header)) { ?>

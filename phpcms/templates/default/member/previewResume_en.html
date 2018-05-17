@@ -1,0 +1,182 @@
+{template 'content', 'header'}
+<link rel="stylesheet" type="text/css" href="/statics/default/css/resume.css">
+{template 'member', 'top'}
+<div class="container">
+    {template 'member', 'left'}
+	<div class="page_right">
+		<div class="current_crumb">
+            <div class="crumb">User Center > Personal Resume</div>
+            <div class="category_title">Personal Resume</div>
+        </div>
+        <div class="page_content" style="position: relative;">
+            <div class="basicinfo">
+                <div class="tit">
+                	<div class="language"><a {if $language=='en'} href="?m=member&a=previewResume" {else}class="current"{/if}>中文</a><a {if $language=='zh'} href="?m=member&a=previewResume&l=en" {else}class="current"{/if}>英文</a></div>
+                </div>
+			
+				<div class="headimg"><img src="{if $memberinfo['headimg']}{$memberinfo['headimg']}{else}/statics/images/nophoto.gif{/if}" width="80" height="105" alt=""></div>
+				<div class="company_head">
+					<div class="title">Personal Resume</div>
+				</div>
+				<div class="clear"></div>
+
+				<table class="basicinfo">
+					<tr>
+						<td colspan="6"><b>Basic Information</b></td>
+					</tr>
+					<tr>
+						<td width="15%">Fullname</td>
+						<td width="15%">{$basicinfo[fullname]}</td>
+						<td width="15%">Gender</td>
+						<td width="15%">{$enums[sex][$basicinfo[sex]]}</td>
+						<td width="15%">Hukou</td>
+						<td width="25%">{$basicinfo[registered_residence]}</td>
+					</tr>
+					<tr>
+						<td width="15%">Date of Birth</td>
+						<td width="15%">{$basicinfo[birthday]}</td>
+						<td width="15%">Age</td>
+						<td width="15%">{$basicinfo[age]}</td>
+						<td width="15%">Major</td>
+						<td width="25%">{$basicinfo[profession]}</td>
+					</tr>
+					<tr>
+						<td>ID Number:</td>
+						<td colspan="3">{$basicinfo[ID_number]}</td>
+						<td>Highest Education</td>
+						<td>{$enums['diploma_en'][$basicinfo[diploma]]}</td>
+					</tr>
+					<tr>
+						<td>Email</td>
+						<td colspan="3">{$basicinfo[email]}</td>
+						<td>Political Status</td>
+						<td>{$enums[political_outlook][$basicinfo[political_outlook]]}</td>
+					</tr>
+					<tr>
+						<td>Passport</td>
+						<td colspan="3">{$basicinfo[passport_number]}</td>
+						<td>Date of Expiry</td>
+						<td>{$basicinfo[passport_deadline]}</td>
+					</tr>
+					<tr>
+						<td rowspan="3">Residential Address</td>
+						<td rowspan="3" colspan="3">{$basicinfo[living_city]}</td>
+						<td>Corrected Eyesight</td>
+						<td>{$basicinfo[correct_vision]}</td>
+					</tr>
+					<tr>
+						<td>Height(cm)</td>
+						<td>{$basicinfo[height]}</td>
+					</tr>
+					<tr>
+						<td>Weight(kg)</td>
+						<td>{$basicinfo[weight]}</td>
+					</tr>
+					<tr>
+						<td rowspan="3">Postal Address</td>
+						<td rowspan="3" colspan="3">{$basicinfo[address]}</td>
+						<td>Cell Phone</td>
+						<td>{$basicinfo[mobile_phone]}</td>
+					</tr>
+					<tr>
+						<td>Home Tel</td>
+						<td>{$basicinfo[telphone]}</td>
+					</tr>
+					<tr>
+						<td>Marital Status</td>
+						<td>{$enums[marital_status][$basicinfo[marital_status]]}</td>
+					</tr>
+					<tr>
+						<td colspan="6"><b>Language Skill</b></td>
+					</tr>
+					<tr>
+						<td><b>Language</b></td>
+						<td colspan="3"><b>Certificate</b></td>
+						<td><b>Level</b></td>
+						<td><b>Date of Issue</b></td>
+					</tr>
+					{loop $languagelist $language}
+					<tr>
+						<td>{$language[name]}</td>
+						<td colspan="3">{$language[certificate]}</td>
+						<td>{$language[level]}</td>
+						<td>{$language[gettime]}</td>
+					</tr>
+					{/loop}
+				</table>
+				<table class="noneBorderTop">
+					<tr class="noneBorderTop">
+						<td colspan="7"><b>Educational Background</b></td>
+					</tr>
+					<tr>
+						<td width="40%" rowspan="2" colspan="2">Name of School</td>
+						<td width="20%" colspan="2">Duration with School</td>
+						<td width="20%" rowspan="2">Major</td>
+						<td width="10%" rowspan="2">Degree</td>
+						<td width="" rowspan="2">Certificate Obtained</td>
+					</tr>
+					<tr>
+						<td>From M/Y</td>
+						<td>To M/Y</td>
+					</tr>
+					{loop $educationlist $r}
+					<tr>
+						<td width="40%" colspan="2">{$r[school_name]}</td>
+						<td width="10%">{date('Y-m', strtotime($r[start_time]))}</td>
+						<td width="10%">{date('Y-m', strtotime($r[end_time]))}</td>
+						<td width="20%">{$r[major]}</td>
+						<td width="10%">{$enums['diploma'][$r[diploma]]}</td>
+						<td width="">{if $r[has_diploma]}是{else}否{/if}</td>
+					</tr>
+					{/loop}
+					<tr class="noneBorderTop">
+						<td colspan="7"><b>Working Experience or Internship</b></td>
+					</tr>
+					<tr>
+						<td width="20%" rowspan="2">Name of Company</td>
+						<td width="20%" rowspan="2">Industry</td>
+						<td width="10%" colspan="2">Duration with Work</td>
+						<td width="10%" rowspan="2">Position</td>
+						<td width="10%" rowspan="2">Salary</td>
+						<td width="10%" rowspan="2">Reference Person and Contact Information</td>
+					</tr>
+					<tr>
+						<td>From M/Y</td>
+						<td>To M/Y</td>
+					</tr>
+					{loop $worklist $r}
+					<tr>
+						<td width="20%">{$r[company_name]}</td>
+						<td width="20%">{$r[industry]}</td>
+						<td width="10%">{date('Y-m', strtotime($r[start_time]))}</td>
+						<td width="10%">{date('Y-m', strtotime($r[end_time]))}</td>
+						<td width="20%">{$r[position]}</td>
+						<td width="10%">{$r[salary]}</td>
+						<td width="10%">{$r[witness]}</td>
+					</tr>
+					{/loop}
+					<tr>
+						<td colspan="2">Swimming Ability</td>
+						<td colspan="5">{$enums[swimming_ability_en][$basicinfo['swimming_ability']]}</td>
+					</tr>
+					<tr>
+						<td colspan="2">Scar or Tattoo on body</td>
+						<td colspan="5">{$basicinfo['scar_tattoo']}</td>
+					</tr>
+					<tr>
+						<td colspan="2">Availability (Please advise when you will be able to commence employment, dd/mm/yy)</td>
+						<td colspan="5">{$basicinfo['start_work_date']}</td>
+					</tr>
+					<tr>
+						<td colspan="2">Archive of Personal Profile</td>
+						<td colspan="5">{$basicinfo[archiving_organization]}</td>
+					</tr>
+
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+
+{template 'content', 'footer'}

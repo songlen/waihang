@@ -6,13 +6,13 @@
     {template 'member', 'left'}
     <div class="page_right">
         <div class="current_crumb">
-            <div class="crumb">个人中心 > 工作经历</div>
-            <div class="category_title">工作经历</div>
+            <div class="crumb">User Center > Working Experience</div>
+            <div class="category_title">Working Experience</div>
         </div>
         <div class="page_content">
             <div class="basicinfo">
                 <div class="tit"><div class="language"><a {if $language=='en'} href="?m=member&a=work" {else}class="current"{/if}>中文</a><a {if $language=='zh'} href="?m=member&a=work&l=en" {else}class="current"{/if}>英文</a></div>
-                    <button class="layui-btn layui-btn-normal" onclick="add()">添加</button></div>
+                    <button class="layui-btn layui-btn-normal" onclick="add()">Add</button></div>
                 <table class="layui-table">
                     <colgroup>
                         <col width="200">
@@ -24,9 +24,9 @@
                     <thead>
                         <tr>
                             <th>enterprise name</th>
-                            <th>职位</th>
-                            <th>入职时间</th>
-                            <th>离职时间</th>
+                            <th>postion</th>
+                            <th>From Time</th>
+                            <th>To Time</th>
                             <th>operation</th>
                         </tr> 
                     </thead>
@@ -39,8 +39,8 @@
                             <td>{$r[start_time]}</td>
                             <td>{$r[end_time]}</td>
                             <td>
-                                <a href="javascript:;" onclick="edit({$r[id]})">edit</a>
-                                <a href="javascript:;" onclick="del({$r[id]}, this)">delete</a>
+                                <a href="javascript:;" onclick="edit({$r[id]})">Edit</a>
+                                <a href="javascript:;" onclick="del({$r[id]}, this)">Delete</a>
                             </td>
                         </tr>
                         {/loop}
@@ -59,11 +59,11 @@
 
         layer.open({
             id:'add',
-            title: '添加',
+            title: 'Add',
             type: 2,
             area: ['800px', '500px'],
             content: '?m=member&a=work_modify&l={$language}',
-            btn: '确定',
+            btn: 'Save',
             yes: function(index, layero){
                 var btn_submit = layer.getChildFrame('.layui-btn', index);
                 btn_submit.click();
@@ -73,11 +73,11 @@
     function edit(id) {
         layer.open({
             id:'edit',
-            title: '修改',
+            title: 'Edit',
             type: 2,
             area: ['800px', '500px'],
             content: '?m=member&a=work_modify&id='+id,
-            btn: '确定',
+            btn: 'Save',
             yes: function(index, layero){
                 var btn_submit = layer.getChildFrame('.layui-btn', index);
                 btn_submit.click();
@@ -87,7 +87,7 @@
 
     function del(id, obj){
         debugger
-        if(!confirm('确定删除吗')){
+        if(!confirm('Confirm Delete ?')){
             return false;
         }
         $.ajax({
@@ -102,7 +102,7 @@
                 }
             },
             error: function(){
-                layer.msg('服务器错误');
+                layer.msg('Server Error');
             }
         })
     }

@@ -7,7 +7,8 @@
 	<div class="page_content">
 		<div class="page_title">{$title}</div>
 		{$content}
-
+		
+		{if $dangyuan_enroll_show}
 		<div class="activity_tit">报名信息</div>
 		<div class="activity_form">
 			<form class="layui-form" id="myform" action="">
@@ -46,6 +47,7 @@
 				<input type="hidden" name="activity_title" value="{$title}">
 			</form>
 		</div>
+		{/if}
 	</div>
 </div>
 

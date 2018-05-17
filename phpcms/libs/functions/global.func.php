@@ -533,7 +533,7 @@ function my_error_handler($errno, $errstr, $errfile, $errline) {
 	if($errno==8) return '';
 	$errfile = str_replace(PHPCMS_PATH,'',$errfile);
 	if(pc_base::load_config('system','errorlog')) {
-		error_log('<?php exit;?>'.date('m-d H:i:s',SYS_TIME).' | '.$errno.' | '.str_pad($errstr,30).' | '.$errfile.' | '.$errline."\r\n", 3, CACHE_PATH.'error_log.php');
+		error_log('<?php exit;?>'.date('m-d H:i:s').' | '.$errno.' | '.str_pad($errstr,30).' | '.$errfile.' | '.$errline."\r\n", 3, CACHE_PATH.'error_log.php');
 	} else {
 		$str = '<div style="font-size:12px;text-align:left; border-bottom:1px solid #9cc9e0; border-right:1px solid #9cc9e0;padding:1px 4px;color:#000000;font-family:Arial, Helvetica,sans-serif;"><span>errorno:' . $errno . ',str:' . $errstr . ',file:<font color="blue">' . $errfile . '</font>,line' . $errline .'<br /><a href="http://faq.phpcms.cn/?type=file&errno='.$errno.'&errstr='.urlencode($errstr).'&errfile='.urlencode($errfile).'&errline='.$errline.'" target="_blank" style="color:red">Need Help?</a></span></div>';
 		echo $str;
@@ -1495,7 +1495,7 @@ function atturl($path) {
  * @param $m	模块名称
  */
 function module_exists($m = '') {
-	if (in_array($m, array('admin', 'recruit'))) return true;
+	if (in_array($m, array('admin', 'recruit', 'train'))) return true;
 	$modules = getcache('modules', 'commons');
 	$modules = array_keys($modules);
 	return in_array($m, $modules);

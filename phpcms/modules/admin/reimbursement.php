@@ -49,7 +49,12 @@ class reimbursement extends admin {
 
 		$where = '1';
 		if($start_time && $end_time){
-			$where .= " and status=2 and audit_date between '{$start_time}' and '{$end_time}'";
+			$where .= " and status=2 and audit_date between '{$start_time}' and '{$end_time}' group by member_id";
+
+			// 导出
+			if($_GET['export']){
+				$this->export($where);
+			}
 
 			$reimbursement_model = pc_base::load_model('member_reimbursement_model');
 			
@@ -66,6 +71,34 @@ class reimbursement extends admin {
 		include $this->admin_tpl('reimbursement_summary');
 	}
 
+	// 导出报销汇总
+	public function export($where){
+
+		$reimbursement_model = pc_base::load_model('member_reimbursement_model');
+			
+		$sql = "select fullname, ID_number, sum(amount) sum_amount from phpcms_member_reimbursement where {$where} order by id desc";
+		$reimbursement_model->query($sql);
+		$datas = $reimbursement_model->fetch_array();
+
+		$csvcontent = "姓名,身份证号,累计有效支付,补充报销95%";
+
+		foreach ($datas as $item) {
+			extract($item);
+			// $mark = str_replace(array(',', "\r\n", "\r", "\n", ' '), array('，',''), $mark);
+
+			$csvcontent .= "\r\n"
+				.$fullname.','
+				.$ID_number."\t".','
+				.$sum_amount.','
+				.sprintf('%.2f', $sum_amount*0.95)
+				;
+		}
+
+		$csvcontent = mb_convert_encoding($csvcontent,'gb2312','utf-8');
+		$filename = "报销汇总.csv";
+		doexport($csvcontent, $filename);
+	}
+
 	public function getOneMember(){
 		$member_id = $_GET['member_id'];
 
@@ -78,7 +111,6 @@ class reimbursement extends admin {
 		$pages = $this->db->pages;
 
 		$reimbursement_status = pc_base::load_config('enums', 'reimbursement_status_admin');
-
 
 		include $this->admin_tpl('reimbursement_oneMember');
 	}

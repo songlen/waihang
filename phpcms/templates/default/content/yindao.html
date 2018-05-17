@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=1300" />
+	<title>北京外航服务公司</title>
+	<link rel="stylesheet" type="text/css" href="statics/default/css/yindao.css">
+</head>
+<body>
+	<!-- <div class="yindaobg"><img src="statics/default/images/yindaobg.png" alt=""></div> -->
+	<div class="containerBox">
+		<div class="container">
+			<div class="logo"><a href="index.php?enter=1"><img src="statics/default/images/ydlogo.png" alt=""></a></div>
+			<!-- 3D 轮播 -->
+			<div id="carousel1" style="margin-top: -200px;">
+		
+				<img class="cloudcarousel"  src="statics/default/images/d1.png" />
+				<img class="cloudcarousel"  src="statics/default/images/d2.png" />
+				<img class="cloudcarousel"  src="statics/default/images/d3.png" />
+				<img class="cloudcarousel"  src="statics/default/images/d4.png" />
+				<img class="cloudcarousel"  src="statics/default/images/d5.png" />
+				<img class="cloudcarousel"  src="statics/default/images/d1.png" />
+				<img class="cloudcarousel"  src="statics/default/images/d2.png" />
+				<img class="cloudcarousel"  src="statics/default/images/d3.png" />
+				<img class="cloudcarousel"  src="statics/default/images/d4.png" />
+				<img class="cloudcarousel"  src="statics/default/images/d5.png" />
+				<div id="but1" class="carouselLeft"></div>
+				<div id="but2" class="carouselRight"></div>
+			</div>
+			<div class="address">地址：北京市朝阳区东三环北路乙2号海南航空大厦B座2层</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="parter"><img src="{get_extend_setting('partner')}" width="1200" alt="合作伙伴"></div>
+	</div>
+
+
+<!--carousel1 3D旋转木马 end-->
+<link rel="stylesheet" type="text/css" href="statics/default/js/carousel/carousel.css">
+<script type="text/javascript" src="statics/default/js/carousel/jquery.js"></script>
+<script type="text/JavaScript" src="statics/default/js/carousel/CloudCarousel.1.0.5.js"></script>
+<script type="text/JavaScript" src="statics/default/js/carousel/jquery.mousewheel.js"></script><!--鼠标滚动插件-->
+<script type="text/javascript">
+jQuery(document).ready(function(){		
+	var oldImages = []
+	jQuery('#carousel1 img').each(function(){
+		oldImages.push(this.src);
+	})				   
+
+	// 这初始化容器中指定的元素，在这种情况下，旋转木马.
+	jQuery("#carousel1").CloudCarousel({
+		xPos:600,
+		yPos:100,
+		buttonLeft: $('#but1'),
+		buttonRight: $('#but2'),
+		altBox: $("#alt-text"),
+		titleBox: $("#title-text"),				
+		FPS:30,
+		autoRotate: 'no',
+		autoRotateDelay: 3000,
+		speed:0.2,
+		mouseWheel:true,
+		bringToFront:true,
+		minScale:0.6,
+		reflHeight:0,//图片倒影
+        reflOpacity:0.2,//图片倒影的透明度
+        reflGap:5,//图片与倒影的距离
+        xRadius:500,//所有图片围城的圈的大小（平行）
+        yRadius:160,//所有图片围城的圈的视角
+        oldImages:oldImages
+	});	
+});
+</script>
+<!-- carousel1 end -->
+</body>
+</html>

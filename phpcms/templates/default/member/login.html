@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=1300" /> 
-	<title>注册-{if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}{$SEO['site_title']}</title>
+	<title>登录-{if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}{$SEO['site_title']}</title>
 	<meta name="keywords" content="{$SEO['keyword']}">
 	<meta name="description" content="{$SEO['description']}">
 	<link rel="stylesheet" href="statics/default/css/style.css">
@@ -13,6 +13,7 @@
 	<script type="text/javascript" src="statics/plugin/layui/lay/modules/layer.js"></script>
 </head>
 <body>
+<div class="logo" style="padding: 10px 10%;"><a href="{siteurl($siteid)}"><img src="statics/default/images/logo.png" width="300" alt=""></a></div>
 <div class="regbg">
 	<img class="bgimg" src="statics/default/images/regbg.png" alt="">
 </div>
@@ -22,7 +23,7 @@
 			<div class="regform loginform">
 				<div class="person_reg">
 					<div class="tit">登录</div>
-					<form action="">
+					<form action="" class="loginForm">
 					<input type="text" class="input input-phone" name="info[phone]" id="phone" value="" placeholder="请输入手机号">
 					<input type="password" class="input" name="info[pwd]" id="pwd" value="" placeholder="请输入密码">
 					<div class="xieyi"></div>
@@ -44,9 +45,20 @@
 	$(function(){
 		// 提交表单验证
 		$('.submit').click(function(){
-			if($(this).hasClass('disabled')) return false;
+			form_submit();
 
-			var form = $(this).parents('form');
+		})
+		// enter 提交表单
+		$('.input').keyup(function(e){
+			if(e.keyCode == '13'){
+				form_submit();
+			}
+		})
+
+		function form_submit(){
+			if($('input[name=submit]').hasClass('disabled')) return false;
+
+			var form = $('.loginForm');
 
 			// 手机号码验证
 			var phone = form.find('#phone').val();
@@ -89,8 +101,7 @@
 					layer.msg('服务器错误');
 				}
 			})
-
-		})
+		}
 
 		function tips(message, id){
 			layer.tips(message, id, {tips:[1, '#000']})

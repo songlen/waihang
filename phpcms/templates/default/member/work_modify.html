@@ -10,9 +10,27 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">行业</label>
+        <div class="layui-input-inline">
+            <input type="text" name="info[industry]" value="{$work[industry]}" placeholder="行业" autocomplete="off" class="layui-input" lay-verify="required" value="{$work[industry]}">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">职位</label>
         <div class="layui-input-inline">
             <input type="text" name="info[position]" placeholder="职位" value="{$work[position]}" autocomplete="off" class="layui-input" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">薪水</label>
+        <div class="layui-input-inline">
+            <input type="text" name="info[salary]" placeholder="薪水" value="{$work[salary]}" autocomplete="off" class="layui-input" lay-verify="" value="{$salary}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">证明人及联系方式</label>
+        <div class="layui-input-inline">
+            <input type="text" name="info[witness]" placeholder="证明人及联系方式" value="{$work[witness]}" autocomplete="off" class="layui-input" lay-verify="">
         </div>
     </div>
     <div class="layui-form-item">

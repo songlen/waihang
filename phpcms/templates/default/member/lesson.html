@@ -1,0 +1,54 @@
+{template 'content', 'header'}
+
+{template 'member', 'top'}
+<!-- <script type="text/javascript" src="{JS_PATH}placeholder.js"></script> -->
+<style type="text/css">
+    li {list-style: none;}
+</style>
+<div class="container">
+    {template 'member', 'left'}
+    <div class="page_right">
+        <div class="current_crumb">
+            <div class="crumb">个人中心 > 我的课程</div>
+            <div class="category_title">我的课程</div>
+        </div>
+        <div class="page_content">
+            <div class="joblist enrolledlist">
+                {loop $lists $r}
+                <li class="list">
+                    <div class="info">
+                        <p class="tit">{$r[title]}</p>
+                        <p><label>订单金额</label>{$r[price]} 元</p>
+                        <p><label>购买日期</label>{date('Y-m-d', strtotime($r[inputtime]))}</p>
+                    </div>
+                       
+                    <ul class="layui-nav">
+                        {if $r[status] == '1'}
+                         <li class="layui-nav-item layui-this"><a class="abtn" target="_blank" href="index.php?m=train&a=pay&id={$r[lesson_id]}">待支付</a></li>
+                        {/if}
+                        {if $r[status] == '2'}
+                        <li class="layui-nav-item layui-this pass"><a class="abtn" href="javascript:;">已支付</a></li>
+                        
+                        {/if}
+                        
+                    </ul>
+                    <div class="clear"></div>
+                </li>
+
+                {/loop}
+            </div>
+            <div id="pages">{$pages}</div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<script type="text/javascript">
+    layui.use(['form', 'layedit', 'laydate', 'element'], function(){
+        var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+  
+
+    })
+</script>
+
+{template 'content', 'footer'}

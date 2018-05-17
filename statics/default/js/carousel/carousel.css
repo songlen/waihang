@@ -1,0 +1,48 @@
+/* Carousel */
+#carousel1 {
+	width:1200px;
+	height:730px;
+	overflow:hidden;
+	position:relative;
+	margin:50px auto 0;
+}
+#carousel1 img {
+	border:none;
+	/*width:452px;*/
+	/*height:582px;*/
+	/*border:solid 1px #000;*/
+}
+#carousel1 #title-text {
+	font-size:22px;
+	margin:10px 20px 0 0;
+	padding:0;
+	text-align:right;
+}
+#carousel1 #alt-text {
+	font-size:14px;
+	margin:5px 20px 0 0;
+	padding:0;
+	text-align:right;
+}
+#carousel1 #user-c {
+	padding:0;
+	position:absolute;
+	right:15px;
+	bottom:10px;
+}
+#carousel1 .carouselLeft, #carousel1 .carouselRight {
+	position:absolute;
+	bottom:20px;
+	width:29px;
+	height:30px;
+	overflow:hidden;
+	cursor:pointer;
+}
+#carousel1 .carouselLeft {
+	right:60px;
+	/*background:url(../images/templatemo_slider_right.png) no-repeat;*/
+}
+#carousel1 .carouselRight {
+	right:808px;
+	/*background:url(../images/templatemo_slider_left.png) no-repeat;*/
+}

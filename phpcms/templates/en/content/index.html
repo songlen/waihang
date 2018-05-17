@@ -2,7 +2,7 @@
 <div class="jq22-container min-width-1300">
 	<div class="flexslider">
 		<ul class="slides">
-			{pc:get sql="SELECT setting FROM phpcms_poster WHERE spaceid = 11 AND disabled=0 ORDER BY listorder ASC"}
+			{pc:get sql="SELECT setting FROM phpcms_poster WHERE spaceid = 15 AND disabled=0 ORDER BY listorder ASC"}
 				{loop $data $r}
 				<?php 
 					$r = json_decode($r['setting'], true);
@@ -23,13 +23,13 @@
 
 	<div class="index_news container">
 		<div class="index_news_video">
-			<video id="video" src="{get_extend_setting(index_video)}" width="550" height="370" controls preload>
+			<video id="video" src="{get_extend_setting(index_video)}" autoplay="autoplay" width="550" height="370" controls preload>
 				您的浏览器暂不支持播放该视频，请升级至最新版浏览器。
 			</video>
 		</div>
 		<div class="index_news_box">
 			<ul>
-				{pc:content action="lists" catid="30" num="20" order="listorder desc, id DESC"}
+				{pc:content action="lists" catid="30" num="6" order="listorder desc, id DESC"}
 				{loop $data $r}
 				{if $n == 1}
 				<li>
@@ -51,95 +51,55 @@
 	</div>
 
 	<div class="container index_title">
-		<a href="" class="more"><img src="{APP_PATH}statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
+		<a href="index.php?m=recruit" class="more"><img src="{APP_PATH}statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
 		<img src="{APP_PATH}statics/default/images/index_36.jpg" width="280" alt="">
 	</div>
 	<div class="container index_zhaopin">
 		<ul>
+			{pc:get sql="select * from phpcms_recruit_recruit where type=1 and status=1 and is_delete=0 order by listorder desc, id desc" num="4"}
+			{loop $data $r}
 			<li>
-				<div class="pic"><a href=""><img src="{APP_PATH}statics/default/images/index_39.jpg" width="190" height="210" alt=""></a></div>
+				<div class="pic"><a target="_blank" href="index.php?m=recruit&a=show&id={$r[id]}"><img src="{thumb($r[index_thumb], 190, 210)}" width="190" height="210" alt=""></a></div>
 				<div class="infor">
-					<div class="title"><a href="">是的记录圣诞节施蒂利克是的记录圣诞节施蒂利克</a></div>
-					<div class="des">睡觉了是都结束了的空间是地脚螺栓肯德基是的两款圣诞节沙德雷克</div>
-					<div class="time">2018-12-12</div>
+					<div class="title"><a target="_blank" href="index.php?m=recruit&a=show&id={$r[id]}">{$r[title]}</a></div>
+					<div class="des"><a href="index.php?m=recruit&a=show&id={$r[id]}">{strcut($r[content], 100)}</a></div>
+					<div class="time">{date('Y-m-d', $r[inputtime])}</div>
 				</div>
 			</li>
-			<li>
-				<div class="pic"><a href=""><img src="{APP_PATH}statics/default/images/index_39.jpg" width="190" height="210" alt=""></a></div>
-				<div class="infor">
-					<div class="title"><a href="">是的记录圣诞节施蒂利克是的记录圣诞节施蒂利克</a></div>
-					<div class="des">睡觉了是都结束了的空间是地脚螺栓肯德基是的两款圣诞节沙德雷克</div>
-					<div class="time">2018-12-12</div>
-				</div>
-			</li>
-			<li>
-				<div class="pic"><a href=""><img src="{APP_PATH}statics/default/images/index_39.jpg" width="190" height="210" alt=""></a></div>
-				<div class="infor">
-					<div class="title"><a href="">是的记录圣诞节施蒂利克是的记录圣诞节施蒂利克</a></div>
-					<div class="des">睡觉了是都结束了的空间是地脚螺栓肯德基是的两款圣诞节沙德雷克</div>
-					<div class="time">2018-12-12</div>
-				</div>
-			</li>
-			<li>
-				<div class="pic"><a href=""><img src="{APP_PATH}statics/default/images/index_39.jpg" width="190" height="210" alt=""></a></div>
-				<div class="infor">
-					<div class="title"><a href="">是的记录圣诞节施蒂利克是的记录圣诞节施蒂利克</a></div>
-					<div class="des">睡觉了是都结束了的空间是地脚螺栓肯德基是的两款圣诞节沙德雷克</div>
-					<div class="time">2018-12-12</div>
-				</div>
-			</li>
+			{/loop}
+			{/pc}
 		</ul>
 	</div>
 
 	<div class="container index_title">
-		<a href="" class="more"><img src="{APP_PATH}statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
+		<a href="{$CATEGORYS[21][url]}" class="more"><img src="{APP_PATH}statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
 		<img src="{APP_PATH}statics/default/images/index_43.jpg" width="340" alt="">
 	</div>
 	<div class="container index_zhaopin">
 		<ul>
+			{pc:content action="lists" catid="33" num="4" order="listorder desc, id desc"}
+			{loop $data $r}
 			<li>
-				<div class="pic"><a href=""><img src="{APP_PATH}statics/default/images/index_39.jpg" width="190" height="210" alt=""></a></div>
+				<div class="pic"><a href="{$r[url]}"><img src="{thumb($r[thumb], 190, 210)}" width="190" height="210" alt=""></a></div>
 				<div class="infor">
-					<div class="title"><a href="">是的记录圣诞节施蒂利克是的记录圣诞节施蒂利克</a></div>
-					<div class="des">睡觉了是都结束了的空间是地脚螺栓肯德基是的两款圣诞节沙德雷克</div>
-					<div class="time">2018-12-12</div>
+					<div class="title"><a href="{$r[url]}">{$r[title]}</a></div>
+					<div class="des">{strcut($r[description], 100)}</div>
+					<div class="time">{date('Y-m-d', $r[inputtime])}</div>
 				</div>
 			</li>
-			<li>
-				<div class="pic"><a href=""><img src="{APP_PATH}statics/default/images/index_39.jpg" width="190" height="210" alt=""></a></div>
-				<div class="infor">
-					<div class="title"><a href="">是的记录圣诞节施蒂利克是的记录圣诞节施蒂利克</a></div>
-					<div class="des">睡觉了是都结束了的空间是地脚螺栓肯德基是的两款圣诞节沙德雷克</div>
-					<div class="time">2018-12-12</div>
-				</div>
-			</li>
-			<li>
-				<div class="pic"><a href=""><img src="{APP_PATH}statics/default/images/index_39.jpg" width="190" height="210" alt=""></a></div>
-				<div class="infor">
-					<div class="title"><a href="">是的记录圣诞节施蒂利克是的记录圣诞节施蒂利克</a></div>
-					<div class="des">睡觉了是都结束了的空间是地脚螺栓肯德基是的两款圣诞节沙德雷克</div>
-					<div class="time">2018-12-12</div>
-				</div>
-			</li>
-			<li>
-				<div class="pic"><a href=""><img src="{APP_PATH}statics/default/images/index_39.jpg" width="190" height="210" alt=""></a></div>
-				<div class="infor">
-					<div class="title"><a href="">是的记录圣诞节施蒂利克是的记录圣诞节施蒂利克</a></div>
-					<div class="des">睡觉了是都结束了的空间是地脚螺栓肯德基是的两款圣诞节沙德雷克</div>
-					<div class="time">2018-12-12</div>
-				</div>
-			</li>
+			{/loop}
+			{/pc}
 		</ul>
 	</div>
 
 	<div class="container indexmidmenu">
 		<ul>
-			<li><a href=""><img src="{APP_PATH}statics/default/images/index_47.jpg" width="366" height="190" alt=""></a></li>
-			<li><a href=""><img src="{APP_PATH}statics/default/images/index_48.jpg" width="366" height="190" alt=""></a></li>
-			<li><a href="{$CATEGORYS[10][url]}"><img src="{APP_PATH}statics/default/images/index_49.jpg" width="366" height="190" alt=""></a></li>
-			<li><a href="{$CATEGORYS[23][url]}"><img src="{APP_PATH}statics/default/images/index_50.jpg" width="366" height="190" alt=""></a></li>
-			<li><a href="{$CATEGORYS[17][url]}"><img src="{APP_PATH}statics/default/images/index_51.jpg" width="366" height="190" alt=""></a></li>
-			<li><a href="{$CATEGORYS[2][url]}"><img src="{APP_PATH}statics/default/images/index_52.jpg" width="366" height="190" alt=""></a></li>
+			<li><a href="index.php?m=recruit"><img src="{APP_PATH}statics/default/images/index_47.png" width="366" height="190" alt=""></a></li>
+			<li><a href="{$CATEGORYS[21][url]}"><img src="{APP_PATH}statics/default/images/index_48.png" width="366" height="190" alt=""></a></li>
+			<li><a href="{$CATEGORYS[10][url]}"><img src="{APP_PATH}statics/default/images/index_49.png" width="366" height="190" alt=""></a></li>
+			<li><a href="{$CATEGORYS[23][url]}"><img src="{APP_PATH}statics/default/images/index_50.png" width="366" height="190" alt=""></a></li>
+			<li><a href="{$CATEGORYS[17][url]}"><img src="{APP_PATH}statics/default/images/index_51.png" width="366" height="190" alt=""></a></li>
+			<li><a href="{$CATEGORYS[2][url]}"><img src="{APP_PATH}statics/default/images/index_52.png" width="366" height="190" alt=""></a></li>
 		</ul>
 	</div>
 	<div class="container index_title">
@@ -148,11 +108,11 @@
 	</div>
 	<div class="container index_customer">
 		<ul>
-			{pc:link action="lists" siteid="$siteid" num="10" linktype="1" order="listorder desc, linkid desc"}
+			{pc:link action="lists" siteid="$siteid" num="10" typeid="53" linktype="1" order="listorder desc, linkid desc"}
 			{loop $data $r}
 			<li>
-				<a href="{$r[url]}" target="_blank"><img src="{$r[logo]}" width="260" height="130" alt=""></a>
-				<p class="title"><a href="{$r[url]}" target="_blank">[ {$r[name]} ]</a></p>
+				<a href="{$r[url]}" target="_blank"><img src="{$r[logo]}" width="200" height="130" alt=""></a>
+				<p class="title"><a href="{$r[url]}" target="_blank">{$r[name]}</a></p>
 			</li>
 			{/loop}
 			{/pc}
@@ -170,7 +130,7 @@
 		var ali = $('.index_customer ul li');
 		var aliWidth = ali.eq(0).width();
 		var aliSize = ali.size();
-		var ulWidth = aliWidth*aliSize + aliSize*20;
+		var ulWidth = aliWidth*aliSize + aliSize*25;
 		oul.width(ulWidth);	//1600px
 		
 		var speed = -2;

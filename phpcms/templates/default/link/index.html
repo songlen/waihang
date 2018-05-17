@@ -8,10 +8,10 @@
     </div>
     <div class="page_list">
         <ul class="link">
-           {pc:link action="lists" siteid="$siteid" linktype="1" order="listorder desc, linkid desc"}
+           {pc:link action="lists" siteid="$siteid" linktype="1" num="200" typeid="53" order="listorder desc, linkid desc" page="pages"}
             {loop $data $r}
             <li>
-                <a href=""><img src="{$r[logo]}" alt=""></a>
+                <a href="{$r[url]}" target="_blank"><img src="{$r[logo]}" alt=""></a>
                 <p>[ <a href="">{$r[name]}</a> ]</p>
             </li>
             {/loop}

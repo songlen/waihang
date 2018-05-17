@@ -20,9 +20,16 @@ class job extends admin {
 			$where .= " and enterprise_id = {$enterprise_id}";
 		}
 
-		if(isset($_GET['keyword']) && $_GET['keyword'] != ''){
-			$keyword = $_GET['keyword'];
-			$where = " and job_name like '%{$keyword}%'";
+		$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+
+		if($_GET['search']){
+			if($_GET['searchType'] == 'job_name'){
+				$where .= " and job_name like '%{$keyword}%'";
+			}
+
+			if($_GET['searchType'] ==  'interview_place'){
+				$where .= " and interview_place like '%{$keyword}%'";
+			}
 		}
 
 		$page = isset($_GET['page']) && intval($_GET['page']) ? intval($_GET['page']) : 1;
@@ -41,13 +48,15 @@ class job extends admin {
 				$_POST['info']['job_name'] = safe_replace($_POST['info']['job_name']);
 			}
 
-			// 生成职位编码
-			$_POST['info']['code'] = $this->generateCode();
+			if(!$_POST['copy']){
+				// 生成职位编码
+				$_POST['info']['code'] = $this->generateCode();
+			}
+			
 
 			$data = $_POST['info'];
-			$data = array_merge($data, array(
-				'inputtime' => SYS_TIME,
-			));
+			$data['inputtime'] = SYS_TIME;
+
 			$id = $this->db->insert($data, true);
 			if(!$id){
 				showmessage(L('operation_failure'), HTTP_REFERER, '', 'add');
@@ -56,6 +65,15 @@ class job extends admin {
 			showmessage(L('operation_success'), HTTP_REFERER, '', 'add');
 		} else {
 			$show_validator = $show_scroll = $show_header = true;
+
+			// 复制
+			$is_copy = isset($_GET['copy']) ? 1 : 0;
+			if($is_copy){
+				$job_id = $_GET['job_id'];
+				$info = $this->db->get_one(array('id'=>$job_id));
+				extract($info);
+			}
+
 			pc_base::load_sys_class('form', '', 0);
 
  			include $this->admin_tpl('job_add');

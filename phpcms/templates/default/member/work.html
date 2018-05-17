@@ -19,6 +19,7 @@
                         <col width="200">
                         <col width="100">
                         <col width="100">
+                        <col width="100">
                         <col width="">
                     </colgroup>
                     <thead>
@@ -27,6 +28,7 @@
                             <th>职位</th>
                             <th>入职时间</th>
                             <th>离职时间</th>
+                            <th>薪水</th>
                             <th>操作</th>
                         </tr> 
                     </thead>
@@ -38,6 +40,7 @@
                             <td>{$r[position]}</td>
                             <td>{$r[start_time]}</td>
                             <td>{$r[end_time]}</td>
+                            <td>{$r[salary]}</td>
                             <td>
                                 <a href="javascript:;" onclick="edit({$r[id]})">修改</a>
                                 <a href="javascript:;" onclick="del({$r[id]}, this)">删除</a>

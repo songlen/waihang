@@ -1,16 +1,27 @@
 <div class="page_left">
     <div class="title">个人中心</div>
     <ul class="navlist">
-        <li {if ROUTE_A == 'init'}class="current"{/if}><a href="?m=member">基本资料</a></li>
-        <li {if ROUTE_A == 'education'}class="current"{/if}><a href="?m=member&a=education">教育经历</a></li>
-        <li {if ROUTE_A == 'work'}class="current"{/if}><a href="?m=member&a=work">工作经历</a></li>
-        <li {if ROUTE_A == 'language'}class="current"{/if}><a href="?m=member&a=language">外语经历</a></li>
+        <li class="navParent {if in_array(ROUTE_A, array('init', 'previewResume', 'education', 'work', 'language'))}current{/if}"><a href="?m=member&a=previewResume">个人简历</a>
+            <dl {if ROUTE_A == 'init'}class="current"{/if}><a href="?m=member">基本资料</a></dl>
+            <dl {if ROUTE_A == 'education'}class="current"{/if}><a href="?m=member&a=education">教育经历</a></dl>
+            <dl {if ROUTE_A == 'work'}class="current"{/if}><a href="?m=member&a=work">工作经历</a></dl>
+            <dl {if ROUTE_A == 'language'}class="current"{/if}><a href="?m=member&a=language">外语经历</a></dl>
+        </li>
         <li {if ROUTE_A == 'pic'}class="current"{/if}><a href="?m=member&a=pic">图像采集</a></li>
         <li {if ROUTE_A == 'changePassword'}class="current"{/if}><a href="?m=member&a=changePassword">修改密码</a></li>
         <li {if ROUTE_A == 'enrolledJob'}class="current"{/if}><a href="?m=member&a=enrolledJob">职位应聘</a></li>
-        <li class=""><a href="javascript:;">我的课程</a></li>
+        <li  {if ROUTE_A == 'lesson'}class="current"{/if}><a href="?m=member&a=lesson">我的课程</a></li>
         {if $memberinfo['is_employee']}
         <li {if ROUTE_A == 'reimbursement'}class="current"{/if}><a href="?m=member&a=reimbursement">医疗报销</a></li>
         {/if}
     </ul>
 </div>
+
+<script type="text/javascript">
+    
+    // $(function(){
+    //     $('.navParent').click(function(){
+    //         $(this).find('dl').show();
+    //     })
+    // })
+</script>

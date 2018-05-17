@@ -22,6 +22,10 @@ include $this->admin_tpl('header', 'admin');
 					<tr>
 						<td>
 							<div class="explain-col">
+									<select name="searchType" id="">
+										<option value="job_name">职位名称</option>
+										<option value="interview_place">面试地点</option>
+									</select>
 									<input name="keyword" type="text" value="<?php if(isset($keyword)) echo $keyword;?>" class="input-text" placeholder="<?php echo L('job_name');?>" />
 									<input type="submit" name="search" class="button" value="<?php echo L('search');?>" />
 							</div>
@@ -64,6 +68,8 @@ include $this->admin_tpl('header', 'admin');
 			<td align="center" width="5%"><?php if($info['status'] == '1'){echo L('job_status_1');} else {echo L('job_status_0');}?></td>
 			<td align="center" width="15%"><?php echo date('Y-m-d H:i:s', $info['inputtime'])?></td>
 			<td align="center" width="15%">
+				<a href="?m=recruit&c=enroll&a=init&job_id=<?php echo $info['id']?>">应聘者</a> |
+				<a href="###" onclick="copy(<?php echo $info['id'];?>)">关联复制</a> |
 				<a href="###" onclick="edit(<?php echo $info['id']?>, '<?php echo new_addslashes(new_html_special_chars($info['job_name']))?>')">修改</a> |  
 				<a href='?m=recruit&c=job&a=delete&id=<?php echo $info['id']?>' onClick="return confirm('<?php echo L('confirm', array('message' => new_addslashes(new_html_special_chars($info['name']))))?>')">删除</a> 
 			</td>
@@ -85,6 +91,29 @@ include $this->admin_tpl('header', 'admin');
 	</form>
 </div>
 <script type="text/javascript">
+
+
+function copy(id) {
+	window.top.art.dialog({id:'add'}).close();
+	window.top.art.dialog(
+		{
+			title:'添加职位',
+			id:'add',
+			iframe:'?m=recruit&c=job&a=add&copy=1&job_id='+id,
+			width:'800',
+			height:'450'
+		},
+		function(){
+			var d = window.top.art.dialog({id:'add'}).data.iframe;
+			var form = d.document.getElementById('dosubmit');
+			form.click();
+			return false;
+		},
+		function(){
+			window.top.art.dialog({id:'add'}).close()
+		}
+	);
+}
 
 function edit(id, name) {
 	window.top.art.dialog({id:'edit'}).close();

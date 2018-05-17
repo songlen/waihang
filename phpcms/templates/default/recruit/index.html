@@ -63,11 +63,27 @@
 
 	</div>
 
+	<div class="advtab"><span class="current">空乘招聘</span><span>非空乘招聘</span></div>
+	<div class="advtext" style="display: block;">
+		<ul id="kongcheng">
+			{loop $kongcheng $r}
+			<li><a href="{$r[url]}">{$r[title]}</a></li>
+			{/loop}
+		</ul>
+	</div>
+	<div class="advtext">
+		<ul class="feikongcheng">
+			{loop $feikongcheng $r}
+			<li><a href="{$r[url]}">{$r[title]}</a></li>
+			{/loop}
+		</ul>
+	</div>
 </div>
 
 <link rel="stylesheet" type="text/css" href="statics/plugin/layui/css/layui.css">
 <script type="text/javascript" src="statics/plugin/layui/layui.js"></script>
 <script type="text/javascript">
+	// 图片广告加载更多
 	layui.use('flow', function(){
 		var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
 		var flow = layui.flow;
@@ -78,12 +94,78 @@
 			done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
 				var lis = [];
 				//以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
-				$.get('index.php?m=recruit&a=loadMore{$urlsiteid}&page='+page, function(res){
+				$.get('index.php?m=recruit&a=loadMore&page='+page, function(res){
 					res = JSON.parse(res);
 					//假设你的列表返回在data集合中
 					layui.each(res.data, function(index, item){
 
 						var html = '<a href="'+item.url+'" target="_blank"><img src="'+item.image+'" alt="'+item.title+'" width="260" height="260" title="'+item.title+'"></a>';
+						lis.push(html);
+					}); 
+					//执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+					//pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+					next(lis.join(''), page < res.pages);  
+				});
+			}
+		});	
+	});
+
+	// 文字广告切换
+	$(function(){
+		$('.advtab span').click(function(){
+			var index = $(this).index();
+			// 切换标题
+			$('.advtab span').removeClass('current');
+			$(this).addClass('current');
+			// 显示内容
+			$('.advtext').hide();
+			$('.advtext').eq(index).show();
+		})
+	})
+
+	// 空乘招聘广告加载更多
+	layui.use('flow', function(){
+		var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+		var flow = layui.flow;
+		flow.load({
+			elem: '#kongcheng', //指定列表容器
+			isAuto: false,
+			end: ' ',
+			done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+				var lis = [];
+				//以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+				$.get('index.php?m=recruit&a=loadMore&type=3&category=1&page='+page, function(res){
+					res = JSON.parse(res);
+					//假设你的列表返回在data集合中
+					layui.each(res.data, function(index, item){
+
+						var html = '<li><a href="'+item.url+'" target="_blank">'+item.title+'</a></li>';
+						lis.push(html);
+					}); 
+					//执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+					//pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+					next(lis.join(''), page < res.pages);  
+				});
+			}
+		});	
+	});
+	// 非空乘招聘广告加载更多
+	layui.use('flow', function(){
+		var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+		var flow = layui.flow;
+		flow.load({
+			elem: '#feikongcheng', //指定列表容器
+			isAuto: false,
+			end: ' ',
+			done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+				var lis = [];
+				//以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+				$.get('index.php?m=recruit&a=loadMore&type=3&category=1&page='+page, function(res){
+					res = JSON.parse(res);
+					//假设你的列表返回在data集合中
+					layui.each(res.data, function(index, item){
+
+						var html = '<li><a href="'+item.url+'" target="_blank">'+item.title+'</a></li>';
 						lis.push(html);
 					}); 
 					//执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页

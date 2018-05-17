@@ -6,9 +6,9 @@ translation save at the array:$LANG
 */
 
 //index
-$LANG['admin_site_title'] = 'PHPCMS - 后台管理中心';
+$LANG['admin_site_title'] = '外航服务公司后台管理系统';
 $LANG['expand_or_contract'] = '展开与收缩';
-$LANG['phpcms_title'] = 'PHPCMS内容管理系统';
+$LANG['phpcms_title'] = '外航服务公司后台管理系统';
 $LANG['official_site'] = '官方网站';
 $LANG['authorization'] = '授权';
 $LANG['igenus_for_postfix'] = '支持论坛';
