@@ -15,7 +15,7 @@
 <body>
 <div class="logo" style="padding: 10px 10%;"><a href="{siteurl($siteid)}"><img src="statics/default/images/logo.png" width="300" alt=""></a></div>
 <div class="regbg">
-	<img class="bgimg" src="statics/default/images/regbg.png" alt="">
+	<img class="bgimg" src="statics/default/images/regbg.jpg" alt="">
 </div>
 <div class="regbox">
 	<div class="container">
@@ -24,7 +24,7 @@
 				<div class="person_reg">
 					<div class="tit">登录</div>
 					<form action="" class="loginForm">
-					<input type="text" class="input input-phone" name="info[phone]" id="phone" value="" placeholder="请输入手机号">
+					<input type="text" class="input input-phone" name="info[phone]" id="phone" value="" placeholder="请输入手机号或邮箱">
 					<input type="password" class="input" name="info[pwd]" id="pwd" value="" placeholder="请输入密码">
 					<div class="xieyi"></div>
 					<input type="button" class="submit" name="dosubmit" value="登录">
@@ -34,6 +34,7 @@
 						<a href="?m=member&a=forgetPassword" class="forgetpwd">忘记密码</a>
 						<input type="checkbox" name="remember" value="记住密码"> 记住密码
 					</div>
+					<div class="subbot"><a href="?m=member&a=register"><span class="fuhao">«</span>立即注册</a></div>
 					</form>
 				</div>
 			</div>
@@ -62,8 +63,8 @@
 
 			// 手机号码验证
 			var phone = form.find('#phone').val();
-			if(!isPhone(phone)){
-				tips('手机号格式错误', '#phone');
+			if(!isPhone(phone) && !isEmail(phone)){
+				tips('手机号或邮箱格式错误', '#phone');
 				return false;
 			}
 
@@ -87,7 +88,7 @@
 						$('.submit').removeClass('disabled');
 					}
 					if(data.code == 200){
-						layer.msg('登录成功，正在跳转...', function(){
+						layer.msg('登录成功，正在跳转...', {}, function(){
 							if(data.jump_url){
 								window.location=data.jump_url;
 							} else {
@@ -110,6 +111,11 @@
 		function isPhone(phone){
 			var reg_mobile = /^1[34578]\d{9}$/;
 			return reg_mobile.test(phone);
+		}
+		//检查email邮箱
+		function isEmail(email){
+			var reg = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+			return reg.test(email);
 		}
 	})
 </script>

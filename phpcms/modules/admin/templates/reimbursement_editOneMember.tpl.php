@@ -15,11 +15,11 @@ include $this->admin_tpl('header','admin');
 		<td><?php echo form::date('info[date]', $date);?></td>
 	</tr>
 	<tr>
-		<th width="100">收据张数：</th>
+		<th width="100">航司代码：</th>
 		<td><input type="text" name="info[number]" id="number" size="30" class="input-text" value="<?php echo $number;?>"></td>
 	</tr>
 	<tr>
-		<th width="100">自付金额：</th>
+		<th width="100">自付一金额：</th>
 		<td><input type="text" name="info[amount]" id="amount" size="30" class="input-text" value="<?php echo $amount;?>"></td>
 	</tr>
 	<tr>

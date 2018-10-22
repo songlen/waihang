@@ -6,6 +6,7 @@
 			<form class="lessonSearchForm" action="" method="get">
 				<input type="hidden" name="m" value="train">
 				<input type="hidden" name="a" value="init">
+				<input type="hidden" name="type" value="{$type}">
 				<input type="text" name="lesson_keyword" value="{$lesson_keyword}" placeholder="搜索课程">
 				<button class="button" type="button">搜索</button>
 			</form>
@@ -21,7 +22,7 @@
 					<div class="info">
 						<div class="tit"><a href="{$r[url]}" target="_blank">{$r[title]}</a></div>
 						<div class="des"><a href="{$r[url]}" target="_blank">{strcut($r[description], 76)}</a></div>
-						<div class="price">￥{$r[price]} <a href="{$r[url]}" target="_blank">购买</a></div>
+						<div class="price">￥{$r[price]} <a class="gobuy" href="javascript:;" interview="{$r[is_interview]}" id="{$r[id]}">报名</a></div>
 					</div>
 				</li>
 				{/loop}
@@ -39,6 +40,38 @@
 		if($.trim(lesson_keyword) == '') return false;
 
 		form.submit();
+	})
+</script>
+<link rel="stylesheet" type="text/css" href="statics/plugin/layui/css/layui.css">
+<script type="text/javascript" src="statics/plugin/layui/layui.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('.gobuy').click(function(){
+			var interview = $(this).attr('interview');
+			var id = $(this).attr('id');
+			var text = '';
+
+			var is_login = {$is_login};
+			if(is_login == 0){
+				layer.msg('请先登录，正在跳转...', function(){
+					window.location='index.php?m=member&a=login&forward='+encodeURIComponent(window.location.href);
+				})
+				return false;
+			}
+
+			if(interview == '1'){
+				text = '请点击“确定”提交报名申请，并于工作时间致电：<br>010-64661503/010-64661028，或发送邮件至：<br>wangshu@fasco.com.cn / xiaoxuan.fan@fasco.com.cn 预约面试。通过面试后方可报名直通车课程。';
+			} else {
+				text = '您确定报名该课程吗？';
+			}
+
+			layer.confirm(text, {
+					btn: ['确定','取消'],
+				}, function(){
+					window.location="index.php?m=train&a=buy&id="+id;
+				}
+			);
+		})
 	})
 </script>
 

@@ -20,7 +20,7 @@
 			</tr>
 			<tr>
 				<td>Gender</td>
-				<td><?php echo $enums['member']['sex'][$basicinfo['sex']]?></td>
+				<td><?php echo $enums['sex_en'][$basicinfo['sex']]?></td>
 			</tr>
 			<tr>
 				<td>Head Image</td> 
@@ -32,7 +32,7 @@
 			</tr>
 			<tr>
 				<td>Nation</td>
-				<td><?php echo $enums['member']['nation'][$basicinfo['nation']];?></td>
+				<td><?php echo $enums['nation_en'][$basicinfo['nation']];?></td>
 			</tr>
 			<tr>
 				<td>Birthday</td>
@@ -40,7 +40,7 @@
 			</tr>
 			<tr>
 				<td>Age</td>
-				<td><?php echo $basicinfo['age'];?></td>
+				<td><?php echo get_age($basicinfo['ID_number']);?></td>
 			</tr>
 			<tr>
 				<td>Profession</td>
@@ -48,7 +48,7 @@
 			</tr>
 			<tr>
 				<td>Highest Education</td>
-				<td><?php echo $enums['member']['diploma'][$basicinfo['diploma']];?></td>
+				<td><?php echo $enums['diploma_en'][$basicinfo['diploma']];?></td>
 			</tr>
 			<tr>
 				<td>Graduation University</td>
@@ -56,7 +56,7 @@
 			</tr>
 			<tr>
 				<td>Marital Status</td>
-				<td><?php echo $enums['member']['marital_status'][$basicinfo['marital_status']];?></td>
+				<td><?php echo $enums['marital_status_en'][$basicinfo['marital_status']];?></td>
 			</tr>
 			<tr>
 				<td>Height</td>
@@ -142,7 +142,7 @@
 					<td align="center"><?php echo $education['major'] ?></td>
 					<td align="center"><?php echo $education['start_time'] ?></td>
 					<td align="center"><?php echo $education['end_time'] ?></td>
-					<td align="center"><?php echo $enums['member']['diploma'][$education['diploma']] ?></td>
+					<td align="center"><?php echo $enums['diploma_en'][$education['diploma']] ?></td>
 					<td align="center"><?php echo $education['has_diploma'] ? '是' : '否'; ?></td>
 				</tr>
 				<?php }?>

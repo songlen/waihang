@@ -18,6 +18,10 @@
 		
 		{elseif $catid==34}
 		<img src="{APP_PATH}statics/default/images/pxtitle3.png" alt="">
+
+		{elseif $catid==57}
+		<img src="{APP_PATH}statics/default/images/pxtitlecase.png" alt="">
+		
 		{/if}
 	</div>
 	<div class="page_list">
@@ -34,7 +38,7 @@
 			{/loop}
 			{/pc}
 		</ul>
-		<div id="pages">{$pages}</div>
+		<div id="pages">{htmlentities($pages)}</div>
 	</div>
 </div>
 

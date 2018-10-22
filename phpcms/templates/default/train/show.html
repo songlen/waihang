@@ -4,12 +4,22 @@
 	<div class="container">
 		<div class="lesson_show_crumbs">培训课程 > 课程详情</div>
 		<div class="lesson_baseinfo">
-			<div class="video"><img src="{$video}" width="590" height="430" alt=""></div>
+			<div class="video">
+				{if $is_buy}
+				<video id="video" src="{$video_url}" width="590" height="430" controls preload>
+				您的浏览器暂不支持播放该视频，请升级至最新版浏览器。
+				</video>
+				{else}
+				<img src="{$video}" width="590" height="430" alt="">
+				{/if}
+			</div>
 			<div class="info">
 				<div class="tit">{$title}</div>
 				<div class="des">{$description}</div>
 				<div class="price">￥{$price}</div>
-				<a href="javascript:;" class="gobuy" interview="{$is_interview}">购买</a>
+				{if $is_buy == '0'}
+				<a href="javascript:;" class="gobuy" interview="{$is_interview}">报名</a>
+				{/if}
 			</div>
 		</div>
 		<div class="lesson_content">
@@ -27,23 +37,48 @@
 			var interview = $(this).attr('interview');
 			var text = '';
 
+			var is_login = {$is_login};
+			if(is_login == 0){
+				layer.msg('请先登录，正在跳转...', function(){
+					window.location='index.php?m=member&a=login&forward='+encodeURIComponent(window.location.href);
+				})
+				return false;
+			}
+		
 			if(interview == '1'){
-				text = '请确定您已经通过面试';
+				text = '请点击“确定”提交报名申请，并于工作时间致电：<br>010-64661503/010-64661028，或发送邮件至：<br>wangshu@fasco.com.cn / xiaoxuan.fan@fasco.com.cn 预约面试。通过面试后方可报名直通车课程。';
 			} else {
-				text = '您确定购买该课程吗？';
+				text = '您确定报名该课程吗？';
 			}
 
-			layui.use(['layer'], function(){
-				layer.confirm(text, {
-						btn: ['确定','取消'],
-					}, function(){
-						window.location="index.php?m=train&a=buy&id={$id}";
-					}
-				);
-			})
+			layer.confirm(text, {
+					btn: ['确定','取消'],
+				}, function(){
+					window.location="index.php?m=train&a=buy&id={$id}";
+				}
+			);
 		})
 	})
 </script>
-
-
+{if $is_buy}
+<!-- html5 video 兼容处理 -->
+<script src="//api.html5media.info/1.2.2/html5media.min.js"></script>
+<style type="text/css">
+	video::-internal-media-controls-download-button {
+	    display:none;
+	}
+    video::-webkit-media-controls-enclosure {
+        overflow:hidden;
+    }
+    video::-webkit-media-controls-panel {
+        width: calc(100% + 30px);
+    }
+</style>
+<script type="text/javascript">
+	$("video").on("contextmenu",function(){
+		//取消右键事件
+	    return false;
+	});
+</script>
+{/if}
 {template 'content', 'footer'}

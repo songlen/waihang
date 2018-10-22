@@ -3,8 +3,9 @@ defined('IN_ADMIN') or exit('No permission resources.');
 $show_dialog = 1;
 include $this->admin_tpl('header', 'admin');
 ?>
+<div class="explain-col" style="margin: 0 10px;">《<?php echo $lesson['title'];?>》 的订单列表</div>
 <div class="pad-10">
-
+	
 	<div id="searchid">
 		<form name="searchform" action="" method="get" >
 			<input type="hidden" value="train" name="m">
@@ -20,11 +21,13 @@ include $this->admin_tpl('header', 'admin');
 							<div class="explain-col">
 								<select name="searchType" id="">
 									<option value="">请选择</option>
-									<option value="title" <?php if($searchType == 'title') echo 'selected=selected';?>>课程名称</option>
-									<option value="mobile" <?php if($searchType == 'mobile') echo 'selected=selected';?>>手机号</option>
+									<!-- <option value="title" <?php if($searchType == 'title') echo 'selected=selected';?>>课程名称</option> -->
+									<option value="fullname" <?php if($searchType == 'fullname') echo 'selected=selected';?>>用户姓名</option>
+									<option value="account" <?php if($searchType == 'account') echo 'selected=selected';?>>用户账号</option>
 								</select>
 								<input name="keyword" type="text" value="<?php if(isset($keyword)) echo $keyword;?>" class="input-text" placeholder="搜索关键词" />
 								<input type="submit" name="search" class="button" value="<?php echo L('search');?>" />
+								<input type="submit" name="export" class="button" value="导出" />
 							</div>
 						</td>
 					</tr>
@@ -39,11 +42,13 @@ include $this->admin_tpl('header', 'admin');
 		<thead>
 			<tr>
 				<th width="3%" align="center"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
-				<th width="200" align="center">课程名称</th>
-				<th width="100" align="center">用户手机</th>
-				<th width="100" align="center">订单金额</th>
-				<th width="100" align="center">订单状态</th>
+				<th width="200" align="center">用户姓名</th>
+				<th width="100" align="center">身份证号</th>
+				<th width="100" align="center">账号</th>
+				<th width="100" align="center">性别</th>
+				<th width="100" align="center">头像</th>
 				<th width="15%" align="center">下单时间</th>
+				<th width="100" align="center">订单状态</th>
 				<th width="15%" align="center">操作</th>
 			</tr>
 		</thead>
@@ -55,9 +60,12 @@ include $this->admin_tpl('header', 'admin');
 	?>
 		<tr>
 			<td align="center" width="3%"><input type="checkbox" name="id[]" value="<?php echo $info['id']?>"></td>
-			<td align="center" width="200"><?php echo $info['title']?></td>
+			<td align="center" width="200"><?php echo $info['fullname']?></td>
+			<td align="center" width="200"><?php echo $info['ID_number']?></td>
 			<td align="center" width="100"><?php echo $info['mobile']?></td>
-			<td align="center" width="100"><?php echo $info['price']?></td>
+			<td align="center" width="100"><?php echo $enums['sex'][$info['sex']]?></td>
+			<td align="center" width="100"><img src="<?php echo $info['headimg']?>" width="40" heigt="60" /></td>
+			<td align="center" width="15%"><?php echo date('Y-m-d H:i', strtotime($info['inputtime']))?></td>
 			<td align="center" width="100">
 				<select name="status" id="status">
 					<option value="1" <?php if($info['status'] == '1'){ ?>selected="selected"<?php } ?>>未支付</option>
@@ -65,9 +73,9 @@ include $this->admin_tpl('header', 'admin');
 				</select>
 				
 			</td>
-			<td align="center" width="15%"><?php echo date('Y-m-d', strtotime($info['inputtime']))?></td>
 			<td align="center" width="15%">
-				<a href='?m=train&c=order&a=delete&id=<?php echo $info['id']?>' onClick="return confirm('确定删除吗？')">删除</a> 
+				<a href='?m=train&c=order&a=delete&id=<?php echo $info['id']?>' onClick="return confirm('确定删除吗？')">删除</a> |
+				<a href="###" onclick="userResume(<?php echo $info['member_id']?>)">查看简历</a>
 			</td>
 		</tr>
 		<?php
@@ -78,7 +86,7 @@ include $this->admin_tpl('header', 'admin');
 	</table>
 	</div>
 	<div class="btn">
-
+		<input type="submit" class="button" name="dosubmit" onClick="document.myform.action='?m=train&c=order&a=delete'" value="<?php echo L('delete')?>"/>&nbsp;&nbsp;
 		
 	</div>
 	<div id="pages"><?php echo $pages?></div>
@@ -92,7 +100,7 @@ include $this->admin_tpl('header', 'admin');
 		var status = $(this).val();
 
 		$.ajax({
-			url: '?m=train&c=order&a=ajax_change_status&pc_hash=<?php echo $_GET["pc_hash"]?>&id='+id+'&status='+status,
+			url: '?m=train&c=order&a=ajax_change_status&pc_hash=<?php echo input("pc_hash")?>&id='+id+'&status='+status,
 			type: 'get',
 			dateType: 'json',
 			success: function(data){
@@ -100,6 +108,21 @@ include $this->admin_tpl('header', 'admin');
 			}
 		})
 	})
+
+	function userResume(member_id){
+		window.top.art.dialog({
+				id:'userResume',
+				iframe:'?m=train&c=order&a=userResume&member_id='+member_id,
+				title:'简历',
+				width:'1000',
+				height:'550'
+			}, function(){
+				window.top.art.dialog({id:'userResume'}).close()
+			}, function(){
+				window.top.art.dialog({id:'userResume'}).close()
+			}
+		);
+	}
 </script>
 </body>
 </html>

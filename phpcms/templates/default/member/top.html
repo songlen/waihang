@@ -1,12 +1,11 @@
 <link rel="stylesheet" type="text/css" href="statics/default/css/member.css">
 <div class="memberTopBox">
-    <img class="banner" src="statics/default/images/usercenterbg.png" alt="">
     <div class="membertop">
         <div class="container">
         	<div class="infobox">
-	        	<div class="headimg"><img src="{if $memberinfo['headimg'] != ''}{$memberinfo['headimg']}{else}statics/images/nophoto.gif{/if}" width="150" height="150" alt=""></div>
+	        	<div class="headimg"><img src="{if $memberinfo['headimg'] != ''}{$memberinfo['headimg']}{else}statics/images/nophoto.gif{/if}" width="100" height="150" alt=""></div>
 	        	<div class="list">姓名：{$memberinfo['fullname']}</div>
-	        	<div class="list">手机：{$memberinfo['mobile_phone']}</div>
+	        	<div class="list">手机：{$memberinfo['mobile']}</div>
 	        	<div class="list">邮箱：{$memberinfo['email']}</div>
 	        	<!-- <a class="edit" href="">编辑简历</a> -->
 	        </div>

@@ -2,7 +2,7 @@
 defined('IN_ADMIN') or exit('No permission resources.');
 include $this->admin_tpl('header', 'admin');
 ?>
-<form method="post" action="?m=poster&c=space&a=edit&spaceid=<?php echo $_GET['spaceid']?>" name="myform" id="myform">
+<form method="post" action="?m=poster&c=space&a=edit&spaceid=<?php echo input('spaceid')?>" name="myform" id="myform">
 <table class="table_form" width="100%" cellspacing="0">
 <tbody>
 	<tr>
@@ -93,7 +93,7 @@ $('#AlignBox').click( function (){
 AdsType($('#type').val());
 $(document).ready(function(){
 	 $.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({content:msg,lock:true,width:'220',height:'70'}, function(){this.close();$(obj).focus();})}});
-	$("#name").formValidator({onshow:"<?php echo L('please_input_space_name')?>",onfocus:"<?php echo L('spacename_three_length')?>",oncorrect:"<?php echo L('correct')?>"}).inputValidator({min:6,onerror:"<?php echo L('spacename_illegality')?>"}).ajaxValidator({type:"get",url:"",data:"m=poster&c=space&a=public_check_space&spaceid=<?php echo $_GET['spaceid']?>",datatype:"html",cached:false,async:'true',success : function(data) {
+	$("#name").formValidator({onshow:"<?php echo L('please_input_space_name')?>",onfocus:"<?php echo L('spacename_three_length')?>",oncorrect:"<?php echo L('correct')?>"}).inputValidator({min:6,onerror:"<?php echo L('spacename_illegality')?>"}).ajaxValidator({type:"get",url:"",data:"m=poster&c=space&a=public_check_space&spaceid=<?php echo input('spaceid')?>",datatype:"html",cached:false,async:'true',success : function(data) {
             if( data == "1" )
 			{
                 return true;

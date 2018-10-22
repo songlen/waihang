@@ -5,11 +5,13 @@ ul,ol,li{list-style-type:none;}
 input, a {outline: none;}
 
 .clear {clear: both;height: 0; font-size: 0;}
-.container_resume{width: 800px; margin: 0 auto; position: relative;}
+.container_resume{width: 800px; margin: 20px auto 0; position: relative;}
 .resume_logo {float: left;}
-.resume_logo img , .company_head img{max-height: 100px; max-width: 300px}
-.headimg {float: right;}
-.title { font-size: 18px; text-align: center; font-weight: bold; margin-top: 20px;}
+
+.resume_logo img {height: 80px; margin-top: 52px}
+.resume_head.headimg {float: right;}
+.resume_head img {width: 94px; height: 132px;}
+.company_head .title { font-size: 22px; text-align: center; font-weight: bold; margin-top: 16px;}
 
 table {border:1px solid #000; width: 100%; border-spacing: 0; border-collapse: collapse; table-layout: fixed; word-wrap: break-word;}
 td {border:1px solid #000; padding: 5px 5px; text-align: center;}
@@ -17,4 +19,6 @@ table.noneBorderTop, table.noneBorderTop td {border-top: none;}
 .qian{margin:20px 0; text-align: right;}
 .qian span {display: inline-block; width: 100px;}
 .barCode { text-align: center; padding-bottom: 10px; margin-top: 20px;}
-.company_head { position: absolute; width: 100%; text-align: center; }
+.company_head { position: absolute; width: 100%; text-align: center; z-index: -1; }
+.company_head img {height: 57px; margin-top: 20px;}
+.enroll_number {margin-left: 10px; font-weight: bold; font-size: 20px;}

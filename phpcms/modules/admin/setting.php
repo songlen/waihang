@@ -80,8 +80,8 @@ class setting extends admin {
 			'auth_password' => $_POST['mail_password']
 		);	
 		
-		if(sendmail($_GET['mail_to'],$subject,$message,$_POST['mail_from'],$mail)) {
-			echo L('test_email_succ').$_GET['mail_to'];
+		if(sendmail(input('mail_to'),$subject,$message,$_POST['mail_from'],$mail)) {
+			echo L('test_email_succ').input('mail_to');
 		} else {
 			echo L('test_email_faild');
 		}	

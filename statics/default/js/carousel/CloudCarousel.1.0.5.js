@@ -327,7 +327,7 @@
 			// If all images have valid widths and heights, we can stop checking.			
 			clearInterval(this.tt);
 			// this.showFrontText();
-			// this.autoRotate();	
+			this.autoRotate();	
 			this.updateAll();
 			
 		};

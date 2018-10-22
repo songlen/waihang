@@ -6,7 +6,7 @@ include $this->admin_tpl('header','admin');?>
 <!--
 if(window.top.$("#current_pos").data('clicknum')==1) {
 	parent.document.getElementById('display_center_id').style.display='';
-	parent.document.getElementById('center_frame').src = '?m=content&c=content&a=public_categorys&type=add&menuid=<?php echo $_GET['menuid'];?>';
+	parent.document.getElementById('center_frame').src = '?m=content&c=content&a=public_categorys&type=add&menuid=<?php echo input('menuid');?>';
 	window.top.$("#current_pos").data('clicknum',0);
 }
 $(document).ready(function(){

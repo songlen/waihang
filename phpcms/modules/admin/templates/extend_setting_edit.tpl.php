@@ -11,6 +11,13 @@ include $this->admin_tpl('header','admin');
 				
 
 				<tr>
+					<th width="100">网站服务：</th>
+					<td>
+						<input type="radio" name="setting[close]" <?php if($close == 1) echo 'checked=checked'?> value="1"> 开启
+						<input type="radio" name="setting[close]" <?php if($close == 0) echo 'checked=checked'?> value="0"> 关闭
+					</td>
+				</tr>
+				<tr>
 					<th width="100">版权所有：</th>
 					<td> <input type="text" name="setting[copyright]" value="<?php echo $copyright;?>" size=50> </td>
 				</tr>
@@ -19,10 +26,21 @@ include $this->admin_tpl('header','admin');
 					<th width="100">联系电话：</th>
 					<td> <input type="text" name="setting[phone]" value="<?php echo $phone;?>" size=30> </td>
 				</tr>
+				
 				<tr>
 					<th width="100">首页视频：</th>
 					<td><?php echo form::upfiles('setting[index_video]', 'index_video', "$index_video", '', '', 50, '', '', 'mp4');?></td>
 				</tr>
+				<?php if($siteid == '2') { ?>
+				<tr>
+					<th width="100">首页公司简介</th>
+					<td>
+						<textarea name="setting[en_index_about]" id="en_index_about"><?php echo $en_index_about;?></textarea>
+						<?php echo form::ueditor('en_index_about', 'basic');?>
+					</td>
+				</tr>
+				<?php } ?>
+				<?php if($siteid=='1') { ?>
 				<tr>
 					<th width="100">热搜职位：</th>
 					<td><input type="text" name="setting[hot_job]" value="<?php echo $hot_job;?>" size="50"></td>
@@ -42,17 +60,17 @@ include $this->admin_tpl('header','admin');
 					<th width="100">医疗报销联系方式</th>
 					<td>
 						<textarea name="setting[reimbursement_contact]" id="reimbursement_contact"><?php echo $reimbursement_contact;?></textarea>
-						<?php echo form::ueditor('reimbursement_contact', 'basic');?>
+						<?php echo form::editor('reimbursement_contact', 'basic');?>
 					</td>
 				</tr>
 				<tr>
-					<th width="100">注册协议</th>
+					<th width="100">北京FASCO用户服务协议</th>
 					<td>
 						<textarea name="setting[registration_agreement]" id="registration_agreement"><?php echo $registration_agreement;?></textarea>
 						<?php echo form::ueditor('registration_agreement', 'full');?>
 					</td>
 				</tr>
-
+				<?php } ?>
 			</table>
 			<div class="bk15"></div>
 

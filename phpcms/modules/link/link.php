@@ -35,15 +35,12 @@ class link extends admin {
 		$link_title = isset($_GET['link_name']) && trim($_GET['link_name']) ? (pc_base::load_config('system', 'charset') == 'gbk' ? iconv('utf-8', 'gbk', trim($_GET['link_name'])) : trim($_GET['link_name'])) : exit('0');
 			
 		$linkid = isset($_GET['linkid']) && intval($_GET['linkid']) ? intval($_GET['linkid']) : '';
-		$data = array();
-		if ($linkid) {
 
-			$data = $this->db->get_one(array('linkid'=>$linkid), 'name');
-			if (!empty($data) && $data['name'] == $link_title) {
-				exit('1');
-			}
-		}
-		if ($this->db->get_one(array('name'=>$link_title), 'linkid')) {
+		$data = array();
+
+		$where = "name='{$link_title}'";
+		if($linkid) $where .= " and linkid != $linkid";
+		if ($this->db->get_one($where, 'linkid')) {
 			exit('0');
 		} else {
 			exit('1');

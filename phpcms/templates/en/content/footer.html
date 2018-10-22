@@ -1,9 +1,9 @@
 
-<div class="footer min-width-1300">
+<div class="footer footer_en min-width-1300">
 	<div class="container" style="overflow: hidden;">
 		<div class="foot_l">
 			<ul>
-				<li><span class="lable">FriendsLink：</span> {pc:get sql="select * from phpcms_keylink where siteid=$siteid order by keylinkid desc"}{loop $data $r}<span class="huoban"><a href="{$r[url]}" target="_blank">{$r[word]}</a></span>{/loop}{/pc}</li>
+				<li><span class="lable">Related Websites：</span> {pc:get sql="select * from phpcms_keylink where siteid=$siteid order by keylinkid desc"}{loop $data $r}<span class="huoban"><a href="{$r[url]}" target="_blank">{$r[word]}</a></span><br>{/loop}{/pc}</li>
 				<li><span class="lable">Copyright：</span>{get_extend_setting(copyright)}</li>
 				<li><span class="lable">Phone：</span>{get_extend_setting(phone)}</li>
 			</ul>

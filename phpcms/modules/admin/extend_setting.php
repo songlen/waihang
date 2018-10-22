@@ -51,6 +51,7 @@ class extend_setting extends admin {
 			}
 
 			extract($result);
+			$siteid = $this->siteid;
 
  			include $this->admin_tpl('extend_setting_edit');
 		}

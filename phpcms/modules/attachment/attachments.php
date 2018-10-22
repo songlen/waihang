@@ -116,7 +116,7 @@ class attachments {
 				$_GET['file'] = str_ireplace(array(';','php'),'',$_GET['file']);
 				if(is_image($_GET['file'])== false || stripos($_GET['file'],'.php')!==false) exit();
 				if (strpos($_GET['file'], pc_base::load_config('system', 'upload_url'))!==false) {
-					$file = $_GET['file'];
+					$file = input('file');
 					$basename = basename($file);
 					if (strpos($basename, 'thumb_')!==false) {
 						$file_arr = explode('_', $basename);

@@ -26,7 +26,7 @@
                             <th>Language</th>
                             <th>Certificate</th>
                             <th>Level</th>
-                            <th>Date of Issue</th>
+                            <th>Date Of Issue</th>
                             <th>Operator</th>
                         </tr> 
                     </thead>
@@ -37,7 +37,7 @@
                             <td>{$r[name]}</td>
                             <td>{$r[certificate]}</td>
                             <td>{$r[level]}</td>
-                            <td>{date('Y-m', strtotime($r[gettime]))}</td>
+                            <td>{substr($r[gettime], 0, 7)}</td>
                             <td>
                                 <a href="javascript:;" onclick="edit({$r[id]})">Edit</a>
                                 <a href="javascript:;" onclick="del({$r[id]}, this)">Delete</a>

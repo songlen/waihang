@@ -14,7 +14,7 @@ final class template_cache {
 	 */
 	
 	public function template_compile($module, $template, $style = 'default') {
-		if(strpos($module, '/')=== false) {
+		if(strpos($module, "{DIRECTORY_SEPARATOR}")=== false) {
 		$tplfile = $_tpl = PC_PATH.'templates'.DIRECTORY_SEPARATOR.$style.DIRECTORY_SEPARATOR.$module.DIRECTORY_SEPARATOR.$template.'.html';
 		} elseif (strpos($module, 'yp/') !== false) {
 			$module = str_replace('/', DIRECTORY_SEPARATOR, $module);

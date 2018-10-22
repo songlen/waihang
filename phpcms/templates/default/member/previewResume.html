@@ -1,6 +1,6 @@
 {template 'content', 'header'}
-<link rel="stylesheet" type="text/css" href="/statics/default/css/resume.css">
 {template 'member', 'top'}
+<link rel="stylesheet" type="text/css" href="/statics/default/css/resume.css">
 <div class="container">
     {template 'member', 'left'}
 	<div class="page_right">
@@ -9,12 +9,23 @@
             <div class="category_title">个人简历</div>
         </div>
         <div class="page_content" style="position: relative;">
+        	
             <div class="basicinfo">
                 <div class="tit">
+                	<button onclick="doPrint()">打印</button>
                 	<div class="language"><a {if $language=='en'} href="?m=member&a=previewResume" {else}class="current"{/if}>中文</a><a {if $language=='zh'} href="?m=member&a=previewResume&l=en" {else}class="current"{/if}>英文</a></div>
                 </div>
-			
-				<div class="headimg"><img src="{if $memberinfo['headimg']}{$memberinfo['headimg']}{else}/statics/images/nophoto.gif{/if}" width="80" height="105" alt=""></div>
+				<!--startprint-->
+				<style type="text/css">
+					.resume_logo img {height: 80px; margin-top: 52px}
+					.resume_head.headimg {float: right;}
+					.resume_head img {width: 94px; height: 132px;}
+					.company_head .title { font-size: 22px; text-align: center; font-weight: bold; margin-top: 16px;}
+					table {border:1px solid #000; width: 100%; border-spacing: 0; border-collapse: collapse; table-layout: fixed; word-wrap: break-word; margin-bottom: 0;}
+					td {border:1px solid #000; padding: 5px 5px; text-align: center;}
+					table.noneBorderTop, table.noneBorderTop td {border-top: none;}
+				</style>
+				<div class="resume_head headimg"><img src="{if $memberinfo['headimg']}{$memberinfo['headimg']}{else}/statics/images/nophoto.gif{/if}" alt=""></div>
 				<div class="company_head">
 					<div class="title">个人简历</div>
 				</div>
@@ -31,13 +42,13 @@
 						<td width="15%">性别</td>
 						<td width="15%">{$enums[sex][$basicinfo[sex]]}</td>
 						<td width="15%">户口所在地</td>
-						<td width="25%">{$basicinfo[registered_residence]}</td>
+						<td width="25%">{get_linkage_name($basicinfo[hukou_city_id])}</td>
 					</tr>
 					<tr>
 						<td width="15%">生日</td>
 						<td width="15%">{$basicinfo[birthday]}</td>
 						<td width="15%">年龄</td>
-						<td width="15%">{$basicinfo[age]}</td>
+						<td width="15%">{get_age($basicinfo[ID_number])}</td>
 						<td width="15%">所学专业</td>
 						<td width="25%">{$basicinfo[profession]}</td>
 					</tr>
@@ -61,7 +72,7 @@
 					</tr>
 					<tr>
 						<td rowspan="3">居住地址</td>
-						<td rowspan="3" colspan="3">{$basicinfo[living_city]}</td>
+						<td rowspan="3" colspan="3">{get_linkage_name($basicinfo[living_province_id])} {get_linkage_name($basicinfo[living_city_id])} {$basicinfo[living_address]}</td>
 						<td>矫正视力</td>
 						<td>{$basicinfo[correct_vision]}</td>
 					</tr>
@@ -74,8 +85,8 @@
 						<td>{$basicinfo[weight]}</td>
 					</tr>
 					<tr>
-						<td rowspan="3">通讯地址</td>
-						<td rowspan="3" colspan="3">{$basicinfo[address]}</td>
+						<td rowspan="3">户口地址</td>
+						<td rowspan="3" colspan="3">{get_linkage_name($basicinfo[hukou_province_id])} {get_linkage_name($basicinfo[hukou_city_id])} {$basicinfo[address]}</td>
 						<td>手机</td>
 						<td>{$basicinfo[mobile_phone]}</td>
 					</tr>
@@ -91,17 +102,17 @@
 						<td colspan="6"><b>外语水平</b></td>
 					</tr>
 					<tr>
-						<td><b>语言</b></td>
-						<td colspan="3"><b>证书</b></td>
-						<td><b>等级</b></td>
-						<td><b>获得时间</b></td>
+						<td>语言</td>
+						<td colspan="3">证书</td>
+						<td>等级</td>
+						<td>获得时间</td>
 					</tr>
 					{loop $languagelist $language}
 					<tr>
 						<td>{$language[name]}</td>
 						<td colspan="3">{$language[certificate]}</td>
 						<td>{$language[level]}</td>
-						<td>{$language[gettime]}</td>
+						<td>{substr($language[gettime], 0, 7)}</td>
 					</tr>
 					{/loop}
 				</table>
@@ -123,8 +134,8 @@
 					{loop $educationlist $r}
 					<tr>
 						<td width="40%" colspan="2">{$r[school_name]}</td>
-						<td width="10%">{date('Y-m', strtotime($r[start_time]))}</td>
-						<td width="10%">{date('Y-m', strtotime($r[end_time]))}</td>
+						<td width="10%">{substr($r[start_time], 0, 7)}</td>
+						<td width="10%">{substr($r[end_time], 0, 7)}</td>
 						<td width="20%">{$r[major]}</td>
 						<td width="10%">{$enums['diploma'][$r[diploma]]}</td>
 						<td width="">{if $r[has_diploma]}是{else}否{/if}</td>
@@ -149,8 +160,8 @@
 					<tr>
 						<td width="20%">{$r[company_name]}</td>
 						<td width="20%">{$r[industry]}</td>
-						<td width="10%">{date('Y-m', strtotime($r[start_time]))}</td>
-						<td width="10%">{date('Y-m', strtotime($r[end_time]))}</td>
+						<td width="10%">{substr($r[start_time], 0, 7)}</td>
+						<td width="10%">{substr($r[end_time], 0, 7)}</td>
 						<td width="20%">{$r[position]}</td>
 						<td width="10%">{$r[salary]}</td>
 						<td width="10%">{$r[witness]}</td>
@@ -162,7 +173,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">身上是否有疤痕及纹身</td>
-						<td colspan="5">{$basicinfo['scar_tattoo']}</td>
+						<td colspan="5">{if $basicinfo['scar_tattoo'] == '1'}是 {else}否{/if}</td>
 					</tr>
 					<tr>
 						<td colspan="2">何时可开始工作（注明具体日期）</td>
@@ -173,10 +184,27 @@
 						<td colspan="5">{$basicinfo[archiving_organization]}</td>
 					</tr>
 				</table>
+				<!--endprint-->
 			</div>
+			
 		</div>
 	</div>
 	<div class="clear"></div>
 </div>
+<script type="text/javascript">
+	
+function doPrint(){
+	body = window.document.body.innerHTML;
+    // sprnstr = "<!--startprint-->";
+    // eprnstr = "<!--endprint-->";
+    // prnhtml = body.substr(body.indexOf(sprnstr) + 17);
+    // prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+    $('.basicinfo .tit').hide();
+    printBody = $('.basicinfo').html();
+    window.document.body.innerHTML = printBody;
+    window.print();
+    window.document.body.innerHTML = body;
+}
 
+</script>
 {template 'content', 'footer'}

@@ -118,7 +118,8 @@ include $this->admin_tpl('header','admin');
 					var d = window.top.art.dialog({id:'selectEnterprise'}).data.iframe;
 					var radio = d.document.getElementsByName('selectedEnterprise');
 					var enterpriseInfo = '';
-					if(radio.length > 1){
+					console.log(radio.length);
+					if(radio.length > 0){
 						for (i=0; i<radio.length; i++) {  
 							if (radio[i].checked) {
 								enterpriseInfo = radio[i].value;

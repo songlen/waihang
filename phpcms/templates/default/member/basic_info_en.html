@@ -14,27 +14,21 @@
         </div>
         <div class="page_content">
             <div class="basicinfo">
-                <div class="tit"><div class="language"><a {if $language=='en'} href="?m=member" {else}class="current"{/if}>中文</a><a {if $language=='zh'} href="?m=member&l=en" {else}class="current"{/if}>英文</a></div>perfect Basic Information</div>
+                <div class="tit"><div class="language"><a {if $language=='en'} href="?m=member" {else}class="current"{/if}>中文</a><a {if $language=='zh'} href="?m=member&l=en" {else}class="current"{/if}>英文</a></div>Perfect Basic Information</div>
                 <form class="layui-form" action="?m=member" method="post">
                     <div class="layui-form-item">
-                        <label class="layui-form-label">surname</label>
+                        <label class="layui-form-label"><em>*</em>Surname</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[surname]" value="{$basicinfo[surname]}" lay-verify="required" autocomplete="off" placeholder="surname" class="layui-input">
                         </div>
-                        <label class="layui-form-label">firstname</label>
+                        <label class="layui-form-label"><em>*</em>Firstname</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[firstname]" value="{$basicinfo[firstname]}" lay-verify="required" autocomplete="off" placeholder="firstname" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">English Name</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="info[foreign_name]" value="{$basicinfo[foreign_name]}" lay-verify="required" autocomplete="off" placeholder="English Name" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">Gender</label>
+                        <label class="layui-form-label"><em>*</em>Gender</label>
                         <div class="layui-input-inline">
                             {loop $enums[sex_en] $k $v}
                             <input type="radio" name="info[sex]" value="{$k}" title="{$v}" {if $n=='1' || $basicinfo[sex]==="$k"}checked{/if}>
@@ -43,33 +37,23 @@
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">ID number</label>
-                        <div class="layui-input-inline size410">
+                        <label class="layui-form-label"><em>*</em>ID Number</label>
+                        <div class="layui-input-inline">
                             <input type="text" name="info[ID_number]" value="{$basicinfo[ID_number]}" lay-verify="required|identity" autocomplete="off" placeholder="ID number" class="layui-input">
                         </div>
-                    </div>
 
-                    <div class="layui-form-item">
-                        
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">Date of Birth</label>
+                        <label class="layui-form-label"><em>*</em>Email</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="info[birthday]" value="{$basicinfo[birthday]}" id="birthday" lay-verify="date" placeholder="Date of Birth" autocomplete="off" class="layui-input">
-                        </div>
-                        <label class="layui-form-label">Age</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="info[age]" value="{$basicinfo[age]}" id="age" placeholder="Age" autocomplete="off" class="layui-input">
+                            <input type="text" name="info[email]" value="{$basicinfo[email]}" lay-verify="required|email" autocomplete="off" placeholder="Email" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">Major</label>
+                        <label class="layui-form-label"><em>*</em>Major</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="info[profession]" value="{$basicinfo[profession]}" id="profession" placeholder="Major" autocomplete="off" class="layui-input">
+                            <input type="text" name="info[profession]" value="{$basicinfo[profession]}" id="profession" lay-verify="required" placeholder="Major" autocomplete="off" class="layui-input">
                         </div>
-                        <label class="layui-form-label">Highest Education</label>
+                        <label class="layui-form-label"><em>*</em>Highest Education</label>
                         <div class="layui-input-inline">
                             <select name="info[diploma]" lay-verify="required" placeholder="汉族" lay-search="">
                                 {loop $enums[diploma_en] $k $v}
@@ -80,7 +64,7 @@
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">Political Status</label>
+                        <label class="layui-form-label"><em>*</em>Political Status</label>
                         <div class="layui-input-block">
                             {loop $enums[political_outlook_en] $k $v}
                             <input type="radio" name="info[political_outlook]" value="{$k}" title="{$v}" {if $n=='1' || $basicinfo[political_outlook] == $k}checked{/if}>
@@ -89,7 +73,7 @@
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">Marital Status</label>
+                        <label class="layui-form-label"><em>*</em>Marital Status</label>
                         <div class="layui-input-block">
                             {loop $enums[marital_status_en] $k $v}
                             <input type="radio" name="info[marital_status]" value="{$k}" title="{$v}" {if $n=='1' || $basicinfo[marital_status] == $k}checked{/if}>
@@ -97,30 +81,23 @@
                         </div>
                     </div>
 
-                   <!--  <div class="layui-form-item">
-                       <label class="layui-form-label">矫正视力</label>
-                       <div class="layui-input-inline">
-                           <input type="text" name="info[vision]" value="{$basicinfo[vision]}" lay-verify="required" autocomplete="off" placeholder="矫正视力" class="layui-input">
-                       </div>
-                   </div> -->
-
                     <div class="layui-form-item">
-                        <label class="layui-form-label">Height(cm)</label>
+                        <label class="layui-form-label"><em>*</em>Height(cm)</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[height]" value="{$basicinfo[height]}" lay-verify="required|number" autocomplete="off" placeholder="Height" class="layui-input">
                         </div>
-                        <label class="layui-form-label">Weight(kg)</label>
+                        <label class="layui-form-label"><em>*</em>Weight(kg)</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[weight]" value="{$basicinfo[weight]}" lay-verify="required|number" autocomplete="off" placeholder="Weight" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">Cell Phone</label>
+                        <label class="layui-form-label"><em>*</em>Cell Phone</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[mobile_phone]" value="{$basicinfo[mobile_phone]}" lay-verify="required|phone" autocomplete="off" placeholder="Cell Phone" class="layui-input">
                         </div>
-                        <label class="layui-form-label">Home Phone</label>
+                        <label class="layui-form-label"><em>*</em>Home Phone</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[telphone]" value="{$basicinfo[telphone]}" lay-verify="required" autocomplete="off" placeholder="Home Phone" class="layui-input">
                         </div>
@@ -129,16 +106,16 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">Passport</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="info[passport_number]" value="{$basicinfo[passport_number]}" lay-verify="required" autocomplete="off" placeholder="Passport" class="layui-input">
+                            <input type="text" name="info[passport_number]" value="{$basicinfo[passport_number]}" autocomplete="off" placeholder="Passport" class="layui-input">
                         </div>
-                        <label class="layui-form-label">Date of Expiry</label>
+                        <label class="layui-form-label">Date Of Expiry</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="info[passport_deadline]" value="{$basicinfo[passport_deadline]}" id="passport_deadline" lay-verify="date" placeholder="Date of Expiry" autocomplete="off" lay-verify="date" class="layui-input">
+                            <input type="text" name="info[passport_deadline]" value="{$basicinfo[passport_deadline]}" id="passport_deadline" placeholder="Date of Expiry" autocomplete="off" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item layui-form" lay-filter="living_city_id">
-                        <label class="layui-form-label">Residential Address</label>
+                        <label class="layui-form-label"><em>*</em>Residential Address</label>
                         <div class="layui-input-inline">
                             <select name="info[living_province_id]" lay-verify="required" lay-filter="living_province_id" lay-search="">
                                 <option value="">Please Select</option>
@@ -157,8 +134,15 @@
                         </div>
                     </div>
 
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><em>*</em>Residential Address</label>
+                        <div class="layui-input-inline size410">
+                            <input type="text" name="info[living_address]" value="{$basicinfo[living_address]}" lay-verify="required" autocomplete="off" placeholder="Residential Address" class="layui-input">
+                        </div>
+                    </div>
+
                     <div class="layui-form-item layui-form" lay-filter="hukou_city_id">
-                        <label class="layui-form-label">hukou</label>
+                        <label class="layui-form-label"><em>*</em>Registered city</label>
                         <div class="layui-input-inline">
                             <select name="info[hukou_province_id]" lay-verify="required" lay-filter="hukou_province_id" lay-search="">
                                 <option value="">Please Select</option>
@@ -178,23 +162,23 @@
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">Archive of Personal Profile</label>
+                        <label class="layui-form-label"><em>*</em>Registered Address</label>
+                        <div class="layui-input-inline size410">
+                            <input type="text" name="info[address]" value="{$basicinfo[address]}" lay-verify="required" autocomplete="off" placeholder="Registered Address" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><em>*</em>Archive Of Personal Profile</label>
                         <div class="layui-input-inline size410">
                             <input type="text" name="info[archiving_organization]" value="{$basicinfo[archiving_organization]}" lay-verify="required" autocomplete="off" placeholder="Archive of Personal Profile" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">Postal Address</label>
+                        <label class="layui-form-label"><em>*</em>Swimming Ability</label>
                         <div class="layui-input-inline size410">
-                            <input type="text" name="info[address]" value="{$basicinfo[address]}" lay-verify="required" autocomplete="off" placeholder="Postal Address" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">Swimming Ability</label>
-                        <div class="layui-input-inline size410">
-                            <select name="info[swimming_ability]" lay-verify="required" placeholder="游泳能力" lay-search="">
+                            <select name="info[swimming_ability]" lay-verify="required" placeholder="Swimming Ability" lay-search="">
                                 <option value="">Please Select</option>
                                 {loop $enums[swimming_ability_en] $k $v}
                                 <option value="{$k}" {if $basicinfo[swimming_ability]==$k}selected{/if}>{$v}</option>
@@ -204,22 +188,22 @@
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">Corrected Eyesight</label>
+                        <label class="layui-form-label"><em>*</em>Corrected Eyesight</label>
                         <div class="layui-input-inline size410">
                             <input type="text" name="info[correct_vision]" value="{$basicinfo[correct_vision]}" lay-verify="required" autocomplete="off" placeholder="Corrected Eyesight" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">Scar or Tattoo on body</label>
+                        <label class="layui-form-label"><em>*</em>Scar Or Tattoo On Body</label>
                         <div class="layui-input-inline size410">
-                             <input type="radio" name="info[scar_tattoo]" value="yes" title="yes">
-                             <input type="radio" name="info[scar_tattoo]" value="no" title="no" checked="checked">
+                             <input type="radio" name="info[scar_tattoo]" value="1" title="yes" {if $basicinfo[scar_tattoo] == '1'}checked="checked"{/if}>
+                             <input type="radio" name="info[scar_tattoo]" value="0" title="no" {if $basicinfo[scar_tattoo] == '0'}checked="checked"{/if}>
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">Availability (Please advise when you will be able to commence employment, dd/mm/yy)</label>
+                        <label class="layui-form-label"><em>*</em>Availability (Please advise when you will be able to commence employment, dd/mm/yy)</label>
                         <div class="layui-input-inline size410">
                             <input type="text" name="info[start_work_date]" value="{$basicinfo[start_work_date]}" id="start_work_date" lay-verify="date" placeholder="Availability (Please advise when you will be able to commence employment, dd/mm/yy)" autocomplete="off" class="layui-input">
                         </div>
@@ -266,7 +250,7 @@
         form.on('submit(submit)');
 
 
-        // 监听省份select 现居住地
+        // 监听省份select 现居住城市
         form.on('select(living_province_id)', function(data){
             var province_id = data.value;
 

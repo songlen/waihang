@@ -33,6 +33,8 @@ class enroll extends admin {
 		$flight_experience_r = isset($_GET['flight_experience_r']) ? $_GET['flight_experience_r'] : '';
 		// 性别
 		$sex = isset($_GET['sex']) ? $_GET['sex'] : '';
+		// 审核状态
+		$status = isset($_GET['status']) ? $_GET['status'] : '';
 		// 婚姻状态
 		$marital_status = isset($_GET['marital_status']) ? $_GET['marital_status'] : '';
 		// 搜索类型
@@ -43,7 +45,7 @@ class enroll extends admin {
 		// 职位列表查看应聘者
 		$job_id = isset($_GET['job_id']) ? $_GET['job_id'] : '';
 
-		$where = 'language="zh"';
+		$where = "language='zh'";
 		if($_GET['search']){
 			if($diploma_l){
 				$where .= " and mr.diploma >= $diploma_l";
@@ -59,17 +61,26 @@ class enroll extends admin {
 				$where .= " and mr.height <= $height_r";
 			}
 			if($age_l){
-				$where .= " and mr.age >= $age_l";
+				$y = date('Y');
+				$m = date('m');
+				$d = date('d');
+				$birthday_l = $y-$age_l.'-'.$m.'-'.$d;
+				$where .= " and mr.birthday <= '$birthday_l'";
 			}
 			if($age_r){
-				$where .= " and mr.age <= $age_r";
+				$y = date('Y');
+				$m = date('m');
+				$d = date('d');
+				$birthday_r = ($y-$age_r-1).'-'.$m.'-'.$d;
+				$where .= " and mr.birthday > '$birthday_r'";
 			}
+
 			//毕业日期
 			if($graduation_date_l){
-				$where .= " and mr.graduation_date >= $graduation_date_l";
+				$where .= " and mr.graduation_date >= '$graduation_date_l'";
 			}
 			if($graduation_date_r){
-				$where .= " and mr.graduation_date <= $graduation_date_r";
+				$where .= " and mr.graduation_date <= '$graduation_date_r'";
 			}
 			// 空乘经验
 			if($aviation_experience_l){
@@ -99,19 +110,29 @@ class enroll extends admin {
 				$where .= " and mr.sex = $sex";
 			}
 
+			if($status){
+				$where .= " and re.status = $status";
+			}
+
 			if($marital_status){
 				$where .= " and mr.marital_status = $marital_status";
 			}
 
 			if($ID_number){
-				$ID_numbers = preg_replace("/(，)/", ',', $ID_number);
-				$ID_numbers = trim($ID_numbers, ',');
-				$pos = strpos($ID_numbers, ',');
-
+				
+				$ID_numbers = explode(' ', trim($ID_number));
+				$ID_numbers_temp = '';
+				if(is_array($ID_numbers) && !empty($ID_numbers)){
+					foreach ($ID_numbers as $item) {
+						$ID_numbers_temp .= "'".$item."',";
+					}
+				}
+				$ID_numbers_temp = trim($ID_numbers_temp, ',');
+				$pos = strpos($ID_numbers_temp, ',');
 				if($pos){
-					$where .= " and mr.ID_number in ($ID_numbers)";
+					$where .= " and mr.ID_number in ($ID_numbers_temp)";
 				} else {
-					$where .= " and mr.ID_number = $ID_numbers";
+					$where .= " and mr.ID_number = $ID_numbers_temp";
 				}
 			}
 
@@ -145,17 +166,43 @@ class enroll extends admin {
 			$where .= " and job_id = $job_id";
 		}
 
+		// 分页
+		$sql = "SELECT *, re.id  FROM phpcms_recruit_enroll re LEFT JOIN phpcms_member_resume mr on re.member_id=mr.member_id WHERE {$where}";
+		$this->db->query($sql);
+		$result_for_page = $this->db->fetch_array();
+		
+
+		// 一键审核
+		if(($job_id && $_GET['pass']) || ($job_id && $_GET['refuse'])){
+			$ope_status = $_GET['pass'] ? '2' : '3';
+			if(is_array($result_for_page) && !empty($result_for_page)){
+				foreach ($result_for_page as $item) {
+					$this->db->update(array('status'=>$ope_status), array('id'=>$item['id']));
+				}
+			}
+		}
+
 		$page = isset($_GET['page']) && intval($_GET['page']) ? intval($_GET['page']) : 1;
-		$pernum = 15;
+		$pernum = 20;
 		$limit_start = ($page-1)*$pernum;
+		$count = count($result_for_page);
+		// $count = $this->db->count();
+		$pages = pages($count, $page, $pernum);
 
 		$sql = "SELECT *, re.id  FROM phpcms_recruit_enroll re LEFT JOIN phpcms_member_resume mr on re.member_id=mr.member_id WHERE {$where} order by re.id desc limit {$limit_start}, $pernum";
+
 		$this->db->query($sql);
 		$result = $this->db->fetch_array();
 
+		// 导出中文简历
 		if($_GET['export']){
 			if(empty($result)) return false;
 			$this->export($where);
+		}
+		// 导出英文简历
+		if($_GET['export_en']){
+			if(empty($result)) return false;
+			$this->export($where, 'en');
 		}
 
 		$member_model = pc_base::load_model('member_model');
@@ -167,9 +214,6 @@ class enroll extends admin {
 			}
 		}
 
-		$count = $this->db->count();
-		$pages = pages($count, $page, $pernum);
-
 		$enums = pc_base::load_config('enums', 'member');
 		$recruit_enroll_status = pc_base::load_config('enums', 'recruit_enroll_status');
 
@@ -177,64 +221,157 @@ class enroll extends admin {
 		include $this->admin_tpl('enroll_list');
 	}
 
-	public function export($where = ''){
+	// 一键审核通过、拒绝
+	public function oneTimeExamine($status){
+
+	}
+
+	public function export($where = '', $language='zh'){
+		if($language == 'en') $where = str_replace("language='zh'", "language='en'", $where);
+
 		$sql = "SELECT *, re.id  FROM phpcms_recruit_enroll re LEFT JOIN phpcms_member_resume mr on re.member_id=mr.member_id WHERE {$where} order by re.id desc";
+
 		$this->db->query($sql);
 		$result = $this->db->fetch_array();
 
 		$enums = pc_base::load_config('enums', 'member');
 		
-		$csvcontent = "报名号,姓名,姓,名,姓拼音,名拼音,性别,民族,身份证号,出生日期,年龄,所学专业,最高学历,毕业院校,毕业日期,工作年限,政治面貌,婚姻状况,身高,体重,手机号,电话,护照号,护照有效期,现居住地址,户口所在地,存档机构,通讯地址,通讯编码,游泳能力,身上是否有疤痕及纹身,何时可开始工作,母亲姓名,母亲电话,父亲姓名,父亲电话,配偶姓名,配偶电话";
+		// $csvcontent = "简历已审,允许面试,报名号,面试地点,报名时间,英文名,姓拼音,名拼音,民族,工作年限,政治面貌,年龄,身高,体重,空乘经验,航空经验,护照有效期,姓名,游泳能力,身上是否有疤痕及纹身,何时可开始工作,性别,毕业日期,身份证号,护照号码,手机,国内座机,邮箱,档案存放地,出生日期,现居住城市,简历批注,父亲姓名,父亲电话,母亲姓名,母亲电话,婚姻状况,配偶姓名（未婚不填）,配偶电话（未婚不填）,户口地址,通讯编码,最高学历、学位,专业,毕业院校,国外住址,国外电话,备注";
+
+		$strTable ='<table width="100%" border="1">';
+    	$strTable .= '<tr style="font-weight:bold">';
+    	$strTable .= '<td>简历已审</td>';
+    	$strTable .= '<td>允许面试</td>';
+    	$strTable .= '<td>报名号</td>';
+    	$strTable .= '<td>面试地点</td>';
+    	$strTable .= '<td>报名时间</td>';
+    	$strTable .= '<td>英文名</td>';
+    	$strTable .= '<td>姓拼音</td>';
+    	$strTable .= '<td>名拼音</td>';
+    	$strTable .= '<td>民族</td>';
+    	$strTable .= '<td>工作年限</td>';
+    	$strTable .= '<td>政治面貌</td>';
+    	$strTable .= '<td>年龄</td>';
+    	$strTable .= '<td>身高</td>';
+    	$strTable .= '<td>体重</td>';
+    	$strTable .= '<td>空乘经验（年）</td>';
+    	$strTable .= '<td>航空经验（年）</td>';
+    	$strTable .= '<td>护照有效期</td>';
+    	$strTable .= '<td>姓名</td>';
+    	$strTable .= '<td>游泳能力</td>';
+    	$strTable .= '<td>身上是否有疤痕及纹身</td>';
+    	$strTable .= '<td>何时可开始工作</td>';
+    	$strTable .= '<td>性别</td>';
+    	$strTable .= '<td>毕业日期</td>';
+    	$strTable .= '<td>身份证号</td>';
+    	$strTable .= '<td>护照号码</td>';
+    	$strTable .= '<td>手机</td>';
+    	$strTable .= '<td>国内座机</td>';
+    	$strTable .= '<td>邮箱</td>';
+    	$strTable .= '<td>档案存放地</td>';
+    	$strTable .= '<td>出生日期</td>';
+    	$strTable .= '<td>现居住城市</td>';
+    	$strTable .= '<td>简历批注</td>';
+    	$strTable .= '<td>父亲姓名</td>';
+    	$strTable .= '<td>父亲电话</td>';
+    	$strTable .= '<td>母亲姓名</td>';
+    	$strTable .= '<td>母亲电话</td>';
+    	$strTable .= '<td>婚姻状况</td>';
+    	$strTable .= '<td>配偶姓名（未婚不填）</td>';
+    	$strTable .= '<td>配偶电话（未婚不填）</td>';
+    	$strTable .= '<td>户口地址</td>';
+    	$strTable .= '<td>通讯编码</td>';
+    	$strTable .= '<td>最高学历、学位</td>';
+    	$strTable .= '<td>专业</td>';
+    	$strTable .= '<td>毕业院校</td>';
+    	$strTable .= '<td>国外住址</td>';
+    	$strTable .= '<td>国外电话</td>';
+    	$strTable .= '<td>备注</td>';
+    	$strTable .= '</tr>';
 
 		foreach ($result as $item) {
 			extract($item);
-			// $fullname = str_replace(array(',', "\r\n", "\r", "\n", ' '), array('，',''), $item['fullname']);
-			// $sex = $item['sex'] == '1' ? '男' : '女';
-			$csvcontent .= "\r\n"
-				.$enroll_number.','
-				.$fullname.','
-				.$surname.','
-				.$firstname.','
-				.$surname_spell.','
-				.$firstname_spell.','
-				.$enums['sex'][$sex].','
-				.$enums['nation'][$nation].','
-				.$ID_number."\t".','
-				.$birthday.','
-				.$age.','
-				.$profession.','
-				.$enums['diploma'][$diploma].','
-				.$graduation_university.','
-				.$graduation_date.','
-				.$work_experience.','
-				.$enums['political_outlook'][$political_outlook].','
-				.$enums['marital_status'][$marital_status].','
-				.$height.','
-				.$weight.','
-				.$mobile_phone."\t".','
-				.$telphone.','
-				.$passport_number.','
-				.$passport_deadline.','
-				.$living_city.','
-				.$registered_residence.','
-				.$archiving_organization.','
-				.$address.','
-				.$zip_code.','
-				.$swimming_ability.','
-				.$scar_tattoo.','
-				.$start_work_date.','
-				.$mather_name.','
-				.$mather_phone.','
-				.$father_name.','
-				.$father_phone.','
-				.$spouse_name.','
-				.$spouse_phone
-				;
-		}
+			$fullname = str_replace(array(',', "\r\n", "\r", "\n", ' '), array('，',''), $fullname);
+			$shenhe = $status == '1' ? '' : '是';
+			$yunxumianshi = $status == '2' ? '是' : ($status == '3' ? '否' : '');
+			$mianshididian = '';
+			if($language == 'zh'){
+				$living_city = get_linkage_name($living_province_id).get_linkage_name($living_city_id); // 现居住城市
+				$marital_status = $enums['marital_status'][$marital_status]; // 婚姻桩体
+				$diploma = $enums['diploma'][$diploma]; // 最高学历、学位
+				$swimming_ability = $enums['swimming_ability'][$swimming_ability];
+				$political_outlook = $enums['political_outlook'][$political_outlook];
+				$nation = $enums['nation'][$nation];
+				$sex = $enums['sex'][$sex];
+			} else {
+				$living_city = get_linkage_name($living_province_id, 'pinyin').get_linkage_name($living_city_id, 'pinyin'); // 现居住城市
+				$marital_status = $enums['marital_status_en'][$marital_status]; // 婚姻桩体
+				$diploma = $enums['diploma_en'][$diploma]; // 最高学历、学位
+				$swimming_ability = $enums['swimming_ability_en'][$swimming_ability];
+				$political_outlook = $enums['political_outlook_en'][$political_outlook];
+				$nation = $enums['nation_en'][$nation];
+				$sex = $enums['sex_en'][$sex];
+			}
+			
+			$foreign_address = ''; // 国外住址
+			$foreign_telphone = ''; // 国外电话
+			$mark = ''; // 备注
 
-		$csvcontent = mb_convert_encoding($csvcontent,'gb2312','utf-8');
-		$filename = '人才库名单.csv';
-		$this->doexport($csvcontent, $filename);
+
+			$strTable .= '<tr>';
+			$strTable .= '<td>'.$shenhe.'</td>';// 简历已审
+			$strTable .= '<td>'.$yunxumianshi.'</td>';// 允许面试
+			$strTable .= '<td style="vnd.ms-excel.numberformat:@">'.substr($enroll_number, -4).'</td>';// 报名号
+			$strTable .= '<td>'.$mianshididian.'</td>';// 面试地点
+			$strTable .= '<td>'.date('Y/n/j', strtotime($inputtime)).'</td>';// 报名时间
+			$strTable .= '<td>'.$foreign_name.'</td>';// 英文名
+			$strTable .= '<td>'.$surname_spell.'</td>';// 姓拼音
+			$strTable .= '<td>'.$firstname_spell.'</td>';// 名拼音
+			$strTable .= '<td>'.$nation.'</td>';// 民族
+			$strTable .= '<td>'.$work_experience.'</td>';// 工作年限
+			$strTable .= '<td>'.$political_outlook.'</td>';// 政治面貌
+			$strTable .= '<td>'.$age.'</td>';// 年龄
+			$strTable .= '<td>'.$height.'</td>';// 身高
+			$strTable .= '<td>'.$weight.'</td>';// 体重
+			$strTable .= '<td>'.$aviation_experience.'</td>';// 体重
+			$strTable .= '<td>'.$flight_experience.'</td>';// 体重
+			$strTable .= '<td>'.$passport_deadline.'</td>';// 护照有效期
+			$strTable .= '<td>'.$fullname.'</td>';// 姓名
+			$strTable .= '<td>'.$swimming_ability.'</td>';// 游泳能力
+			$strTable .= '<td>'.$scar_tattoo.'</td>';// 身上是否有疤痕及纹身
+			$strTable .= '<td>'.date('Y/n/j', strtotime($start_work_date)).'</td>';// 何时可开始工作
+			$strTable .= '<td>'.$sex.'</td>';// 性别
+			$strTable .= '<td>'.date('Y/n/j', strtotime($graduation_date)).'</td>';// 毕业日期
+			$strTable .= '<td style="vnd.ms-excel.numberformat:@">'.$ID_number.'</td>';// 身份证号
+			$strTable .= '<td>'.$passport_number.'</td>';// 护照号码
+			$strTable .= '<td>'.$mobile_phone.'</td>';// 手机
+			$strTable .= '<td>'.$telphone.'</td>';// 国内座机
+			$strTable .= '<td>'.$email.'</td>';// 邮箱
+			$strTable .= '<td>'.$archiving_organization.'</td>';// 档案存放地
+			$strTable .= '<td>'.date('Y/n/j', strtotime($birthday)).'</td>';// 出生日期
+			$strTable .= '<td>'.$living_city.'</td>';// 现居住城市
+			$strTable .= '<td>'.$annotation.'</td>';// 简历批注
+			$strTable .= '<td>'.$father_name.'</td>';// 父亲姓名
+			$strTable .= '<td>'.$father_phone.'</td>';// 父亲电话
+			$strTable .= '<td>'.$mother_name.'</td>';// 母亲姓名
+			$strTable .= '<td>'.$mother_phone.'</td>';// 母亲电话
+			$strTable .= '<td>'.$marital_status.'</td>';// 婚姻状况
+			$strTable .= '<td>'.$spouse_name.'</td>';// 配偶姓名（未婚不填）
+			$strTable .= '<td>'.$spouse_phone.'</td>';// 配偶电话（未婚不填）
+			$strTable .= '<td>'.$address.'</td>';// 户口地址
+			$strTable .= '<td>'.$zip_code.'</td>';// 通讯编码
+			$strTable .= '<td>'.$diploma.'</td>';// 最高学历、学位
+			$strTable .= '<td>'.$profession.'</td>';// 专业
+			$strTable .= '<td>'.$graduation_university.'</td>';// 毕业院校
+			$strTable .= '<td>'.$foreign_address.'</td>';// 国外住址
+			$strTable .= '<td>'.$foreign_telphone.'</td>';// 国外电话
+			$strTable .= '<td>'.$mark.'</td>';// 备注
+			$strTable .= '</tr>';
+		}
+		$strTable .= '</table>';
+		// $csvcontent = mb_convert_encoding($csvcontent,'gbk','utf-8');
+		$filename = '人才库名单';
+		downloadExcel($strTable, $filename);
 	}
 
 	public function doexport($content, $filename){
@@ -284,8 +421,10 @@ class enroll extends admin {
 		$worklist = $member_work_model->select(array('member_id'=>$enrollinfo['member_id'], 'language'=>$language), '*', '', 'start_time desc, end_time desc');
 		// 外语经历
 		$languagelist = $member_language_model->select(array('member_id'=>$enrollinfo['member_id'], 'language'=>$language), '*', '', 'id desc');
+		// 如果是英文简历，英文名和中文名抓取中文简历里填写的
+		$name = $member_resume_model->get_one(array('member_id'=>$enrollinfo['member_id'], 'language'=>'zh'), 'fullname, foreign_name');
 
-		$enums = pc_base::load_config('enums');
+		$enums = pc_base::load_config('enums', 'member');
 
 		$show_header = false;
 

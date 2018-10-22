@@ -8,7 +8,7 @@ include $this->admin_tpl('header');
 <table width="100%" class="table-list">
 			  <thead>
 				<tr>
-				  <th width="25"><?php echo L('select_all')?></th><th align="left"><?php echo L('title_varchar')?></th><th width="25"><?php echo L('view')?></th><th width="25"><?php echo L('add')?></th><th width="25"><?php echo L('edit')?></th><th width="25"><?php echo L('delete')?></th><th width="25"><?php echo L('sort')?></th><th width="25"><?php echo L('push')?></th><th width="25"><?php echo L('move')?></th>
+				  <th width="25"></th><th align="left"><?php echo L('title_varchar')?></th><th width="25"><?php echo L('view')?></th><th width="25"><?php echo L('add')?></th><th width="25"><?php echo L('edit')?></th><th width="25"><?php echo L('delete')?></th><th width="25"><?php echo L('sort')?></th>
 			  </tr>
 			    </thead>
 				 <tbody>

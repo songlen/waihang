@@ -27,7 +27,7 @@
                          <li class="layui-nav-item layui-this"><a class="abtn" target="_blank" href="index.php?m=train&a=pay&id={$r[lesson_id]}">待支付</a></li>
                         {/if}
                         {if $r[status] == '2'}
-                        <li class="layui-nav-item layui-this pass"><a class="abtn" href="javascript:;">已支付</a></li>
+                        <li class="layui-nav-item layui-this pass"><a class="abtn" target="_blank" href="index.php?m=train&a=show&id={$r['lesson_id']}">已支付</a></li>
                         
                         {/if}
                         

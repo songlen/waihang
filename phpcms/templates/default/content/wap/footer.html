@@ -1,0 +1,18 @@
+<div class="ch"></div>
+<div class="erweima">
+	{pc:get sql="SELECT name, setting FROM phpcms_poster WHERE spaceid = 12 AND disabled=0 ORDER BY listorder ASC"}
+	{loop $data $r}
+	<?php 
+		$image = json_decode($r['setting'], true);
+		$image = $image[1];
+	?>
+	<div><p>{$r[name]}</p><img src="{$image[imageurl]}" width="110" height="110" alt="{$image[alt]}"></div>
+	{/loop}
+	{/pc}
+</div>
+<h4 class="foot_tit">联系电话</h4>
+<div class="foot_text">010-64661074 (社保及公积金业务)<br />010-64661379 (员工业务)</div>
+<div class="hr"></div>
+<div class="foot_text">版权所有：{get_extend_setting(copyright)}</div>
+</body>
+</html>

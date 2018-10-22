@@ -1,0 +1,18 @@
+{template 'content/wap', 'header'}
+
+<div class="catImage"><img src="statics/wap/ygfwimage.png" alt=""></div>
+<div class="pageContent">
+	<div class="catname">{$catname}</div>
+
+	<div class="zhengce_list">
+		<ul>
+			{pc:content action="lists" catid="$catid" num="10" order="listorder desc, id DESC" page="$page"}
+			{loop $data $r}
+			<li><a href="{$r[url]}&wap=1">{$r[title]}</a></li>
+			{/loop}
+			{/pc}
+		</ul>
+	</div>
+	<div id="page">{$pages}</div>
+</div>
+{template 'content/wap', 'footer'}

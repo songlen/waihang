@@ -1,9 +1,31 @@
 {template 'content', 'header'}
 
-<div class="ch"></div>
+<div class="search-recruit-bg">
+	<div class="container">
+		<div class="recruit_form">
+			<form class="jobSearchForm" action="" method="get">
+				<input type="hidden" name="m" value="recruit">
+				<input type="hidden" name="a" value="search">
+				<input type="text" name="recruit_keyword" value="{$recruit_keyword}" placeholder="搜索职位">
+				<button class="button" type="button">搜索</button>
+			</form>
+		</div>
+		<div class="hot_recruit">热门搜索：
+			<?php
+				$hot_jobs = get_extend_setting('hot_job');
+				$hot_jobs = trim($hot_jobs, '|');
+				$hot_jobs = explode('|', $hot_jobs);
+			?>
+			{loop $hot_jobs $r}
+			<a href="?m=recruit&a=search&recruit_keyword={$r}">{$r}</a>
+			{/loop}
+		</div>
+	</div>
+</div>
 <div class="container">
+	
 	<div class="joblist">
-		<div class="tab"><a href="{if $type=='1'}javascript:;{else}?m=recruit&a=search&type=1&recruit_keyword={$keyword}{/if}" {if $type=='1'}class="current"{/if}>空乘类</a><span></span><a href="{if $type=='2'}javascript:;{else}?m=recruit&a=search&type=2&recruit_keyword={$keyword}{/if}" {if $type=='2'}class="current"{/if}>非空乘类</a></div>
+		<div class="tab"><a href="{if $type=='1'}javascript:;{else}?m=recruit&a=search&type=1&recruit_keyword={$recruit_keyword}{/if}" {if $type=='1'}class="current"{/if}>空乘类</a><span></span><a href="{if $type=='2'}javascript:;{else}?m=recruit&a=search&type=2&recruit_keyword={$recruit_keyword}{/if}" {if $type=='2'}class="current"{/if}>非空乘类</a></div>
 
 		<ul>
 			{loop $jobs $r}
@@ -20,4 +42,14 @@
 	</div>
 	<div id="pages">{$pages}</div>
 </div>
+
+<script type="text/javascript">
+	$('.jobSearchForm button').click(function(){
+		var form = $('.jobSearchForm');
+		var recruit_keyword = form.find('input[name=recruit_keyword]').val();
+		if($.trim(recruit_keyword) == '') return false;
+
+		form.submit();
+	})
+</script>
 {template 'content', 'footer'}

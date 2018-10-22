@@ -41,6 +41,7 @@
 				{pc:get sql="SELECT setting FROM phpcms_poster WHERE spaceid = 13 AND disabled=0 ORDER BY listorder ASC"}
 					{loop $data $r}
 					<?php 
+					p($data);
 						$r = json_decode($r['setting'], true);
 						$r = $r[1];
 					?>

@@ -13,7 +13,7 @@ class reimbursement extends admin {
 	 */
 	public function init () {
 
-		$pernum = 15;
+		$pernum = 20;
 		$page = isset($_GET['page']) ? $_GET['page'] : 1;
 		$limit_start = ($page-1)*$pernum;
 		$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
@@ -29,7 +29,7 @@ class reimbursement extends admin {
 		}
 
 		$reimbursement_model = pc_base::load_model('member_reimbursement_model');
-		$all_result = $reimbursement_model->select($where, '*', '', '', 'member_id');
+		$all_result = $reimbursement_model->select($where, '*', '', 'id desc', 'member_id');
 		$count = count($all_result);
 
 		$datas = $reimbursement_model->select($where, '*', "$limit_start, $pernum", 'id desc', 'member_id');
@@ -41,7 +41,7 @@ class reimbursement extends admin {
 	// 报销汇总
 	public function summary(){
 
-		$pernum = 15;
+		$pernum = 20;
 		$page = isset($_GET['page']) ? $_GET['page'] : 1;
 		$limit_start = ($page-1)*$pernum;
 		$start_time = isset($_GET['start_time']) ? $_GET['start_time'] : '';
@@ -49,7 +49,7 @@ class reimbursement extends admin {
 
 		$where = '1';
 		if($start_time && $end_time){
-			$where .= " and status=2 and audit_date between '{$start_time}' and '{$end_time}' group by member_id";
+			$where .= " and status=2 and audit_date between '{$start_time}' and '{$end_time}'";
 
 			// 导出
 			if($_GET['export']){
@@ -58,11 +58,16 @@ class reimbursement extends admin {
 
 			$reimbursement_model = pc_base::load_model('member_reimbursement_model');
 			
-			$count = $reimbursement_model->count($where);
-			$sql = "select fullname, ID_number, sum(amount) sum_amount from phpcms_member_reimbursement where {$where} order by id desc limit $limit_start, $pernum";
+			// $count = $reimbursement_model->count($where);
+			$sql = "select fullname, ID_number, sum(amount) sum_amount, number from (select * from phpcms_member_reimbursement where {$where} order by id desc) as sort_all  group by member_id  limit $limit_start, $pernum";
 			$reimbursement_model->query($sql);
 			$datas = $reimbursement_model->fetch_array();
 
+			// 求总数
+			$sql = "select fullname, ID_number, sum(amount) sum_amount, number from (select * from phpcms_member_reimbursement where {$where} order by id desc) as sort_all  group by member_id";
+			$reimbursement_model->query($sql);
+			$count_data = $reimbursement_model->fetch_array();
+			$count = count($count_data);
 			$pages = pages($count, $page, $pernum);
 		}
 
@@ -76,17 +81,18 @@ class reimbursement extends admin {
 
 		$reimbursement_model = pc_base::load_model('member_reimbursement_model');
 			
-		$sql = "select fullname, ID_number, sum(amount) sum_amount from phpcms_member_reimbursement where {$where} order by id desc";
+		$sql = "select fullname, ID_number, sum(amount) sum_amount, number from (select * from phpcms_member_reimbursement where {$where} order by id desc) as sort_all  group by member_id";
 		$reimbursement_model->query($sql);
 		$datas = $reimbursement_model->fetch_array();
 
-		$csvcontent = "姓名,身份证号,累计有效支付,补充报销95%";
+		$csvcontent = "航司代码,姓名,身份证号,累计有效支付,补充报销95%";
 
 		foreach ($datas as $item) {
 			extract($item);
 			// $mark = str_replace(array(',', "\r\n", "\r", "\n", ' '), array('，',''), $mark);
 
 			$csvcontent .= "\r\n"
+				.$number.','
 				.$fullname.','
 				.$ID_number."\t".','
 				.$sum_amount.','
@@ -100,17 +106,20 @@ class reimbursement extends admin {
 	}
 
 	public function getOneMember(){
-		$member_id = $_GET['member_id'];
+		$member_id = (int)$_GET['member_id'];
+		$page = (int)$_GET['page'];
 
 		$resume_model = pc_base::load_model('member_resume_model');
 		$reimbursement_model = pc_base::load_model('member_reimbursement_model');
 
-		$memberinfo = $resume_model->get_one(array('member_id'=>$member_id), 'surname, firstname, sex, ID_number');
+		$memberinfo = $resume_model->get_one(array('member_id'=>$member_id), 'fullname, sex, ID_number');
 
-		$lists = $reimbursement_model->listinfo(array('member_id'=>$member_id));
-		$pages = $this->db->pages;
+		$lists = $reimbursement_model->listinfo(array('member_id'=>$member_id), 'id desc', $page);
+		$pages = $reimbursement_model->pages;
 
-		$reimbursement_status = pc_base::load_config('enums', 'reimbursement_status_admin');
+		$enums = pc_base::load_config('enums');
+		$reimbursement_status = $enums['reimbursement_status_admin'];
+		$sex = $enums['member']['sex'][$memberinfo['sex']];
 
 		include $this->admin_tpl('reimbursement_oneMember');
 	}

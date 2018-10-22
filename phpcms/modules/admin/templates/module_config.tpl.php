@@ -29,7 +29,7 @@ include $this->admin_tpl('header');
  </tr>
 </table>
 </div>
-<div class="bk15"></div><input type="hidden" name="module" value="<?php echo $_GET['module']?>">
+<div class="bk15"></div><input type="hidden" name="module" value="<?php echo input('module')?>">
     <input type="submit" class="dialog" id="dosubmit" name="dosubmit" value="<?php echo L('submit')?>" />
 </div>
 </div>

@@ -212,12 +212,12 @@ class role extends admin {
 					<td align='center'><input type='checkbox'  value='1' onclick='select_all(\$catid, this)' ></td>
 				  <td>\$spacer\$catname</td>
 				  <td align='center'><input type='checkbox' name='priv[\$catid][]' \$init_check  value='init' ></td>
-				  <td align='center'><input type='checkbox' name='priv[\$catid][]' \$disabled \$add_check value='add' ></td>
-				  <td align='center'><input type='checkbox' name='priv[\$catid][]' \$disabled \$edit_check value='edit' ></td>
+				  <td align='center'><input type='checkbox' name='priv[\$catid][]' \$add_check 
+				  	value='add' ></td>
+				  <td align='center'><input type='checkbox' name='priv[\$catid][]' \$edit_check value='edit' ></td>
 				  <td align='center'><input type='checkbox' name='priv[\$catid][]' \$disabled \$delete_check  value='delete' ></td>
 				  <td align='center'><input type='checkbox' name='priv[\$catid][]' \$disabled \$listorder_check value='listorder' ></td>
-				  <td align='center'><input type='checkbox' name='priv[\$catid][]' \$disabled \$push_check value='push' ></td>
-				  <td align='center'><input type='checkbox' name='priv[\$catid][]' \$disabled \$move_check value='remove' ></td>
+				  
 			  </tr>";
 			
 			$tree->init($category);

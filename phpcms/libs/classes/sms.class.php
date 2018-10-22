@@ -23,12 +23,12 @@ class sms {
 
 		/*到此验证通过，可以发送验证码*/
 		$code = random(6);
-		$log_id = $sms_log_model->insert(array('phone'=>$phone, 'code' => $code), true); //记录短信日志
+		$log_id = $sms_log_model->insert(array('phone'=>$phone, 'code' => $code, 'inputtime'=>date('Y-m-d H:i:s')), true); //记录短信日志
 
 		if($type == 'register'){
-			$content = "【北京FASCO】您本次验证码为：{$code}，五分钟内有效。感谢您注册北京FASCO";
+			$content = "【北京FASCO】您本次验证码为：{$code}，五分钟内有效。感谢您注册北京FASCO。";
 		} else {
-			$content = "【北京FASCO】您本次验证码为：{$code}，五分钟内有效";
+			$content = "【北京FASCO】您本次验证码为：{$code}，五分钟内有效。";
 		}
 
 		$result = $this->exec($phone, $content, 'bjwhhy', 'frppmjnz');
@@ -84,7 +84,7 @@ class sms {
             'reference'=>$reference
         );
 
-        return $this->http_curl( 'http://apisms.kyong.net:8080/eums/sms/send.do' , 1 ,$data);
+        return $this->http_curl( 'http://210.51.191.35:8080/eums/sms/send.do' , 1 ,$data);
     }
 
     /**

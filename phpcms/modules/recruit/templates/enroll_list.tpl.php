@@ -72,6 +72,15 @@ include $this->admin_tpl('header', 'admin');
 										<?php } ?>
 									</select>
 
+
+									&nbsp;
+									<select name="status" id="">
+										<option value="">审核状态</option>
+										<?php foreach($recruit_enroll_status as $k => $v) { ?>
+										<option <?php if($status == $k) echo 'selected';?> value="<?php echo $k;?>"><?php echo $v;?></option>
+										<?php } ?>
+									</select>
+
 									&nbsp;
 									<select name="marital_status" id="">
 										<option value="">婚姻状况</option>
@@ -92,9 +101,18 @@ include $this->admin_tpl('header', 'admin');
 									</select>
 									<input name="keyword" type="text" value="<?php if(isset($keyword)) echo $keyword;?>" class="input-text" />
 									身份证号
-									<input type="text" name="ID_number" value="<?php echo $ID_number;?>" placeholder="多个用逗号隔开">
+									<input type="text" name="ID_number" value="<?php echo $ID_number;?>" placeholder="">
 									<input type="submit" name="search" class="button" value="<?php echo L('search');?>" />
+									
+									
+								</div>
+								<div style="margin-top: 10px;">
 									<input type="submit" name="export" class="button" value="导出" />
+									<input type="submit" name="export_en" class="button" value="导出英文" />
+									<?php if($job_id) { ?>
+									<input type="submit" name="pass" class="button" value="一键通过" />
+									<input type="submit" name="refuse" class="button" value="一键拒绝" />
+									<?php } ?>
 								</div>
 							</div>
 						</td>
@@ -137,7 +155,7 @@ include $this->admin_tpl('header', 'admin');
 			</td>
 			<td align="center" width="10%">
 				<?php echo $info['fullname']?> <br>
-				<?php echo $enums['sex'][$info['sex']]?> <?php echo $info['age']?>岁<br>
+				<?php echo $enums['sex'][$info['sex']]?> <?php echo get_age($info['ID_number'])?>岁<br>
 				<?php echo $info['birthday']?> <br>
 				<?php echo $info['ID_number']?> <br>
 			</td>
@@ -272,7 +290,7 @@ include $this->admin_tpl('header', 'admin');
 			var status = $(this).val();
 
 			$.ajax({
-				url: '?m=recruit&c=enroll&a=ajax_change_status&pc_hash=<?php echo $_GET["pc_hash"]?>&id='+id+'&status='+status,
+				url: '?m=recruit&c=enroll&a=ajax_change_status&pc_hash=<?php echo input("pc_hash")?>&id='+id+'&status='+status,
 				type: 'get',
 				dateType: 'json',
 				success: function(data){
@@ -287,7 +305,7 @@ include $this->admin_tpl('header', 'admin');
 			var annotation = $(this).val();
 			
 			$.ajax({
-				url: '?m=recruit&c=enroll&a=ajax_update_annotation&pc_hash=<?php echo $_GET["pc_hash"]?>&id='+id+'&annotation='+annotation,
+				url: '?m=recruit&c=enroll&a=ajax_update_annotation&pc_hash=<?php echo input("pc_hash")?>&id='+id+'&annotation='+annotation,
 				type: 'get',
 				success: function(){
 					layer.msg('批注成功');

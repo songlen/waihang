@@ -1,0 +1,18 @@
+{template 'content/wap', 'header'}
+<div class="menu">
+	<ul>
+		{pc:content action="category" catid="15" num="25" siteid="$siteid" order="listorder desc, id desc"}
+		{php $k = 1;}
+		{loop $data $r}
+		<li>
+			<img src="statics/wap/menu_icon_{$k}.png" alt="">
+			{$r[catname]}
+			<a href="{$r[url]}&wap=1"></a>
+		</li>
+		{php $k++}
+		{/loop}
+		{/pc}
+	</ul>
+</div>
+
+{template 'content/wap', 'footer'}

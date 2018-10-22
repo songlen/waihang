@@ -46,13 +46,17 @@
 			{/pc}
 		</div>
 		<div class="menuright">
-			<div class="language">中文 <!-- <div class="zh"><a href="{siteurl(2)}">English</a></div> --></div>
+			<div class="language"><a href="{siteurl(2)}">English</a></div>
 			<div class="shu">|</div>
 			<div class="person">
+				{if is_login()}
+				<a class="ucenter" href="index.php?m=member">个人中心</a>
+				{else}
 				<img src="statics/default/images/index_03.jpg" alt="">
+				{/if}
 				<ul class="loginreg">
 					{if is_login()}
-					<li><a href="index.php?m=member">个人中心</a></li>
+					<!-- <li><a href="index.php?m=member">个人中心</a></li> -->
 					<li><a href="index.php?m=member&a=logout">退出</a></li>
 					{else}
 					<li><a href="index.php?m=member&a=login" target="_blank">登录</a></li>

@@ -10,9 +10,17 @@ class index {
 		$this->_userid = param::get_cookie('_userid');
 		$this->_username = param::get_cookie('_username');
 		$this->_groupid = param::get_cookie('_groupid');
+
+
+		$close = get_extend_setting('close');
+		if($close == 0){
+			include template('content','close');
+			die();
+		}
 	}
 	//首页
 	public function init() {
+		
 		$siteid = isset($_GET['siteid']) ? intval($_GET['siteid']) : get_siteid();
 
 		$siteid = $GLOBALS['siteid'] = max($siteid,1);
@@ -26,20 +34,21 @@ class index {
 		$default_style = $sitelist[$siteid]['default_style'];
 		$CATEGORYS = getcache('category_content_'.$siteid,'commons');
 
+		$contentPath = 'content';
 
+		$system_config = pc_base::load_config('system');
 		if($_GET['enter']=='1'){
-			setcookie('yindao', 1);
+			setcookie('yindao', 1, 0, '/', $system_config['cookie_domain']);
+		}		
+		if($_GET['wap']){
+			$contentPath = $contentPath.DIRECTORY_SEPARATOR.'wap';
 		}
 
-		if($_COOKIE['yindao']){
-			include template('content','index',$default_style);
-		} else if($_GET['enter'] == '1') {
-			include template('content','index',$default_style);
-		} else {
-			include template('content','yindao',$default_style);
+		if($_COOKIE['yindao'] || $_GET['enter'] == '1' || $_GET['wap']){
+			include template($contentPath,'index',$default_style);
+		}  else {
+			include template($contentPath,'yindao',$default_style);
 		}
-
-		
 	}
 	//内容页
 	public function show() {
@@ -223,11 +232,18 @@ class index {
 			if(!$resume || $resume['political_outlook'] != '1') $dangyuan_enroll_show = 0;
 		}
 
-		include template('content',$template);
+		$contentPath = 'content';
+		if($_GET['wap']){
+			$contentPath = $contentPath.DIRECTORY_SEPARATOR.'wap';
+		}
+
+		include template($contentPath,$template);
 	}
 	//列表页
 	public function lists() {
 		$catid = $_GET['catid'] = intval($_GET['catid']);
+		
+
 		$_priv_data = $this->_category_priv($catid);
 		if($_priv_data=='-1') {
 			$forward = urlencode(get_url());
@@ -245,6 +261,17 @@ class index {
 		$CATEGORYS = getcache('category_content_'.$siteid,'commons');
 		if(!isset($CATEGORYS[$catid])) showmessage(L('category_not_exists'),'blank');
 		$CAT = $CATEGORYS[$catid];
+		// 栏目类别处理
+		$usable_type = trim($CAT['usable_type'], ',');
+		if($usable_type){
+			$type_model = pc_base::load_model('type_model');
+			$sql = "select typeid, name from phpcms_type where typeid in ($usable_type)";
+			$type_model->query($sql);
+			$usable_types = $type_model->fetch_array();
+		}
+
+		$utypeid = intval($_GET['utypeid']);
+
 		$siteid = $GLOBALS['siteid'] = $CAT['siteid'];
 		extract($CAT);
 		$setting = string2array($setting);
@@ -257,6 +284,11 @@ class index {
 		$template = $setting['category_template'] ? $setting['category_template'] : 'category';
 		$template_list = $setting['list_template'] ? $setting['list_template'] : 'list';
 		
+		$contentPath = 'content';
+		if($_GET['wap']){
+			$contentPath = $contentPath.DIRECTORY_SEPARATOR.'wap';
+		}
+
 		if($type==0) {
 			$template = $child ? $template : $template_list;
 			$arrparentid = explode(',', $arrparentid);
@@ -285,7 +317,7 @@ class index {
 			$GLOBALS['URL_ARRAY']['categorydir'] = $categorydir;
 			$GLOBALS['URL_ARRAY']['catdir'] = $catdir;
 			$GLOBALS['URL_ARRAY']['catid'] = $catid;
-			include template('content',$template);
+			include template($contentPath,$template);
 		} else {
 		//单网页
 			$this->page_db = pc_base::load_model('page_model');
@@ -298,7 +330,7 @@ class index {
 			array_shift($arrchild_arr);
 			$keywords = $keywords ? $keywords : $setting['meta_keywords'];
 			$SEO = seo($siteid, 0, $title,$setting['meta_description'],$keywords);
-			include template('content',$template);
+			include template($contentPath,$template);
 		}
 	}
 	

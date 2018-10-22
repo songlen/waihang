@@ -292,7 +292,7 @@ $LANG['model_table_not_exists'] = '模型被禁用或者是模型内容表不存
 
 
 //前台部分
-$LANG['info_does_not_exists'] = '您要查看的信息不存在或者还未通过审批！';
+$LANG['info_does_not_exists'] = '您要查看的信息不存在';
 $LANG['first_page'] = '第一页';
 $LANG['last_page'] = '最后一页';
 $LANG['category_not_exists'] = '栏目不存在';

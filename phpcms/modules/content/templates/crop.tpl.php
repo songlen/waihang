@@ -23,16 +23,16 @@ include $this->admin_tpl('header','admin');
 			function uploadComplete(pic)
 			{
 				
-				if(parent.document.getElementById('<?php echo $_GET['input']?>')) {
-					var input = parent.document.getElementById('<?php echo $_GET['input']?>');
+				if(parent.document.getElementById('<?php echo input('input')?>')) {
+					var input = parent.document.getElementById('<?php echo input('input')?>');
 				} else {
-					var input = parent.right.document.getElementById('<?php echo $_GET['input']?>');
+					var input = parent.right.document.getElementById('<?php echo input('input')?>');
 				}
-				<?php if (!empty($_GET['preview'])):?>
-				if(parent.document.getElementById('<?php echo $_GET['preview']?>')) {
-					var preview = parent.document.getElementById('<?php echo $_GET['preview']?>');
+				<?php if (!empty(input('preview'))):?>
+				if(parent.document.getElementById('<?php echo input('preview')?>')) {
+					var preview = parent.document.getElementById('<?php echo input('preview')?>');
 				} else {
-					var preview = parent.right.document.getElementById('<?php echo $_GET['preview']?>');
+					var preview = parent.right.document.getElementById('<?php echo input('preview')?>');
 				}
 				<?php else:?>
 				var preview = '';

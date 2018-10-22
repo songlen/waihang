@@ -7,120 +7,131 @@
 	<fieldset>
 		<legend>基本信息</legend>
 		<table width="100%" class="table_form">
-			<tr>
-				<td width="120">姓名</td> 
-				<td><?php echo $basicinfo['fullname']?></td>
+
+			<tr align="left">
+				<td width="120">账号</td>
+				<td><?php 
+					if($memberinfo['mobile']){
+						echo $memberinfo['mobile'];
+					} else {
+						echo $memberinfo['email'];
+					}
+				?></td>
 			</tr>
 			<tr>
-				<td>性别</td>
+				<td width="120">性别</td>
 				<td><?php echo $enums['member']['sex'][$basicinfo['sex']]?></td>
 			</tr>
 			<tr>
-				<td>头像</td> 
+				<td width="120">头像</td> 
 				<td><img src="<?php echo $memberinfo['headimg']?>" onerror="this.src='<?php echo IMG_PATH?>member/nophoto.gif'" height=120 width=90></td>
 			</tr>
 			<tr>
-				<td>身份证号</td> 
+				<td width="120">身份证号</td> 
 				<td><?php echo $basicinfo['ID_number']?></td>
 			</tr>
 			<tr>
-				<td>民族</td>
+				<td width="120">邮箱</td> 
+				<td><?php echo $basicinfo['email']?></td>
+			</tr>
+			<tr>
+				<td width="120">民族</td>
 				<td><?php echo $enums['member']['nation'][$basicinfo['nation']];?></td>
 			</tr>
 			<tr>
-				<td>出生日期</td>
+				<td width="120">出生日期</td>
 				<td><?php echo $basicinfo['birthday'];?></td>
 			</tr>
 			<tr>
-				<td>年龄</td>
+				<td width="120">年龄</td>
 				<td><?php echo $basicinfo['age'];?></td>
 			</tr>
 			<tr>
-				<td>所学专业</td>
+				<td width="120">所学专业</td>
 				<td><?php echo $basicinfo['profession'];?></td>
 			</tr>
 			<tr>
-				<td>最高学历</td>
+				<td width="120">最高学历</td>
 				<td><?php echo $enums['member']['diploma'][$basicinfo['diploma']];?></td>
 			</tr>
 			<tr>
-				<td>毕业院校</td>
+				<td width="120">毕业院校</td>
 				<td><?php echo $basicinfo['graduation_university'];?></td>
 			</tr>
 			<tr>
-				<td>毕业日期</td>
+				<td width="120">毕业日期</td>
 				<td><?php echo $basicinfo['graduation_date'];?></td>
 			</tr>
 			<tr>
-				<td>工作年限</td>
+				<td width="120">工作年限</td>
 				<td><?php echo $basicinfo['work_experience'];?> 年</td>
 			</tr>
 			<tr>
-				<td>政治面貌</td>
+				<td width="120">政治面貌</td>
 				<td><?php echo $enums['member']['political_outlook'][$basicinfo['political_outlook']];?></td>
 			</tr>
 			<tr>
-				<td>婚姻状况</td>
+				<td width="120">婚姻状况</td>
 				<td><?php echo $enums['member']['marital_status'][$basicinfo['marital_status']];?></td>
 			</tr>
 			<tr>
-				<td>身高</td>
+				<td width="120">身高</td>
 				<td><?php echo $basicinfo['height'];?> cm</td>
 			</tr>
 			<tr>
-				<td>体重</td>
+				<td width="120">体重</td>
 				<td><?php echo $basicinfo['weight'];?> kg</td>
 			</tr>
 			<tr>
-				<td>手机号</td>
+				<td width="120">手机号</td>
 				<td><?php echo $basicinfo['mobile_phone'];?></td>
 			</tr>
 			<tr>
-				<td>电话</td>
+				<td width="120">电话</td>
 				<td><?php echo $basicinfo['telphone'];?></td>
 			</tr>
 			<tr>
-				<td>护照</td>
+				<td width="120">护照</td>
 				<td><?php echo $basicinfo['passport_number'];?></td>
 			</tr>
 			<tr>
-				<td>护照有效期</td>
+				<td width="120">护照有效期</td>
 				<td><?php echo $basicinfo['passport_deadline'];?></td>
 			</tr>
 			<tr>
-				<td>现居住地址</td>
-				<td><?php echo $basicinfo['living_city'];?></td>
+				<td width="120">现居住地址</td>
+				<td><?php echo $basicinfo['living_address'];?></td>
 			</tr>
 			<tr>
-				<td>户口所在地</td>
-				<td><?php echo $basicinfo['registered_residence'];?></td>
+				<td width="120">户口所在地</td>
+				<td><?php echo get_linkage_name($basicinfo['hukou_province_id'].' '.get_linkage_name($basicinfo['hukou_city_id']));?></td>
 			</tr>
 			<tr>
-				<td>存档机构</td>
+				<td width="120">存档机构</td>
 				<td><?php echo $basicinfo['archiving_organization'];?></td>
 			</tr>
 			<tr>
-				<td>通讯地址</td>
+				<td width="120">通讯地址</td>
 				<td><?php echo $basicinfo['address'];?></td>
 			</tr>
 			<tr>
-				<td>通讯编码</td>
+				<td width="120">通讯编码</td>
 				<td><?php echo $basicinfo['zip_code'];?></td>
 			</tr>
 			<tr>
-				<td>游泳能力</td>
-				<td><?php echo $basicinfo['swimming_ability'];?></td>
+				<td width="120">游泳能力</td>
+				<td><?php echo $enums['member']['swimming_ability'][$basicinfo['swimming_ability']];?></td>
 			</tr>
 			<tr>
-				<td>矫正视力</td>
+				<td width="120">矫正视力</td>
 				<td><?php echo $basicinfo['correct_vision'];?></td>
 			</tr>
 			<tr>
-				<td>身上是否有疤痕及纹身</td>
+				<td width="120">身上是否有疤痕及纹身</td>
 				<td><?php echo $basicinfo['scar_tattoo'];?></td>
 			</tr>
 			<tr>
-				<td>何时可开始工作</td>
+				<td width="120">何时可开始工作</td>
 				<td><?php echo $basicinfo['start_work_date'];?></td>
 			</tr>
 			

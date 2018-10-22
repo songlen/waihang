@@ -718,6 +718,7 @@ function pages($num, $curr_page, $perpage = 20, $urlrule = '', $array = array(),
 	} elseif($urlrule == '') {
 		$urlrule = url_par('page={$page}');
 	}
+	$urlrule = url_par('page={$page}'); // 强制获取当前url 
 	$multipage = '';
 	if($num > $perpage) {
 		$page = $setpages+1;
@@ -1178,30 +1179,6 @@ function is_ie() {
 }
 
 
-/**
- * 文件下载
- * @param $filepath 文件路径
- * @param $filename 文件名称
- */
-
-function file_down($filepath, $filename = '') {
-	if(!$filename) $filename = basename($filepath);
-	if(is_ie()) $filename = rawurlencode($filename);
-	$filetype = fileext($filename);
-	$filesize = sprintf("%u", filesize($filepath));
-	if(ob_get_length() !== false) @ob_end_clean();
-	header('Pragma: public');
-	header('Last-Modified: '.gmdate('D, d M Y H:i:s') . ' GMT');
-	header('Cache-Control: no-store, no-cache, must-revalidate');
-	header('Cache-Control: pre-check=0, post-check=0, max-age=0');
-	header('Content-Transfer-Encoding: binary');
-	header('Content-Encoding: none');
-	header('Content-type: '.$filetype);
-	header('Content-Disposition: attachment; filename="'.$filename.'"');
-	header('Content-length: '.$filesize);
-	readfile($filepath);
-	exit;
-}
 
 /**
  * 判断字符串是否为utf8编码，英文和半角字符返回ture

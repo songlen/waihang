@@ -25,6 +25,15 @@ class sitemodel_field extends admin {
 		include $this->admin_tpl('sitemodel_field_manage');
 	}
 	public function add() {
+
+		require MODEL_PATH.'fields.inc.php';
+		$all_field = array();
+		foreach($fields as $_k=>$_v) {
+			if(in_array($_k,$not_allow_fields) || in_array($_k,$exists_field) && in_array($_k,$unique_fields)) continue;
+			$all_field[$_k] = $_v;
+		}
+
+
 		if(isset($_POST['dosubmit'])) {
 			$model_cache = getcache('model','commons');
 			$modelid = $_POST['info']['modelid'] = intval($_POST['info']['modelid']);
@@ -36,8 +45,11 @@ class sitemodel_field extends admin {
 			$minlength = $_POST['info']['minlength'] ? $_POST['info']['minlength'] : 0;
 			$maxlength = $_POST['info']['maxlength'] ? $_POST['info']['maxlength'] : 0;
 			$field_type = $_POST['info']['formtype'];
+
+			if(array_key_exists($field_type, $all_field)){
+				require MODEL_PATH.$field_type.DIRECTORY_SEPARATOR.'config.inc.php';
+			}
 			
-			require MODEL_PATH.$field_type.DIRECTORY_SEPARATOR.'config.inc.php';
 			
 			if(isset($_POST['setting']['fieldtype'])) {
 				$field_type = $_POST['setting']['fieldtype'];
@@ -54,7 +66,6 @@ class sitemodel_field extends admin {
 		} else {
 			$show_header = $show_validator = $show_dialog = '';
 			pc_base::load_sys_class('form','',0);
-			require MODEL_PATH.'fields.inc.php';
 			$modelid = $_GET['modelid'];
 			$f_datas = $this->db->select(array('modelid'=>$modelid),'field,name',100,'listorder ASC');
 			$m_r = $this->model_db->get_one(array('modelid'=>$modelid));
@@ -62,11 +73,6 @@ class sitemodel_field extends admin {
 				$exists_field[] = $_v['field'];
 			}
 
-			$all_field = array();
-			foreach($fields as $_k=>$_v) {
-				if(in_array($_k,$not_allow_fields) || in_array($_k,$exists_field) && in_array($_k,$unique_fields)) continue;
-				$all_field[$_k] = $_v;
-			}
 
 			$modelid = $_GET['modelid'];
 			//角色缓存
@@ -94,7 +100,16 @@ class sitemodel_field extends admin {
 			$maxlength = $_POST['info']['maxlength'] ? $_POST['info']['maxlength'] : 0;
 			$field_type = $_POST['info']['formtype'];
 			
-			require MODEL_PATH.$field_type.DIRECTORY_SEPARATOR.'config.inc.php';
+			require MODEL_PATH.'fields.inc.php';
+			$all_field = array();
+			foreach($fields as $_k=>$_v) {
+				if(in_array($_k,$not_allow_fields) || in_array($_k,$exists_field) && in_array($_k,$unique_fields)) continue;
+				$all_field[$_k] = $_v;
+			}
+			
+			if(array_key_exists($field_type, $all_field)){
+				require MODEL_PATH.$field_type.DIRECTORY_SEPARATOR.'config.inc.php';
+			}
 			
 			if(isset($_POST['setting']['fieldtype'])) {
 				$field_type = $_POST['setting']['fieldtype'];
@@ -116,7 +131,6 @@ class sitemodel_field extends admin {
 			require MODEL_PATH.'fields.inc.php'; 
 			$modelid = intval($_GET['modelid']);
 			$fieldid = intval($_GET['fieldid']);
-
 			
 			$m_r = $this->model_db->get_one(array('modelid'=>$modelid));
 			$r = $this->db->get_one(array('fieldid'=>$fieldid));
@@ -204,6 +218,15 @@ class sitemodel_field extends admin {
 	 */
 	public function public_field_setting() {
 		$fieldtype = $_GET['fieldtype'];
+
+		require MODEL_PATH.'fields.inc.php';
+		$all_field = array();
+		foreach($fields as $_k=>$_v) {
+			if(in_array($_k,$not_allow_fields) || in_array($_k,$exists_field) && in_array($_k,$unique_fields)) continue;
+			$all_field[$_k] = $_v;
+		}
+		if(!array_key_exists($fieldtype, $all_field)) return false;
+
 		require MODEL_PATH.$fieldtype.DIRECTORY_SEPARATOR.'config.inc.php';
 		ob_start();
 		include MODEL_PATH.$fieldtype.DIRECTORY_SEPARATOR.'field_add_form.inc.php';

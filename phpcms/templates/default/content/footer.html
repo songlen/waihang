@@ -6,6 +6,7 @@
 				<li><span class="lable">友情链接：</span>{pc:get sql="select * from phpcms_keylink where siteid=$siteid order by keylinkid desc"}{loop $data $r}<span class="huoban"><a href="{$r[url]}" target="_blank">{$r[word]}</a></span>{/loop}{/pc}</li>
 				<li><span class="lable">版权所有：</span>{get_extend_setting(copyright)}</li>
 				<li><span class="lable">联系电话：</span>{get_extend_setting(phone)}</li>
+				<li><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1273835426'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273835426%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></li>
 			</ul>
 		</div>
 		<div class="foot_r">
@@ -23,6 +24,7 @@
 		</div>
 
 	</div>
+
 </div>
 
 <!-- 检测浏览器版本 低于ie8-->
@@ -42,7 +44,7 @@
 <!-- 检测浏览器版本 低于ie8 -->
 
 <!-- banner -->
-<script type="text/javascript" src="{APP_PATH}statics/default/js/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="statics/default/js/jquery.flexslider-min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.flexslider').flexslider({
@@ -95,6 +97,17 @@
 			$(this).find('dl').hide();
 		})
 	})
+</script>
+
+<script src="https://www.sobot.com/chat/frame/js/entrance.js?sysNum=ebd8aea547d24ec682760e9081ce22a7" class="zhiCustomBtn" id="zhichiScript" data-args="manual=true"></script>
+<script type="text/javascript">
+	//初始化智齿咨询组件实例
+	var zhiManager = (getzhiSDKInstance());
+	//再调用load方法
+	zhiManager.on("load", function() {
+	    zhiManager.initBtnDOM();
+	});
+	//zhiManager.set('color','09aeb0'); //API示例，格式为 0-9 a-f 之间的六位有效字符 不用加#
 </script>
 </body>
 </html>

@@ -6,7 +6,7 @@ include $this->admin_tpl('header','admin');?>
 <!--
 	if(window.top.$("#current_pos").data('clicknum')==1 || window.top.$("#current_pos").data('clicknum')==null) {
 	parent.document.getElementById('display_center_id').style.display='';
-	parent.document.getElementById('center_frame').src = '?m=content&c=content&a=public_categorys&type=add&menuid=<?php echo $_GET['menuid'];?>&pc_hash=<?php echo $_SESSION['pc_hash'];?>';
+	parent.document.getElementById('center_frame').src = '?m=content&c=content&a=public_categorys&type=add&menuid=<?php echo input('menuid');?>&pc_hash=<?php echo htmlentities($_SESSION['pc_hash']);?>';
 	window.top.$("#current_pos").data('clicknum',0);
 }
 //-->
@@ -36,7 +36,7 @@ include $this->admin_tpl('header','admin');?>
 		<div class="explain-col">
  
 				<?php echo L('addtime');?>：
-				<?php echo form::date('start_time',$_GET['start_time'],0,0,'false');?>- &nbsp;<?php echo form::date('end_time',$_GET['end_time'],0,0,'false');?>
+				<?php echo form::date('start_time',input('start_time'),0,0,'false');?>- &nbsp;<?php echo form::date('end_time',input('end_time'),0,0,'false');?>
 				
 				<select name="searchtype">
 					<option value='0' <?php if($_GET['searchtype']==0) echo 'selected';?>><?php echo L('title');?></option>

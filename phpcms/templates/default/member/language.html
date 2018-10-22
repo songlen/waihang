@@ -6,8 +6,8 @@
     {template 'member', 'left'}
     <div class="page_right">
         <div class="current_crumb">
-            <div class="crumb">个人中心 > 外语经历</div>
-            <div class="category_title">外语经历</div>
+            <div class="crumb">个人中心 > 外语水平</div>
+            <div class="category_title">外语水平</div>
         </div>
         <div class="page_content">
             <div class="basicinfo">
@@ -37,7 +37,7 @@
                             <td>{$r[name]}</td>
                             <td>{$r[certificate]}</td>
                             <td>{$r[level]}</td>
-                            <td>{date('Y-m', strtotime($r[gettime]))}</td>
+                            <td>{substr($r[gettime], 0, 7)}</td>
                             <td>
                                 <a href="javascript:;" onclick="edit({$r[id]})">修改</a>
                                 <a href="javascript:;" onclick="del({$r[id]}, this)">删除</a>

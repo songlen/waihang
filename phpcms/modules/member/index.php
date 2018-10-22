@@ -109,6 +109,10 @@ class index extends foreground {
 			$language = $info['language'];
 			$info['member_id'] = $userid;
 			$info['fullname'] = $info['surname'].$info['firstname'];
+			// 根据身份证号计算出生日期和年龄
+			$ID_number = $info['ID_number'];
+			$info['birthday'] = get_birthday($ID_number);
+			$info['age'] = get_age($ID_number);
 
 			$where = array('member_id'=>$userid, 'language'=>$language);
 			$resume_exist = $this->member_resume_model->count($where);
@@ -126,6 +130,7 @@ class index extends foreground {
 			);
 
 			$resume_exist = $this->member_resume_model->count($update_where);
+			// 如果对应语言存在就更新
 			if($resume_exist){
 				$update_data = array(
 					'sex' => $info['sex'],
@@ -137,9 +142,15 @@ class index extends foreground {
 					'living_city_id' => $info['living_city_id'],
 					'hukou_province_id' => $info['hukou_province_id'],
 					'hukou_city_id' => $info['hukou_city_id'],
+					'ID_number' => $info['ID_number'],
+					'birthday' => $info['birthday'],
+					'age' => $info['age'],
 				);
 
 				$this->member_resume_model->update($update_data, $update_where);
+			} else {
+				// 对应语言简历不存在就提示添加
+				showmessage('保存成功，请填写英文简历', "?m=member&l=en");
 			}
 
 			showmessage('保存成功', "?m=member&l=$language");
@@ -1400,7 +1411,7 @@ class index extends foreground {
 		}
 	}
 
-	public function pic(){
+	/*public function pic(){
 		$memberinfo = $this->memberinfo;
 
 		if($_POST['dosubmit']){
@@ -1421,7 +1432,7 @@ class index extends foreground {
 				if($imgsize[1] > 150) error('图片宽度不能超过150px');
 			}
 			if($type == 'body'){
-				// 2寸图片尺寸 290*430
+				// 6寸图片尺寸 290*430
 				if($imgsize[0] > 290) error('图片宽度不能超过290px');
 				if($imgsize[1] > 430) error('图片宽度不能超过430px');
 			}
@@ -1454,39 +1465,266 @@ class index extends foreground {
 			$SEO = seo(SITEID);
 			include template('member', 'pic');
 		}
+	}*/
+
+	public function pic(){
+		$memberinfo = $this->memberinfo;
+
+		if($_POST['dosubmit']){
+			$type = $_POST['type'];
+			if(!in_array($type, array('head', 'body'))){
+				die(json_encode(array('status'=>'error', 'message'=>'异常错误')));
+			}
+
+			$attachment = pc_base::load_sys_class('attachment');
+			$imgsize = getimagesize($_FILES['img']['tmp_name']);
+			if($imgsize == false){
+				die(json_encode(array('status'=>'error', 'message'=>'不是有效的图片')));
+			}
+
+			if($type == 'head'){
+				// 2寸图片尺寸 100*150
+				// if($imgsize[0] > 100) die(json_encode(array('status'=>'error', 'message'=>'图片宽度不能超过100px')));;
+				// if($imgsize[1] > 150) die(json_encode(array('status'=>'error', 'message'=>'图片高度不能超过150px')));
+			}
+			if($type == 'body'){
+				// 6寸图片尺寸 290*430
+				// if($imgsize[0] > 290) die(json_encode(array('status'=>'error', 'message'=>'图片宽度不能超过290px')));;
+				// if($imgsize[1] > 430) die(json_encode(array('status'=>'error', 'message'=>'图片宽度不能超过430px')));;
+			}
+
+			$a = $attachment->upload('img', 'jpg|png|jpeg|gif', 5000*1024);
+
+			if($a){
+				$filepath = $attachment->uploadedfiles[0]['filepath'];
+				$filepath = pc_base::load_config('system', 'upload_url').$filepath;
+				
+				/*if($type == 'head'){
+					$updata = array('headimg'=>$filepath);
+				}
+				if($type == 'body'){
+					$updata = array('bodyimg'=>$filepath);
+				}
+
+				$member_model = pc_base::load_model('member_model');
+				$member_model->update($updata, array('userid'=>$memberinfo['userid']));*/
+
+				$result = array(
+					"status" => "success",
+					"url" =>  $filepath,
+					"width" => $imgsize[0],
+					"height" => $imgsize[1]
+				);
+
+				setcookie('pictype', $type);
+				echo json_encode($result);
+				exit;
+			} else {
+				$error = $attachment->error();
+				$result = array(
+					'status' => 'error',
+					'message' => $error,
+				);
+				echo json_encode($result);
+				exit;
+			}
+		} else {
+			$layui = true;
+			$siteid = SITEID;
+			$SEO = seo(SITEID);
+			include template('member', 'pic');
+		}
+	}
+
+	public function crop(){
+		$imgUrl = $_POST['imgUrl'];
+		// original sizes
+		$imgInitW = $_POST['imgInitW'];
+		$imgInitH = $_POST['imgInitH'];
+		// resized sizes
+		$imgW = $_POST['imgW'];
+		$imgH = $_POST['imgH'];
+		// offsets
+		$imgY1 = $_POST['imgY1'];
+		$imgX1 = $_POST['imgX1'];
+		// crop box
+		$cropW = $_POST['cropW'];
+		$cropH = $_POST['cropH'];
+		// rotation angle
+		$angle = $_POST['rotation'];
+
+		$jpeg_quality = 100;
+
+		// $output_filename = "temp/croppedImg_".rand();
+
+		// uncomment line below to save the cropped image in the same location as the original image.
+		$output_filename = dirname($imgUrl). "/croppedImg_".rand();
+
+		$what = getimagesize($imgUrl);
+
+		switch(strtolower($what['mime']))
+		{
+		    case 'image/png':
+		        $img_r = imagecreatefrompng($imgUrl);
+				$source_image = imagecreatefrompng($imgUrl);
+				$type = '.png';
+		        break;
+		    case 'image/jpeg':
+		        $img_r = imagecreatefromjpeg($imgUrl);
+				$source_image = imagecreatefromjpeg($imgUrl);
+				error_log("jpg");
+				$type = '.jpeg';
+		        break;
+		    case 'image/gif':
+		        $img_r = imagecreatefromgif($imgUrl);
+				$source_image = imagecreatefromgif($imgUrl);
+				$type = '.gif';
+		        break;
+		    default: die('image type not supported');
+		}
+
+
+		//Check write Access to Directory
+
+		if(!is_writable(dirname($output_filename))){
+			$response = Array(
+			    "status" => 'error',
+			    "message" => 'Can`t write cropped File'
+		    );	
+		}else{
+
+		    // resize the original image to size of editor
+		    $resizedImage = imagecreatetruecolor($imgW, $imgH);
+			imagecopyresampled($resizedImage, $source_image, 0, 0, 0, 0, $imgW, $imgH, $imgInitW, $imgInitH);
+		    // rotate the rezized image
+		    $rotated_image = imagerotate($resizedImage, -$angle, 0);
+		    // find new width & height of rotated image
+		    $rotated_width = imagesx($rotated_image);
+		    $rotated_height = imagesy($rotated_image);
+		    // diff between rotated & original sizes
+		    $dx = $rotated_width - $imgW;
+		    $dy = $rotated_height - $imgH;
+		    // crop rotated image to fit into original rezized rectangle
+			$cropped_rotated_image = imagecreatetruecolor($imgW, $imgH);
+			imagecolortransparent($cropped_rotated_image, imagecolorallocate($cropped_rotated_image, 0, 0, 0));
+			imagecopyresampled($cropped_rotated_image, $rotated_image, 0, 0, $dx / 2, $dy / 2, $imgW, $imgH, $imgW, $imgH);
+			// crop image into selected area
+			$final_image = imagecreatetruecolor($cropW, $cropH);
+			imagecolortransparent($final_image, imagecolorallocate($final_image, 0, 0, 0));
+			imagecopyresampled($final_image, $cropped_rotated_image, 0, 0, $imgX1, $imgY1, $cropW, $cropH, $cropW, $cropH);
+			// finally output png image
+			//imagepng($final_image, $output_filename.$type, $png_quality);
+			imagejpeg($final_image, $output_filename.$type, $jpeg_quality);
+
+			$pictype = $_COOKIE['pictype'];
+			if($pictype == 'head'){
+				$updata = array('headimg'=>$output_filename.$type);
+			}
+			if($pictype == 'body'){
+				$updata = array('bodyimg'=>$output_filename.$type);
+			}
+
+			$member_model = pc_base::load_model('member_model');
+			$memberinfo = $this->memberinfo;
+			$member_model->update($updata, array('userid'=>$memberinfo['userid']));
+			setcookie('pictype', '', '-1');
+			$response = Array(
+			    "status" => 'success',
+			    "url" => $output_filename.$type
+		    );
+		}
+		die(json_encode($response));
+	}
+
+	// 视频上传
+	public function uploadVideo(){
+		pc_base::load_sys_class('attachment');
+		$attachment = new attachment('member', 0, 0, 'videoIntro/');
+		$a = $attachment->upload('file', 'jpg|png|jpeg|gif|mp4', 50000*1024);
+
+		if($a){
+			$filepath = $attachment->uploadedfiles[0]['filepath'];
+			$filepath = pc_base::load_config('system', 'upload_url').$filepath;
+			
+			$result = array(
+				"status" => "success",
+				"url" =>  $filepath,
+				"width" => $imgsize[0],
+				"height" => $imgsize[1]
+			);
+
+			echo json_encode($result);
+			exit;
+		} else {
+			$error = $attachment->error();
+			$result = array(
+				'status' => 'error',
+				'message' => $error,
+			);
+			echo json_encode($result);
+			exit;
+		}
 	}
 
 	public function register(){
 		if($_POST['dosubmit']){
 			$info = $_POST['info'];
+			$account_type = $_POST['account_type'];
 
 			// 检测手机号格式
-			if(!preg_match('/^1[34578]\d{9}$/', $info['phone'])) error(L('phone_number_error'));
+			if($account_type == 'phone'){
+				if(!preg_match('/^1[34578]\d{9}$/', $info['account'])) error(L('phone_number_error'));
+				// 检测手机号是否注册
+				if($this->member_model->count(array('mobile'=>$info['account']))) error(L('phone_registered'));
+			}
+
+			if($account_type == 'email'){
+				if(!preg_match('/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/', $info['account'])) error('邮箱格式错误');
+				// 检测邮箱是否注册
+				if($this->member_model->count(array('email'=>$info['account']))) error('该邮箱已注册');
+			}
+			
 			// 验证验证码
 			if($info['code'] == '') error('请填写验证码');
-			if(!preg_match('/^1[34578]\d{9}$/', $info['phone'])) error('手机号格式错误');
-			$sms_code_model = pc_base::load_model('sms_code_model');
-			$smscode = $sms_code_model->get_one(array('phone'=>$info['phone']));
+
+			if($account_type == 'phone'){
+				$sms_code_model = pc_base::load_model('sms_code_model');
+				$smscode = $sms_code_model->get_one(array('phone'=>$info['account']), 'code, inputtime', 'id desc');
+				
+			}			
+			if($account_type == 'email'){
+				$sms_log_model = pc_base::load_model('sms_log_model');
+				$smscode = $sms_log_model->get_one(array('phone'=>$info['account'], 'type'=>'2'), 'code, inputtime', 'id desc');
+			}
+
+
 			if(!$smscode || ($smscode['code'] != $info['code'])) error('验证码不正确');
 			if(($smscode['inputtime'] + 300) < time()) error('验证码已失效'); // 有效时间5分钟
 
+			
+
 			// 验证密码
 			if($info['pwd'] != $info['confirm_pwd']) error(L('different_password'));
-			// 检测手机号是否注册
-			if($this->member_model->count(array('mobile'=>$info['phone']))) error(L('phone_registered'));
+			
 
 			$encrypt = create_randomstr(6);
 			$userinfo = array(
-				'username' => $info['phone'],
-				'nickname' => $info['phone'],
+				'username' => $info['account'],
+				'nickname' => $info['account'],
 				'regdate' => time(),
 				'lastdate' => time(),
-				'mobile' => $info['phone'],
 				'encrypt' => $encrypt,
 				'password' => password($info['pwd'], $encrypt),
+				'is_employee' => '1',
 			);
+
+			if($account_type == 'phone'){
+				$userinfo['mobile'] = $info['account'];
+			} else {
+				$userinfo['email'] = $info['account'];
+			}
 			
-			
+
 			$userid = $this->member_model->insert($userinfo, true);
 
 			if($userid > 0) {
@@ -1519,13 +1757,11 @@ class index extends foreground {
 		$phone = $_GET['phone'];
 		$type = $_GET['type'];
 
-		$member_model = pc_base::load_model('member_model');
-
-		$is_register = $member_model->count(array('mobile'=>$phone));
+		$is_register = $this->member_model->count(array('mobile'=>$phone));
 		// 如果是注册短信，检测手机号是否注册
 		if($type == 'register'){
 			// 检测手机号是否已注册
-			// if($is_register) error('该手机号已注册')；
+			if($is_register) error('该手机号已注册');
 		}
 		// 如果找回密码，检测是否注册
 		if($type == 'forget'){
@@ -1540,9 +1776,9 @@ class index extends foreground {
 		if($_POST['dosubmit']){
 			$info = $_POST['info'];
 			// 检测手机号格式
-			if(!preg_match('/^1[34578]\d{9}$/', $info['phone'])) error('手机号格式错误');
+			if(!preg_match('/^1[34578]\d{9}$/', $info['phone']) && !preg_match('/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/', $info['phone'])) error('手机号或邮箱格式错误');
 
-			$memberInfo = $this->member_model->get_one(array('mobile'=>$info['phone']));
+			$memberInfo = $this->member_model->get_one("mobile='{$info['phone']}' or email='{$info['phone']}'");
 
 			if(empty($memberInfo)) error('该手机号未注册');
 			if($memberInfo['islock'] == '1') error('该用户被锁定');
@@ -1574,29 +1810,58 @@ class index extends foreground {
 		// 第一步，输入手机号验证码
 		if($_POST['dosubmit'] && $step == 1){
 			$info = $_POST['info'];
-			// 检测手机号格式
-			if(!preg_match('/^1[34578]\d{9}$/', $info['phone'])) error('手机号格式错误');
-			// 检测手机号是否注册
-			if(!$this->member_model->count(array('mobile'=>$info['phone'], 'islock'=>'0'))) error('该手机号未注册');
+			$account_type = $_POST['account_type'];
+
+			if($account_type == 'phone'){
+				// 检测手机号格式
+				if(!preg_match('/^1[34578]\d{9}$/', $info['account'])) error('手机号格式错误');
+				// 检测手机号是否注册
+				if(!$this->member_model->count(array('mobile'=>$info['account'], 'islock'=>'0'))) error('该手机号未注册');
+
+			}
+			if($account_type == 'email'){
+				// 检测手机号格式
+				if(!preg_match('/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/', $info['account'])) error('邮箱格式错误');
+				// 检测手机号是否注册
+				if(!$this->member_model->count(array('email'=>$info['account'], 'islock'=>'0'))) error('该邮箱未注册');
+
+			}
 			// 检测验证码
 			if($info['code'] == '') error('请填写验证码');
-			if(!preg_match('/^1[34578]\d{9}$/', $info['phone'])) error('手机号格式错误');
-			$sms_code_model = pc_base::load_model('sms_code_model');
-			$smscode = $sms_code_model->get_one(array('phone'=>$info['phone']));
+
+			if($account_type == 'phone'){
+				$sms_code_model = pc_base::load_model('sms_code_model');
+				$smscode = $sms_code_model->get_one(array('phone'=>$info['account']), 'code, inputtime', 'id desc');
+				
+			}			
+			if($account_type == 'email'){
+				$sms_log_model = pc_base::load_model('sms_log_model');
+				$smscode = $sms_log_model->get_one(array('phone'=>$info['account'], 'type'=>'2'), 'code, inputtime', 'id desc');
+			}
+
+
 			if(!$smscode || ($smscode['code'] != $info['code'])) error('验证码不正确');
 			if(($smscode['inputtime'] + 300) < time()) error('验证码已失效'); // 有效时间5分钟
 
 			// 将要修改密码的手机号写入cookie
-			param::set_cookie('forget_phone', $info['phone']);
+			param::set_cookie('forget_account', $info['account']);
+			param::set_cookie('account_type', $account_type);
 			success('信息无误');
 		}
 		// 第二步，设置新密码
 		if($_POST['dosubmit'] && $step == 2){
-			$forget_phone = param::get_cookie('forget_phone');
-			if(!$forget_phone) error(L('illegal_operation'), '?m=member&a=forgetPassword&step=1');
+			$forget_account = param::get_cookie('forget_account');
+			$account_type = param::get_cookie('account_type');
+
+			if(!$forget_account) error(L('illegal_operation'), '?m=member&a=forgetPassword&step=1');
 			$info = $_POST['info'];
 			// 检测手机号是否注册
-			if(!$this->member_model->count(array('mobile'=>$info['phone'], 'islock'=>'0'))) error('该手机号未注册');
+			if($account_type == 'phone'){
+				if(!$this->member_model->count(array('mobile'=>$forget_account, 'islock'=>'0'))) error('该手机号未注册');
+			}
+			if($account_type == 'email'){
+				if(!$this->member_model->count(array('email'=>$forget_account, 'islock'=>'0'))) error('该邮箱未注册');
+			}
 			// 执行修改密码操作
 			$encrypt = create_randomstr(6);
 			$newPassword = password($info['pwd'], $encrypt);
@@ -1605,8 +1870,8 @@ class index extends foreground {
 				'encrypt' => $encrypt
 			);
 
-			if($this->member_model->update($updata, array('mobile'=>$forget_phone))){
-				param::set_cookie('forget_phone', time()-3600);
+			if($this->member_model->update($updata, "mobile='$forget_account' or email='$forget_account'")){
+				param::set_cookie('forget_account', time()-3600);
 				success(L('change_password_success'), '?m=member&a=login');
 			} else {
 				error(L('operation_failure'));
@@ -1619,7 +1884,7 @@ class index extends foreground {
 		if($step == 1){
 			include template('member', 'forget_password1');
 		} elseif($step == 2) {
-			if(!param::get_cookie('forget_phone')){
+			if(!param::get_cookie('forget_account')){
 				header('location:?m=member&a=forgetPassword');
 			}
 			include template('member', 'forget_password2');
@@ -1717,13 +1982,16 @@ class index extends foreground {
 		$basicinfo = $member_resume_model->get_one(array('member_id'=>$memberinfo['userid'], 'language'=>$language));
 
 		// 头像
-		$memberinfo = $member_model->get_one(array('userid'=>$userid), 'userid, headimg');
+		$member = $member_model->get_one(array('userid'=>$userid), 'userid, headimg');
+		$memberinfo['headimg'] = $member['headimg'];
 		// 教育经历
 		$educationlist = $member_education_model->select(array('member_id'=>$userid, 'language'=> $language), '*', '', 'start_time desc, end_time desc');
 		// 工作经历
 		$worklist = $member_work_model->select(array('member_id'=>$userid, 'language'=> $language), '*', '', 'start_time desc, end_time desc');
 		// 外语经历
 		$languagelist = $member_language_model->select(array('member_id'=>$userid, 'language'=> $language), '*', '', 'id desc');
+		// 如果是英文简历，英文名和中文名抓取中文简历里填写的
+		$name = $member_resume_model->get_one(array('member_id'=>$memberinfo['userid'], 'language'=>'zh'), 'fullname, foreign_name');
 
 		$enums = pc_base::load_config('enums', 'member');
 
@@ -1779,9 +2047,13 @@ class index extends foreground {
 		// 外语经历
 		$languagelist = $member_language_model->select(array('member_id'=>$enrollinfo['member_id'], 'language'=> $language), '*', '', 'id desc');
 
+		// 如果是英文简历，英文名和中文名抓取中文简历里填写的
+		$name = $member_resume_model->get_one(array('member_id'=>$enrollinfo['member_id'], 'language'=>'zh'), 'fullname, foreign_name');
+
+
 		$enums = pc_base::load_config('enums', 'member');
+
 		// 生成条形码
-		
 		$barcode = $this->generateBarCode(str_pad($enrollinfo['orderNumber'], 4, '0', STR_PAD_LEFT));
 
 		$siteid = SITEID;
@@ -1812,22 +2084,28 @@ class index extends foreground {
 			showmessage('您不是员工，无权访问', HTTP_REFERER);
 		}
 
+		$resume_model = pc_base::load_model('member_resume_model');
+		$resume = $resume_model->get_one(array('member_id'=>$memberinfo['userid'], 'language'=>'zh'), 'fullname, sex, ID_number, mobile_phone');
+
+		if(empty($resume['fullname']) || empty($resume['ID_number']) || empty($resume['mobile_phone'])){
+			showmessage('请完善基本资料', 'index.php?m=member');
+		}
+
 		$reimbursement_model = pc_base::load_model('member_reimbursement_model');
 
 		if($_POST['dosubmit']){
 			$info = $_POST['info'];
 
-			if(empty($info['ordernum']) || empty($info['date']) || empty($info['number']) || empty($info['amount'])){
+			if(empty($info['ordernum']) || empty($info['number']) || empty($info['amount'])){
 				showmessage('信息填写不完整', HTTP_REFERER);
 			}
 
 			$info['member_id'] = $memberinfo['userid'];
 			// 获取用户姓名、电话、身份证
-			$resume_model = pc_base::load_model('member_resume_model');
-			$oneinfo = $resume_model->get_one(array('member_id'=>$memberinfo['userid']));
-			$info['fullname'] = $oneinfo['fullname'];
-			$info['ID_number'] = $oneinfo['ID_number'];
-			$info['phone'] = $oneinfo['mobile_phone'];
+			
+			$info['fullname'] = $resume['fullname'];
+			$info['ID_number'] = $resume['ID_number'];
+			$info['phone'] = $resume['mobile_phone'];
 
 			if($reimbursement_model->insert($info)){
 				showmessage('申请成功', HTTP_REFERER);
@@ -1835,11 +2113,10 @@ class index extends foreground {
 				showmessage('服务器错误', HTTP_REFERER);
 			}
 		} else {
-			$resume_model = pc_base::load_model('member_resume_model');
-			$resume = $resume_model->get_one(array('member_id'=>$memberinfo['userid'], 'language'=>'zh'), 'surname, firstname, sex, ID_number');
 
-			$lists = $reimbursement_model->listinfo(array('member_id'=>$memberinfo['userid']));
-			$page = $this->db->page;
+			$page = $_GET['page'] ? $_GET['page'] : '1';
+			$lists = $reimbursement_model->listinfo(array('member_id'=>$memberinfo['userid']), 'id desc', $page, 10);
+			$pages = $reimbursement_model->pages;
 
 			$reimbursement_status = pc_base::load_config('enums', 'reimbursement_status_admin');
 
@@ -1847,6 +2124,18 @@ class index extends foreground {
 			$siteid = SITEID;
 			$SEO = seo(SITEID);
 			include template('member', 'reimbursement');
+		}
+	}
+
+	public function del_reimbursement(){
+		$id = $_GET['id'] ? $_GET['id'] : '';
+
+		$memberinfo = $this->memberinfo;
+		$userid = $memberinfo['userid'];
+
+		$reimbursement_model = pc_base::load_model('member_reimbursement_model');
+		if($reimbursement_model->delete(array('member_id'=>$userid, 'id'=>$id))){
+			showmessage('删除成功', HTTP_REFERER);
 		}
 	}
 
@@ -1859,6 +2148,58 @@ class index extends foreground {
 		$order_model->query($sql);
 		$lists = $order_model->fetch_array();
 
+		$siteid = SITEID;
+		$SEO = seo(SITEID);
+
 		include template('member', 'lesson');
+	}
+
+
+	function public_sendmail() {
+		$email = $_GET['email'];
+		$type = $_GET['type'];
+
+		if(!preg_match('/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/', $email)){
+			error('邮箱格式错误');
+		}
+
+		$member_model = pc_base::load_model('member_model');
+		$is_register = $member_model->count(array('email'=>$email));
+		// 如果是注册短信，检测手机号是否注册
+		if($type == 'register'){
+			// 检测手机号是否已注册
+			if($is_register) error('该邮箱已注册');
+		}
+		// 如果找回密码，检测是否注册
+		if($type == 'forget'){
+			if(!$is_register) error('该邮箱未注册');
+		}
+
+		// 加载邮件类
+		pc_base::load_sys_func('mail');
+
+		$code = mt_rand(100000, 999999);
+		$content = "您的验证码是：{$code}，有效时间：5分钟。";
+
+		$title = '注册验证码';
+		if(sdmail($email, $title, $content)){
+			$this->mail_log($email, $code, '1');
+			success('验证码已发送至您的邮箱，请查收！');
+		} else {
+			$this->mail_log($email, $code, '0');
+			error('验证码发送失败');
+		}
+	}
+
+	private function mail_log($account, $code, $status){
+		$sms_log_model = pc_base::load_model('sms_log_model');
+		$data = array(
+			'phone' => $account,
+			'code' => $code,
+			'status' => $status,
+			'inputtime' => time(),
+			'type' => '2',
+		);
+		$sms_log_model->insert($data);
 	}
  }

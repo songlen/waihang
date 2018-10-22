@@ -17,8 +17,8 @@
 
 <div class="min-width-1300">
 	<div class="container index_title">
-		<a href="{$CATEGORYS[30][url]}" class="more"><img src="{APP_PATH}statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
-		<img src="{APP_PATH}statics/default/images/index_21.jpg" width="230" alt="">
+		<a href="{$CATEGORYS[30][url]}" class="more"><img src="statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
+		<img src="statics/default/images/index_21.jpg" width="230" alt="">
 	</div>
 
 	<div class="index_news container">
@@ -51,8 +51,8 @@
 	</div>
 
 	<div class="container index_title">
-		<a href="index.php?m=recruit" class="more"><img src="{APP_PATH}statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
-		<img src="{APP_PATH}statics/default/images/index_36.jpg" width="280" alt="">
+		<a href="index.php?m=recruit" class="more"><img src="statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
+		<img src="statics/default/images/index_36.jpg" width="280" alt="">
 	</div>
 	<div class="container index_zhaopin">
 		<ul>
@@ -72,8 +72,8 @@
 	</div>
 
 	<div class="container index_title">
-		<a href="{$CATEGORYS[21][url]}" class="more"><img src="{APP_PATH}statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
-		<img src="{APP_PATH}statics/default/images/index_43.jpg" width="340" alt="">
+		<a href="{$CATEGORYS[21][url]}" class="more"><img src="statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
+		<img src="statics/default/images/index_43.jpg" width="340" alt="">
 	</div>
 	<div class="container index_zhaopin">
 		<ul>
@@ -94,17 +94,17 @@
 
 	<div class="container indexmidmenu">
 		<ul>
-			<li><a href="index.php?m=recruit"><img src="{APP_PATH}statics/default/images/index_47.png" width="366" height="190" alt=""></a></li>
-			<li><a href="{$CATEGORYS[21][url]}"><img src="{APP_PATH}statics/default/images/index_48.png" width="366" height="190" alt=""></a></li>
-			<li><a href="{$CATEGORYS[10][url]}"><img src="{APP_PATH}statics/default/images/index_49.png" width="366" height="190" alt=""></a></li>
-			<li><a href="{$CATEGORYS[23][url]}"><img src="{APP_PATH}statics/default/images/index_50.png" width="366" height="190" alt=""></a></li>
-			<li><a href="{$CATEGORYS[17][url]}"><img src="{APP_PATH}statics/default/images/index_51.png" width="366" height="190" alt=""></a></li>
-			<li><a href="{$CATEGORYS[2][url]}"><img src="{APP_PATH}statics/default/images/index_52.png" width="366" height="190" alt=""></a></li>
+			<li><a href="index.php?m=recruit"><img src="statics/default/images/index_47.png" width="366" height="190" alt=""></a></li>
+			<li><a href="{$CATEGORYS[21][url]}"><img src="statics/default/images/index_48.png" width="366" height="190" alt=""></a></li>
+			<li><a href="{$CATEGORYS[10][url]}"><img src="statics/default/images/index_49.png" width="366" height="190" alt=""></a></li>
+			<li><a href="{$CATEGORYS[23][url]}"><img src="statics/default/images/index_50.png" width="366" height="190" alt=""></a></li>
+			<li><a href="{$CATEGORYS[17][url]}"><img src="statics/default/images/index_51.png" width="366" height="190" alt=""></a></li>
+			<li><a href="{$CATEGORYS[2][url]}"><img src="statics/default/images/index_52.png" width="366" height="190" alt=""></a></li>
 		</ul>
 	</div>
 	<div class="container index_title">
-		<a href="/index.php?m=link" class="more"><img src="{APP_PATH}statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
-		<img src="{APP_PATH}statics/default/images/index_55.jpg" width="320" alt="">
+		<a href="/index.php?m=link" class="more"><img src="statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
+		<img src="statics/default/images/index_55.jpg" width="320" alt="">
 	</div>
 	<div class="container index_customer">
 		<ul>
@@ -183,6 +183,9 @@
 <!-- html5 video 兼容处理 -->
 <script src="//api.html5media.info/1.2.2/html5media.min.js"></script>
 <style type="text/css">
+	video::-internal-media-controls-download-button {
+	    display:none;
+	}
     video::-webkit-media-controls-enclosure {
         overflow:hidden;
     }
@@ -190,5 +193,11 @@
         width: calc(100% + 30px);
     }
 </style>
+<script type="text/javascript">
+	$("video").on("contextmenu",function(){
+		//取消右键事件
+	    return false;
+	});
+</script>
 
 {template 'content', 'footer'}

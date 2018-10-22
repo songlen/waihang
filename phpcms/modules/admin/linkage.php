@@ -192,10 +192,10 @@ class linkage extends admin {
 		}
 		if(count($s)>0) {
 			$jsonstr = json_encode($s);
-			echo $_GET['callback'].'(',$jsonstr,')';
+			echo input('callback').'(',$jsonstr,')';
 			exit;			
 		} else {
-			echo $_GET['callback'].'()';exit;			
+			echo input('callback').'()';exit;			
 		}
 	}
 	/**

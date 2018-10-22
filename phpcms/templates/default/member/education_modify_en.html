@@ -13,19 +13,19 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">major</label>
+        <label class="layui-form-label">Major</label>
         <div class="layui-input-inline">
             <input type="text" name="info[major]" placeholder="Major" value="{$education[major]}" autocomplete="off" class="layui-input" lay-verify="required">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">Duration with School</label>
+        <label class="layui-form-label">Duration With School</label>
         <div class="layui-input-inline">
-            <input type="text" name="info[start_time]" value="{if $education[start_time]}{date('Y-m', strtotime($education[start_time]))}{/if}" id="start_time" placeholder="From" autocomplete="off" class="layui-input" lay-verify="required">
+            <input type="text" name="info[start_time]" value="{if $education[start_time]}{substr($education[start_time], 0, 7)}{/if}" id="start_time" placeholder="From" autocomplete="off" class="layui-input" lay-verify="required">
         </div>
         <div class="layui-form-mid">-</div>
         <div class="layui-input-inline">
-            <input type="text" name="info[end_time]" value="{if $education[start_time]}{date('Y-m', strtotime($education[end_time]))}{/if}" id="end_time" placeholder="To" autocomplete="off" class="layui-input" lay-verify="required">
+            <input type="text" name="info[end_time]" value="{if $education[start_time]}{substr($education[end_time], 0, 7)}{/if}" id="end_time" placeholder="To" autocomplete="off" class="layui-input" lay-verify="required">
         </div>
     </div>
     <div class="layui-form-item">
@@ -38,10 +38,10 @@
                 {/loop}
             </select>
         </div>
-        <div class="layui-input-inline"><input type="checkbox"  {if $education[has_diploma] == 1}checked{/if} name="info[has_diploma]" title="已取得毕业证"></div>
+        <div class="layui-input-inline"><input type="checkbox"  {if $education[has_diploma] == 1}checked{/if} name="info[has_diploma]" title="Certificate Obtained"></div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">Other instructions</label>
+        <label class="layui-form-label">Other Instructions</label>
         <div class="layui-input-block" style="width: 410px;">
             <textarea placeholder="Other instructions" class="layui-textarea"></textarea>
         </div>

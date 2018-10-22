@@ -33,8 +33,8 @@ $(function(){
 <div class="pad_10">
 <div class="subnav">
   <h2 class="title-1 line-x f14 fb blue lh28"><?php echo L('model_manage');?>--<?php echo $m_r['name'].L('field_manage');?></h2>
-<div class="content-menu ib-a blue line-x"><a class="add fb" href="?m=content&c=sitemodel_field&a=add&modelid=<?php echo $modelid?>&menuid=<?php echo $_GET['menuid']?>"><em><?php echo L('add_field');?></em></a>
-　<a href="?m=content&c=sitemodel_field&a=init&modelid=<?php echo $modelid?>&menuid=<?php echo $_GET['menuid']?>"><em><?php echo L('manage_field');?></em></a><span>|</span></div>
+<div class="content-menu ib-a blue line-x"><a class="add fb" href="?m=content&c=sitemodel_field&a=add&modelid=<?php echo $modelid?>&menuid=<?php echo (int)$_GET['menuid']?>"><em><?php echo L('add_field');?></em></a>
+　<a href="?m=content&c=sitemodel_field&a=init&modelid=<?php echo $modelid?>&menuid=<?php echo (int)$_GET['menuid']?>"><em><?php echo L('manage_field');?></em></a><span>|</span></div>
   <div class="bk10"></div>
 </div>
 <form name="myform" id="myform" action="?m=content&c=sitemodel_field&a=add" method="post">

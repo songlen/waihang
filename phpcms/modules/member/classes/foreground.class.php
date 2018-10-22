@@ -38,10 +38,10 @@ class foreground {
 				$resume = $member_resume->get_one(array('member_id'=>$this->memberinfo['userid'], 'language'=>'zh'));
 				if($resume){
 					$this->memberinfo['fullname'] = $resume['surname'].$resume['firstname'];
-					$this->memberinfo['mobile_phone'] = $resume['mobile_phone'];
-					$this->memberinfo['email'] = $resume['email'];
+					$this->memberinfo['mobile'] = $resume['mobile_phone'] ? $resume['mobile_phone'] : $this->memberinfo['mobile'];
+					$this->memberinfo['email'] = $this->memberinfo['email'] ? $this->memberinfo['email'] : $resume['email'];
 				}
-				
+
 				if($this->memberinfo && $this->memberinfo['password'] === $password) {
 					
 					if (!defined('SITEID')) {

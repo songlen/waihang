@@ -181,63 +181,7 @@ class poster extends admin {
 		}
 		return true;
 	}
-	
-	/**
-	 * 广告统计
-	 */
-	public function stat() {
-		
-		$_GET['id'] = intval($_GET['id']);
-		$info = $this->db->get_one(array('id'=>$_GET['id']), 'spaceid');
-		if (!$_GET['id']) showmessage(L('illegal_operation'));
-		/** 
-		 *如果设置了日期查询，设置查询的开始时间和结束时间
-		 */
-		$sdb = pc_base::load_model('poster_stat_model'); //调用广告统计的数据模型
-		$year = date('Y', SYS_TIME);
-        $month = date('m', SYS_TIME);
-        $day = date('d', SYS_TIME);
-        $where = $group = $order = '';
-        $fields = '*';
-        $where = "`pid`='".$_GET['id']."' AND `siteid`='".$this->get_siteid()."'";
-		if ($_GET['range'] == 2) { //昨天的统计
-            $fromtime = mktime(0, 0, 0, $month, $day-2, $year);
-            $totime = mktime(0, 0, 0, $month, $day-1, $year);
-            $where .= " AND `clicktime`>='".$fromtime."'";
-            $where .= " AND `clicktime`<='".$totime."'";
-        } elseif(is_numeric($_GET['range'])) { //如果设置了查询的天数
-            $fromtime = mktime(0, 0, 0, $month, $day-$_GET['range'], $year);
-            $where .= " AND `clicktime`>='".$fromtime."'";
-        }
-        $order = '`clicktime` DESC';
-        
-        //如果设置了按点击、展示统计
-        $_GET['click'] = isset($_GET['click']) ? intval($_GET['click']) : 0;
-        if (is_numeric($_GET['click'])) {
-        	$_GET['click'] = intval($_GET['click']);
-        	$where .= " AND `type`='".$_GET['click']."'";
-        	
-        	//如果设置了按地区或者按ip分类
-	        if ($_GET['group']) {
-	        	$group = " `".$_GET['group']."`";
-	        	$fields = "*, COUNT(".$_GET['group'].") AS num";
-	        	$order = " `num` DESC";
-	        } 
-	        $r = $sdb->get_one($where, 'COUNT(*) AS num', '', $group); //取得总数
-        } else {
-        	$r = $sdb->get_one($where, 'COUNT(*) AS num');
-        }
-		$page = max(intval($_GET['page']), 1);
-		$curr_page = 20;
-		$limit = ($page-1)*$curr_page.','.$curr_page;
-		$pages = pages($r['num'], $page, 20); //生成分页
-		$data = $sdb->select($where, $fields, $limit, $order, $group);
-		$selectstr = $sdb->get_list($_GET['year']); //取得历史查询下拉框，有历史数据查询时，会自动换表
-		pc_base::load_sys_class('format', '', 0);
-		$show_header = true;
-		unset($r);
-		include $this->admin_tpl('poster_stat');
-	}
+
 	
 	/**
 	 * 根据版位的类型，得到版位的配置信息。如广告类型等

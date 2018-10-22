@@ -33,6 +33,7 @@ include $this->admin_tpl('header');?>
     <table width="100%" cellspacing="0">
         <thead>
 			<tr>
+				<th width="20%" align="left">航司代码</th>
 				<th width="20%" align="left">姓名</th>
 				<th width="20%" align="left">身份证号</th>
 				<th width="20%" align="left">累计有效自付</th>
@@ -45,6 +46,7 @@ include $this->admin_tpl('header');?>
 				foreach($datas as $info){
 			?>
 			<tr>
+				<td><?php echo $info['number']?></td>
 				<td><?php echo $info['fullname']?></td>
 				<td><?php echo $info['ID_number']?></td>
 				<td><?php echo $info['sum_amount']?></td>

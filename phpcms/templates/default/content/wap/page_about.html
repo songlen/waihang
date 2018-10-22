@@ -1,0 +1,18 @@
+{template 'content/wap', 'header'}
+
+<div class="catImage"><img src="statics/wap/ygfwimage.png" alt=""></div>
+<div class="pageContent">
+	<div class="catname">{$catname}</div>
+
+	<div class="page_content">
+		{$content}
+	</div>
+</div>
+{template 'content/wap', 'footer'}
+
+<script type="text/javascript">
+	$(function(){
+		$('.page_content img').width('auto');
+		$('.page_content img').height('auto');
+	})
+</script>

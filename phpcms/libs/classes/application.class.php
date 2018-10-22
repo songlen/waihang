@@ -45,7 +45,7 @@ class application {
 		$filepath = PC_PATH.'modules'.DIRECTORY_SEPARATOR.$m.DIRECTORY_SEPARATOR.$filename.'.php';
 		if (file_exists($filepath)) {
 			$classname = $filename;
-			include $filepath;
+			my_include($filepath) ;
 			if ($mypath = pc_base::my_path($filepath)) {
 				$classname = 'MY_'.$filename;
 				include $mypath;

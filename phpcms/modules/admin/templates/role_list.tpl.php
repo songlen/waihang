@@ -31,8 +31,8 @@ if(is_array($infos)){
 <?php } else {?>
 <font color="#cccccc"><?php echo L('role_setting');?></font> | <font color="#cccccc"><?php echo L('usersandmenus')?></font> |
 <?php }?>
-<a href="?m=admin&c=role&a=member_manage&roleid=<?php echo $info['roleid']?>&menuid=<?php echo $_GET['menuid']?>"><?php echo L('role_member_manage');?></a> | 
-<?php if($info['roleid'] > 1) {?><a href="?m=admin&c=role&a=edit&roleid=<?php echo $info['roleid']?>&menuid=<?php echo $_GET['menuid']?>"><?php echo L('edit')?></a> | 
+<a href="?m=admin&c=role&a=member_manage&roleid=<?php echo $info['roleid']?>&menuid=<?php echo input('menuid')?>"><?php echo L('role_member_manage');?></a> | 
+<?php if($info['roleid'] > 1) {?><a href="?m=admin&c=role&a=edit&roleid=<?php echo $info['roleid']?>&menuid=<?php echo input('menuid')?>"><?php echo L('edit')?></a> | 
 <a href="javascript:confirmurl('?m=admin&c=role&a=delete&roleid=<?php echo $info['roleid']?>', '<?php echo L('posid_del_cofirm')?>')"><?php echo L('delete')?></a>
 <?php } else {?>
 <font color="#cccccc"><?php echo L('edit')?></font> | <font color="#cccccc"><?php echo L('delete')?></font>

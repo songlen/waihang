@@ -5,13 +5,14 @@
 	<link rel="stylesheet" type="text/css" href="/statics/default/css/resume.css">
 </head>
 <body>
+	<button id="print" onclick="doPrint()">打印</button>
 	<div class="container_resume">
-		<div class="barCode">{$barcode} <br><span>No.{$enrollinfo['enroll_number']}</span></div>
+		<div class="barCode">{$barcode}<span class="enroll_number">No.{$enrollinfo['enroll_number']}</span></div>
 		
 		<div class="resume_logo"><img src="{get_extend_setting(resume_logo)}" alt=""></div>
-		<div class="headimg"><img src="{if $memberinfo['headimg']}{$memberinfo['headimg']}{else}/statics/images/nophoto.gif{/if}" width="80" height="105" alt=""></div>
+		<div class="resume_head headimg"><img src="{if $memberinfo['headimg']}{$memberinfo['headimg']}{else}/statics/images/nophoto.gif{/if}" alt=""></div>
 		<div class="company_head">
-			{if $logo}<img src="{$logo}" alt="" width="110" height="55">{/if}
+			{if $logo}<img src="{$logo}" >{/if}
 			<div class="title">空乘职位申请表</div>
 		</div>
 
@@ -29,13 +30,13 @@
 				<td width="15%">性别</td>
 				<td width="15%">{$enums[sex][$basicinfo[sex]]}</td>
 				<td width="15%">户口所在地</td>
-				<td width="25%">{$basicinfo[registered_residence]}</td>
+				<td width="25%">{get_linkage_name($basicinfo[hukou_city_id])}</td>
 			</tr>
 			<tr>
 				<td width="15%">生日</td>
 				<td width="15%">{$basicinfo[birthday]}</td>
 				<td width="15%">年龄</td>
-				<td width="15%">{$basicinfo[age]}</td>
+				<td width="15%">{get_age($basicinfo[ID_number])}</td>
 				<td width="15%">所学专业</td>
 				<td width="25%">{$basicinfo[profession]}</td>
 			</tr>
@@ -59,7 +60,7 @@
 			</tr>
 			<tr>
 				<td rowspan="3">居住地址</td>
-				<td rowspan="3" colspan="3">{$basicinfo[living_city]}</td>
+				<td rowspan="3" colspan="3">{$basicinfo[living_address]}</td>
 				<td>矫正视力</td>
 				<td>{$basicinfo[correct_vision]}</td>
 			</tr>
@@ -72,7 +73,7 @@
 				<td>{$basicinfo[weight]}</td>
 			</tr>
 			<tr>
-				<td rowspan="3">通讯地址</td>
+				<td rowspan="3">户口地址</td>
 				<td rowspan="3" colspan="3">{$basicinfo[address]}</td>
 				<td>手机</td>
 				<td>{$basicinfo[mobile_phone]}</td>
@@ -89,17 +90,17 @@
 				<td colspan="6"><b>外语水平</b></td>
 			</tr>
 			<tr>
-				<td><b>语言</b></td>
-				<td colspan="3"><b>证书</b></td>
-				<td><b>等级</b></td>
-				<td><b>获得时间</b></td>
+				<td>语言</td>
+				<td colspan="3">证书</td>
+				<td>等级</td>
+				<td>获得时间</td>
 			</tr>
 			{loop $languagelist $language}
 			<tr>
 				<td>{$language[name]}</td>
 				<td colspan="3">{$language[certificate]}</td>
 				<td>{$language[level]}</td>
-				<td>{$language[gettime]}</td>
+				<td>{substr($language[gettime], 0, 7)}</td>
 			</tr>
 			{/loop}
 		</table>
@@ -121,8 +122,8 @@
 			{loop $educationlist $r}
 			<tr>
 				<td width="40%" colspan="2">{$r[school_name]}</td>
-				<td width="10%">{date('Y-m', strtotime($r[start_time]))}</td>
-				<td width="10%">{date('Y-m', strtotime($r[end_time]))}</td>
+				<td width="10%">{substr($r[start_time], 0, 7)}</td>
+				<td width="10%">{substr($r[end_time], 0, 7)}</td>
 				<td width="20%">{$r[major]}</td>
 				<td width="10%">{$enums['diploma'][$r[diploma]]}</td>
 				<td width="">{if $r[has_diploma]}是{else}否{/if}</td>
@@ -147,8 +148,8 @@
 			<tr>
 				<td width="20%">{$r[company_name]}</td>
 				<td width="20%">{$r[industry]}</td>
-				<td width="10%">{date('Y-m', strtotime($r[start_time]))}</td>
-				<td width="10%">{date('Y-m', strtotime($r[end_time]))}</td>
+				<td width="10%">{substr($r[start_time], 0, 7)}</td>
+				<td width="10%">{substr($r[end_time], 0, 7)}</td>
 				<td width="20%">{$r[position]}</td>
 				<td width="10%">{$r[salary]}</td>
 				<td width="10%">{$r[witness]}</td>
@@ -160,7 +161,7 @@
 			</tr>
 			<tr>
 				<td colspan="2">身上是否有疤痕及纹身</td>
-				<td colspan="5">{$basicinfo['scar_tattoo']}</td>
+				<td colspan="5">{if $basicinfo['scar_tattoo'] == '1'}是{else}否{/if}</td>
 			</tr>
 			<tr>
 				<td colspan="2">何时可开始工作（注明具体日期）</td>
@@ -181,5 +182,20 @@
 			</tr>
 		</table>
 	</div>
+
+<script type="text/javascript" src="statics/default/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+	
+function doPrint(){
+	body = window.document.body.innerHTML;
+   
+    $('#print').hide();
+    printBody = window.document.body.innerHTML;
+    window.document.body.innerHTML = printBody;
+    window.print();
+    window.document.body.innerHTML = body;
+}
+
+</script>
 </body>
 </html>

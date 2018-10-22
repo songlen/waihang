@@ -34,14 +34,27 @@ include $this->admin_tpl('header','admin');
 		</tr>
 		
 		<tr>
-			<th width="100">详情页图：</th>
+			<th width="100">视频缩略图：</th>
 			<td> <?php echo form::images('info[video]', 'video', $video, 'train')?>
+			</td>
+		</tr>
+		
+		<tr>
+			<th width="100">上传视频：</th>
+			<td> <?php echo form::upfiles('info[video_url]', 'video_url', $video_url, '', '', 50, '', '', 'mp4')?>
 			</td>
 		</tr>
 		<tr>
 			<th width="100">价格：</th>
 			<td>
 				<input type="text" name="info[price]" id="price" size="10" value="<?php echo $price;?>" class="input-text">
+			</td>
+		</tr>
+		<tr>
+			<th width="100">课程类别：</th>
+			<td>
+				<input type="radio" name="info[type]" value="1" <?php if($type=='1'){ ?>checked="checked"<?php } ?>> 线下课程
+				<input type="radio" name="info[type]" value="2" <?php if($type=='2'){ ?>checked="checked"<?php } ?>> 线上课程
 			</td>
 		</tr>
 

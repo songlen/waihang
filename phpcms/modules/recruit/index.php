@@ -54,6 +54,8 @@ class index {
 		}
 
 		$siteid = SITEID;
+		$SEO = seo($siteid);
+		$SEO['title'] = "招聘求职 - ";
 		include template('recruit', 'index');
 	}
 
@@ -125,6 +127,8 @@ class index {
 		extract($data);
 
 		$siteid = SITEID;
+		$SEO = seo($siteid);
+		$SEO['title'] = "{$data['title']} - ";
 		include template('recruit', 'show');
 	}
 
@@ -193,7 +197,8 @@ class index {
 
 		// 检测是否已经报名
 		$enroll_model = pc_base::load_model('recruit_enroll_model');
-		$where = "member_id=$userid and job_id=$job_id or job_code='{$jobinfo['code']}'";
+		$where = "member_id=$userid and job_id=$job_id";
+
 		if($enroll_model->count($where)){
 			showmessage('您已申请过该职位', HTTP_REFERER);
 		}
@@ -215,7 +220,7 @@ class index {
 			'orderNumber' => $orderNumber,
 		);
 		if($enroll_model->insert($data)){
-			showmessage('申请成功，请等待审核', HTTP_REFERER);
+			showmessage('申请成功，请等待审核', 'index.php?m=member&a=enrolledJob');
 		} else {
 			showmessage('服务器错误，请稍后再试', HTTP_REFERER);
 		}
@@ -229,7 +234,7 @@ class index {
 		
 		$job_model = pc_base::load_model('recruit_job_model');
 
-		$where = 'status=1 and type='.$type;
+		$where = 'status=1 and is_delete=0 and type='.$type;
 		if($recruit_keyword){
 			$where .= ' and job_name like "%'.$recruit_keyword.'%"';
 		}
@@ -238,6 +243,8 @@ class index {
 		$pages = $this->db->pages;
 
 		$siteid = SITEID;
+		$SEO = seo($siteid);
+		$SEO['title'] = "职位搜索结果 - ";
 		include template('recruit', 'job_list');
 	}
 }

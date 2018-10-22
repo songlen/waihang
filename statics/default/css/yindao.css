@@ -9,9 +9,9 @@ a:hover {color:#d32628;text-decoration:none;}
 a:active {color:#d32628;}
 
 .yindaobg img {width: 100%}
-.containerBox {width: 100%; padding-bottom: 30px; background: url(../images/yindaobg.png) center top no-repeat; background-size: cover;}
+.containerBox {width: 100%; padding-bottom: 30px; background: url(../images/yindaobg.jpg) center top no-repeat; background-size: cover;}
 .container {width: 1200px; margin: 0 auto; padding-top: 20px;}
 .logo {text-align: center; position: relative; z-index: 100; }
-.address {color: #FFF; font-size: 14px;}
+.address {color: #000; font-size: 14px;}
 
 .parter_title {color: #666; text-align: center; font-size: 18px;}

@@ -46,8 +46,8 @@
                         <tr>
                             <td>{$r[school_name]}</td>
                             <td>{$r[major]}</td>
-                            <td>{date('Y-m', strtotime($r[start_time]))}</td>
-                            <td>{date('Y-m', strtotime($r[end_time]))}</td>
+                            <td>{substr($r[start_time], 0, 7)}</td>
+                            <td>{substr($r[end_time], 0, 7)}</td>
                             <td>{$enums[diploma][$r[diploma]]}</td>
                             <td>{if $r[has_diploma]}是{else}否{/if}</td>
                             <td>{if $r[study_abroad]}是{else}否{/if}</td>

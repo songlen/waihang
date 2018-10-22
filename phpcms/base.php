@@ -114,7 +114,7 @@ class pc_base {
 			}
 		}
 		if (file_exists(PC_PATH.$path.DIRECTORY_SEPARATOR.$classname.'.class.php')) {
-			include PC_PATH.$path.DIRECTORY_SEPARATOR.$classname.'.class.php';
+			my_include(PC_PATH.$path.DIRECTORY_SEPARATOR.$classname.'.class.php');
 			$name = $classname;
 			if ($my_path = self::my_path(PC_PATH.$path.DIRECTORY_SEPARATOR.$classname.'.class.php')) {
 				include $my_path;

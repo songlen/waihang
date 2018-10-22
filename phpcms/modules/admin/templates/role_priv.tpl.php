@@ -43,9 +43,9 @@ include $this->admin_tpl('header');
 <div class="table-list" id="load_priv">
 <table width="100%" cellspacing="0">
 	<thead>
-	<tr>
+	<!-- <tr>
 	<th class="text-l cu-span" style='padding-left:30px;'><span onClick="javascript:$('input[name=menuid[]]').attr('checked', true)"><?php echo L('selected_all');?></span>/<span onClick="javascript:$('input[name=menuid[]]').attr('checked', false)"><?php echo L('cancel');?></span></th>
-	</tr>
+	</tr> -->
 	</thead>
 </table>
 <form name="myform" action="?m=admin&c=role&a=role_priv" method="post">

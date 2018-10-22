@@ -94,7 +94,7 @@ $('#AlignBox').click( function (){
 }); 
 $(document).ready(function(){
 	 $.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({content:msg,lock:true,width:'220',height:'70'}, function(){this.close();$(obj).focus();})}});
-	$("#name").formValidator({onshow:"<?php echo L('please_input_space_name')?>",onfocus:"<?php echo L('spacename_three_length')?>",oncorrect:"<?php echo L('correct')?>"}).inputValidator({min:6,onerror:"<?php echo L('spacename_illegality')?>"}).ajaxValidator({type:"get",url:"",data:"m=poster&c=space&a=public_check_space&spaceid=<?php echo $_GET['spaceid']?>",datatype:"html",cached:false,async:'true',success : function(data) {
+	$("#name").formValidator({onshow:"<?php echo L('please_input_space_name')?>",onfocus:"<?php echo L('spacename_three_length')?>",oncorrect:"<?php echo L('correct')?>"}).inputValidator({min:6,onerror:"<?php echo L('spacename_illegality')?>"}).ajaxValidator({type:"get",url:"",data:"m=poster&c=space&a=public_check_space&spaceid=<?php echo input('spaceid')?>",datatype:"html",cached:false,async:'true',success : function(data) {
            if( data == "1" )
 			{
                return true;

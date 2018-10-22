@@ -16,8 +16,8 @@
             </div>
             <div class="baoxiaolist">
                 <div class="tit">
-                    {$resume['surname']}{$resume['firstname']}
-                    <span>{if $resume['sex'] == '1'}男{else}女{/if}</span>
+                    {$resume[fullname]}
+                    <span>{if $resume[sex] == '1'}男{else}女{/if}</span>
                     <span>身份证：{$resume[ID_number]}</span>
                     <!-- <span>医保手册：</span> -->
                 </div>
@@ -32,10 +32,11 @@
                     <thead>
                         <tr>
                             <th>单据号</th>
-                            <th>交易日期</th>
-                            <th>收据张数</th>
-                            <th>自付-金额</th>
+                            <th>申报日期</th>
+                            <th>航司代码</th>
+                            <th>自付一金额</th>
                             <th>状态</th>
+                            <th>操作</th>
                         </tr> 
                     </thead>
                     <tbody>
@@ -43,10 +44,13 @@
                         {loop $lists $r}
                         <tr>
                             <td>{$r[ordernum]}</td>
-                            <td>{$r[date]}</td>
+                            <td>{date('Y-m-d', strtotime($r[inputtime]))}</td>
                             <td>{$r[number]}</td>
                             <td>{$r[amount]}</td>
                             <td>{$reimbursement_status[$r[status]]}</td>
+                            <td>
+                                <button class="layui-btn layui-btn-primary layui-btn-xs delbtn" data-id="{$r[id]}" data-status="{$r[status]}">删除</button>
+                            </td>
                         </tr>
                         {/loop}
                         {/if}
@@ -70,22 +74,22 @@
                             <input type="text" name="info[ordernum]" id="ordernum" lay-verify="required" placeholder="请输入单据号" class="layui-input">
                         </div>
                     </div>
-                    <div class="layui-form-item">
+                    <!-- <div class="layui-form-item">
                         <label class="layui-form-label">交易日期</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="info[date]" id="date" lay-verify="required" placeholder="请输入交易日期" class="layui-input">
+                            <input type="text" name="info[date]" id="date" lay-verify="required|date" placeholder="请输入交易日期" class="layui-input">
+                        </div>
+                    </div> -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">航司代码</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="info[number]" id="number" lay-verify="required" placeholder="请输入航司代码" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">收据张数</label>
+                        <label class="layui-form-label">自付一金额</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="info[number]" id="number" lay-verify="required|number" placeholder="请输入收据张数" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">自付-金额</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="info[amount]" id="amount" lay-verify="required" placeholder="请输入自付-金额" class="layui-input">
+                            <input type="text" name="info[amount]" id="amount" lay-verify="required" placeholder="请输入自付一金额" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item layui-form-text">
@@ -114,12 +118,24 @@
         ,layer = layui.layer
         ,laydate = layui.laydate;
 
-        //出生日期
-        laydate.render({
-            elem: '#date',
-        });
+        //交易日期
+        // laydate.render({
+        //     elem: '#date',
+        // });
         //监听提交
         form.on('submit(submit)');
+    })
+
+    $(function(){
+        $('.delbtn').click(function(){
+            var id = $(this).attr('data-id');
+            var status = $(this).attr('data-status');
+            if(status == 2){
+                layer.msg('已审核状态允许删除');
+                return false;
+            }
+            window.location.href = 'index.php?m=member&a=del_reimbursement&id='+id;
+        })
     })
 </script>
 {template 'content', 'footer'}

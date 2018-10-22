@@ -25,9 +25,9 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">Date of Issue</label>
+        <label class="layui-form-label">Date Of Issue</label>
         <div class="layui-input-inline">
-            <input type="text" name="info[gettime]" value="{if $data[gettime]}{date('Y-m', strtotime($data[gettime]))}{/if}" id="gettime" placeholder="Date of Issue" autocomplete="off" class="layui-input" lay-verify="required">
+            <input type="text" name="info[gettime]" value="{if $data[gettime]}{substr($data[gettime], 0, 7)}{/if}" id="gettime" placeholder="Date of Issue" autocomplete="off" class="layui-input" lay-verify="required">
         </div>
     </div>
     <!-- 提交按钮 -->

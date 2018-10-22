@@ -37,18 +37,18 @@ class content_tag {
 		if($data['action'] == 'lists') {
 			$catid = intval($data['catid']);
 			if(!$this->set_modelid($catid)) return false;
-			if(isset($data['where'])) {
-				$sql = $data['where'];
+
+			$where = ( isset($data['where']) && (!empty($data['where'])) ) ? ' AND '.$data['where'] : '';  
+			
+			if($this->category[$catid]['child']) {
+				$catids_str = $this->category[$catid]['arrchildid'];
+				$pos = strpos($catids_str,',')+1;
+				$catids_str = substr($catids_str, $pos);
+				$sql = "status=99 AND catid IN ($catids_str)".$where;
 			} else {
-				if($this->category[$catid]['child']) {
-					$catids_str = $this->category[$catid]['arrchildid'];
-					$pos = strpos($catids_str,',')+1;
-					$catids_str = substr($catids_str, $pos);
-					$sql = "status=99 AND catid IN ($catids_str)";
-				} else {
-					$sql = "status=99 AND catid='$catid'";
-				}
+				$sql = "status=99 AND catid='$catid'".$where;
 			}
+
 			return $this->db->count($sql);
 		}
 	}
@@ -60,19 +60,19 @@ class content_tag {
 	public function lists($data) {
 		$catid = intval($data['catid']);
 		if(!$this->set_modelid($catid)) return false;
-		if(isset($data['where'])) {
-			$sql = $data['where'];
+		
+		$where = ( isset($data['where']) && (!empty($data['where'])) ) ? ' AND '.$data['where'] : '';  
+
+		$thumb = intval($data['thumb']) ? " AND thumb != ''" : '';
+		if($this->category[$catid]['child']) {
+			$catids_str = $this->category[$catid]['arrchildid'];
+			$pos = strpos($catids_str,',')+1;
+			$catids_str = substr($catids_str, $pos);
+			$sql = "status=99 AND catid IN ($catids_str)".$thumb.$where;
 		} else {
-			$thumb = intval($data['thumb']) ? " AND thumb != ''" : '';
-			if($this->category[$catid]['child']) {
-				$catids_str = $this->category[$catid]['arrchildid'];
-				$pos = strpos($catids_str,',')+1;
-				$catids_str = substr($catids_str, $pos);
-				$sql = "status=99 AND catid IN ($catids_str)".$thumb;
-			} else {
-				$sql = "status=99 AND catid='$catid'".$thumb;
-			}
+			$sql = "status=99 AND catid='$catid'".$thumb.$where;
 		}
+
 		$order = $data['order'];
 
 		$return = $this->db->select($sql, '*', $data['limit'], $order, '', 'id');

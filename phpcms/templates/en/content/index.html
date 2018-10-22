@@ -16,9 +16,10 @@
 </div>
 
 <div class="min-width-1300">
+	<!-- 公司简介 -->
 	<div class="container index_title">
-		<a href="{$CATEGORYS[30][url]}" class="more"><img src="{APP_PATH}statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
-		<img src="{APP_PATH}statics/default/images/index_21.jpg" width="230" alt="">
+		<a href="{$CATEGORYS[45][url]}" class="more"><img src="{APP_PATH}statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
+		<img src="{APP_PATH}statics/default/images/indexen03.png" height="44" alt="">
 	</div>
 
 	<div class="index_news container">
@@ -28,87 +29,99 @@
 			</video>
 		</div>
 		<div class="index_news_box">
-			<ul>
-				{pc:content action="lists" catid="30" num="6" order="listorder desc, id DESC"}
-				{loop $data $r}
-				{if $n == 1}
-				<li>
-					<div class="pic"><a href="{$r[url]}"><img src="{thumb($r[thumb], 200, 125)}" width="200" height="125" alt=""></a></div>
-					<div class="infor">
-						<span class="title"><a href="{$r[url]}">{$r[title]}</a></span>
-						<span class="des" title="$r[description]">{strcut($r[description], 36)}</span>
-					</div>
-				</li>
-				{else}
-				<li>
-					<div class="title"><a href="{$r[url]}" target="_blank"><span class="time">[{date('Y-m-d', $r[inputtime])}]</span>{strcut($r[title], 23)}</a></div>
-				</li>
-				{/if}
-				{/loop}
-				{/pc}
-			</ul>
+			{get_extend_setting('en_index_about')}
 		</div>
 	</div>
-
+	
+	<!-- 我们的产品 -->
 	<div class="container index_title">
-		<a href="index.php?m=recruit" class="more"><img src="{APP_PATH}statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
-		<img src="{APP_PATH}statics/default/images/index_36.jpg" width="280" alt="">
+		<a href="{$CATEGORYS[40][url]}" class="more"><img src="{APP_PATH}statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
+		<img src="{APP_PATH}statics/default/images/indexen04.png" height="40" alt="">
 	</div>
-	<div class="container index_zhaopin">
-		<ul>
-			{pc:get sql="select * from phpcms_recruit_recruit where type=1 and status=1 and is_delete=0 order by listorder desc, id desc" num="4"}
-			{loop $data $r}
+	<div class="container">
+		<ul class="product1">
 			<li>
-				<div class="pic"><a target="_blank" href="index.php?m=recruit&a=show&id={$r[id]}"><img src="{thumb($r[index_thumb], 190, 210)}" width="190" height="210" alt=""></a></div>
-				<div class="infor">
-					<div class="title"><a target="_blank" href="index.php?m=recruit&a=show&id={$r[id]}">{$r[title]}</a></div>
-					<div class="des"><a href="index.php?m=recruit&a=show&id={$r[id]}">{strcut($r[content], 100)}</a></div>
-					<div class="time">{date('Y-m-d', $r[inputtime])}</div>
+				<a href="{$CATEGORYS[41][url]}">
+				<img src="{$CATEGORYS[59][image]}" alt="" width="540" height="260">
+				<div class="titbg"></div>
+				<div class="tit"><span>{$CATEGORYS[59][catname]}</span></div>
+				<div class="sub">
+					{pc:content action="category" catid="59" siteid="2" return="catlist"}
+					{loop $catlist $r}
+					<p>{$r[catname]}</p>
+					{/loop}
+					{/pc}
 				</div>
+				</a>
 			</li>
-			{/loop}
-			{/pc}
-		</ul>
-	</div>
-
-	<div class="container index_title">
-		<a href="{$CATEGORYS[21][url]}" class="more"><img src="{APP_PATH}statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
-		<img src="{APP_PATH}statics/default/images/index_43.jpg" width="340" alt="">
-	</div>
-	<div class="container index_zhaopin">
-		<ul>
-			{pc:content action="lists" catid="33" num="4" order="listorder desc, id desc"}
-			{loop $data $r}
 			<li>
-				<div class="pic"><a href="{$r[url]}"><img src="{thumb($r[thumb], 190, 210)}" width="190" height="210" alt=""></a></div>
-				<div class="infor">
-					<div class="title"><a href="{$r[url]}">{$r[title]}</a></div>
-					<div class="des">{strcut($r[description], 100)}</div>
-					<div class="time">{date('Y-m-d', $r[inputtime])}</div>
+				<a href="{$CATEGORYS[40][url]}">
+				<img src="{$CATEGORYS[60][image]}" alt="" width="540" height="260">
+				<div class="titbg"></div>
+				<div class="tit"><span>{$CATEGORYS[60][catname]}</span></div>
+				<div class="sub">
+					{pc:content action="category" catid="60" siteid="2" return="catlist"}
+					{loop $catlist $r}
+					<p>{$r[catname]}</p>
+					{/loop}
+					{/pc}
 				</div>
+				</a>
 			</li>
-			{/loop}
-			{/pc}
+		</ul>
+		<ul class="product1 product2">
+			<li>
+				<a href="{$CATEGORYS[43][url]}">
+				<img src="{$CATEGORYS[61][image]}" alt="" width="353" height="260">
+				<div class="titbg"></div>
+				<div class="tit"><span>{$CATEGORYS[61][catname]}</span></div>
+				<div class="sub">
+					{pc:content action="category" catid="61" siteid="2" return="catlist"}
+					{loop $catlist $r}
+					<p>{$r[catname]}</p>
+					{/loop}
+					{/pc}
+				</div>
+				</a>
+			</li>
+			<li>
+				<a href="{$CATEGORYS[42][url]}">
+				<img src="{$CATEGORYS[62][image]}" alt="" width="353" height="260">
+				<div class="titbg"></div>
+				<div class="tit"><span>{$CATEGORYS[62][catname]}</span></div>
+				<div class="sub">
+					{pc:content action="category" catid="62" siteid="2" return="catlist"}
+					{loop $catlist $r}
+					<p>{$r[catname]}</p>
+					{/loop}
+					{/pc}
+				</div>
+				</a>
+			</li>
+			<li>
+				<a href="{$CATEGORYS[44][url]}">
+				<img src="{$CATEGORYS[63][image]}" alt="" width="353" height="260">
+				<div class="titbg"></div>
+				<div class="tit"><span>{$CATEGORYS[63][catname]}</span></div>
+				<div class="sub">
+					{pc:content action="category" catid="63" siteid="2" return="catlist"}
+					{loop $catlist $r}
+					<p>{$r[catname]}</p>
+					{/loop}
+					{/pc}
+				</div>
+				</a>
+			</li>
 		</ul>
 	</div>
-
-	<div class="container indexmidmenu">
-		<ul>
-			<li><a href="index.php?m=recruit"><img src="{APP_PATH}statics/default/images/index_47.png" width="366" height="190" alt=""></a></li>
-			<li><a href="{$CATEGORYS[21][url]}"><img src="{APP_PATH}statics/default/images/index_48.png" width="366" height="190" alt=""></a></li>
-			<li><a href="{$CATEGORYS[10][url]}"><img src="{APP_PATH}statics/default/images/index_49.png" width="366" height="190" alt=""></a></li>
-			<li><a href="{$CATEGORYS[23][url]}"><img src="{APP_PATH}statics/default/images/index_50.png" width="366" height="190" alt=""></a></li>
-			<li><a href="{$CATEGORYS[17][url]}"><img src="{APP_PATH}statics/default/images/index_51.png" width="366" height="190" alt=""></a></li>
-			<li><a href="{$CATEGORYS[2][url]}"><img src="{APP_PATH}statics/default/images/index_52.png" width="366" height="190" alt=""></a></li>
-		</ul>
-	</div>
+	<!-- 我们的客户 -->
 	<div class="container index_title">
-		<a href="/index.php?m=link" class="more"><img src="{APP_PATH}statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
-		<img src="{APP_PATH}statics/default/images/index_55.jpg" width="320" alt="">
+		<a href="/index.php?m=link&siteid=2" class="more"><img src="{APP_PATH}statics/default/images/index_24.jpg" width="100" alt="MORE" title="MORE"></a>
+		<img src="{APP_PATH}statics/default/images/indexen05.png" height="40" alt="">
 	</div>
 	<div class="container index_customer">
 		<ul>
-			{pc:link action="lists" siteid="$siteid" num="10" typeid="53" linktype="1" order="listorder desc, linkid desc"}
+			{pc:link action="lists" siteid="2" num="10" typeid="54" linktype="1" order="listorder desc, linkid desc"}
 			{loop $data $r}
 			<li>
 				<a href="{$r[url]}" target="_blank"><img src="{$r[logo]}" width="200" height="130" alt=""></a>

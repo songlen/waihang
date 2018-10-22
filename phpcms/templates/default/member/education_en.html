@@ -35,7 +35,7 @@
                             <th>Degree</th>
                             <th>Certificate Obtained</th>
                             <th>Operator</th>
-                        </tr> 
+                        </tr>
                     </thead>
                     <tbody>
                         {if !empty($education)}
@@ -43,10 +43,10 @@
                         <tr>
                             <td>{$r[school_name]}</td>
                             <td>{$r[major]}</td>
-                            <td>{date('Y-m', strtotime($r[start_time]))}</td>
-                            <td>{date('Y-m', strtotime($r[end_time]))}</td>
-                            <td>{$enums[diploma][$r[diploma]]}</td>
-                            <td>{if $r[civil_viation]}yes{else}no{/if}</td>
+                            <td>{substr($r[start_time], 0, 7)}</td>
+                            <td>{substr($r[end_time], 0, 7)}</td>
+                            <td>{$enums[diploma_en][$r[diploma]]}</td>
+                            <td>{if $r[has_diploma]}yes{else}no{/if}</td>
                             <td>
                                 <a href="javascript:;" onclick="edit({$r[id]})">Edit</a>
                                 <a href="javascript:;" onclick="del({$r[id]}, this)">Delete</a>

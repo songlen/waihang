@@ -20,7 +20,7 @@
 			</tr>
 			<tr>
 				<td>性别</td>
-				<td><?php echo $enums['member']['sex'][$basicinfo['sex']]?></td>
+				<td><?php echo $enums['sex'][$basicinfo['sex']]?></td>
 			</tr>
 			<tr>
 				<td>头像</td> 
@@ -32,7 +32,7 @@
 			</tr>
 			<tr>
 				<td>民族</td>
-				<td><?php echo $enums['member']['nation'][$basicinfo['nation']];?></td>
+				<td><?php echo $enums['nation'][$basicinfo['nation']];?></td>
 			</tr>
 			<tr>
 				<td>出生日期</td>
@@ -40,7 +40,7 @@
 			</tr>
 			<tr>
 				<td>年龄</td>
-				<td><?php echo $basicinfo['age'];?></td>
+				<td><?php echo get_age($basicinfo['ID_number']);?></td>
 			</tr>
 			<tr>
 				<td>所学专业</td>
@@ -48,7 +48,7 @@
 			</tr>
 			<tr>
 				<td>最高学历</td>
-				<td><?php echo $enums['member']['diploma'][$basicinfo['diploma']];?></td>
+				<td><?php echo $enums['diploma'][$basicinfo['diploma']];?></td>
 			</tr>
 			<tr>
 				<td>毕业院校</td>
@@ -64,11 +64,11 @@
 			</tr>
 			<tr>
 				<td>政治面貌</td>
-				<td><?php echo $enums['member']['political_outlook'][$basicinfo['political_outlook']];?></td>
+				<td><?php echo $enums['political_outlook'][$basicinfo['political_outlook']];?></td>
 			</tr>
 			<tr>
 				<td>婚姻状况</td>
-				<td><?php echo $enums['member']['marital_status'][$basicinfo['marital_status']];?></td>
+				<td><?php echo $enums['marital_status'][$basicinfo['marital_status']];?></td>
 			</tr>
 			<tr>
 				<td>身高</td>
@@ -157,7 +157,7 @@
 					<td align="center"><?php echo $education['major'] ?></td>
 					<td align="center"><?php echo $education['start_time'] ?></td>
 					<td align="center"><?php echo $education['end_time'] ?></td>
-					<td align="center"><?php echo $enums['member']['diploma'][$education['diploma']] ?></td>
+					<td align="center"><?php echo $enums['diploma'][$education['diploma']] ?></td>
 					<td align="center"><?php echo $education['has_diploma'] ? '是' : '否'; ?></td>
 					<td align="center"><?php echo $education['study_aboard'] ? '是' : '否'; ?></td>
 					<td align="center"><?php echo $education['civil_viation'] ? '是' : '否'; ?></td>

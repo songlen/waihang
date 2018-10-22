@@ -14,41 +14,41 @@
                 <div class="tit"><div class="language"><a {if $language=='en'} href="?m=member" {else}class="current"{/if}>中文</a><a {if $language=='zh'} href="?m=member&l=en" {else}class="current"{/if}>英文</a></div>完善基本资料</div>
                 <form class="layui-form" action="?m=member" method="post">
                     <div class="layui-form-item">
-                        <label class="layui-form-label">姓</label>
+                        <label class="layui-form-label"><em>*</em>姓</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[surname]" value="{$basicinfo[surname]}" lay-verify="required" autocomplete="off" placeholder="姓" class="layui-input">
                         </div>
-                        <label class="layui-form-label">姓拼音</label>
+                        <label class="layui-form-label"><em>*</em>姓拼音</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[surname_spell]" value="{$basicinfo[surname_spell]}" lay-verify="required" autocomplete="off" placeholder="姓拼音" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">名</label>
+                        <label class="layui-form-label"><em>*</em>名</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[firstname]" value="{$basicinfo[firstname]}" lay-verify="required" autocomplete="off" placeholder="名" class="layui-input">
                         </div>
-                        <label class="layui-form-label">名拼音</label>
+                        <label class="layui-form-label"><em>*</em>名拼音</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[firstname_spell]" value="{$basicinfo[firstname_spell]}" lay-verify="required" autocomplete="off" placeholder="名拼音" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">英文名</label>
+                        <label class="layui-form-label"><em>*</em>英文名</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[foreign_name]" value="{$basicinfo[foreign_name]}" lay-verify="required" autocomplete="off" placeholder="英文名" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">性别</label>
+                        <label class="layui-form-label"><em>*</em>性别</label>
                         <div class="layui-input-inline">
                             {loop $enums[sex] $k $v}
                             <input type="radio" name="info[sex]" value="{$k}" title="{$v}" {if $n=='1' || $basicinfo[sex]==="$k"}checked{/if}>
                             {/loop}
                         </div>
-                        <label class="layui-form-label">民族</label>
+                        <label class="layui-form-label"><em>*</em>民族</label>
                         <div class="layui-input-inline">
                             <select name="info[nation]" lay-verify="required" placeholder="汉族" lay-search="">
                                 {loop $enums[nation] $k $v}
@@ -59,33 +59,23 @@
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">身份证号</label>
-                        <div class="layui-input-inline size410">
+                        <label class="layui-form-label"><em>*</em>身份证号</label>
+                        <div class="layui-input-inline">
                             <input type="text" name="info[ID_number]" value="{$basicinfo[ID_number]}" lay-verify="required|identity" autocomplete="off" placeholder="身份证号" class="layui-input">
                         </div>
-                    </div>
-
-                    <div class="layui-form-item">
                         
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">出生日期</label>
+                        <label class="layui-form-label"><em>*</em>邮箱</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="info[birthday]" value="{$basicinfo[birthday]}" id="birthday" lay-verify="date" placeholder="出生日期" autocomplete="off" class="layui-input">
-                        </div>
-                        <label class="layui-form-label">年龄</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="info[age]" value="{$basicinfo[age]}" id="age" placeholder="年龄" autocomplete="off" class="layui-input">
+                            <input type="text" name="info[email]" value="{$basicinfo[email]}" lay-verify="required|email" autocomplete="off" placeholder="邮箱" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">所学专业</label>
+                        <label class="layui-form-label"><em>*</em>所学专业</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[profession]" value="{$basicinfo[profession]}" id="profession" placeholder="所学专业" autocomplete="off" class="layui-input">
                         </div>
-                        <label class="layui-form-label">最高学历</label>
+                        <label class="layui-form-label"><em>*</em>最高学历</label>
                         <div class="layui-input-inline">
                             <select name="info[diploma]" lay-verify="required" placeholder="汉族" lay-search="">
                                 {loop $enums[diploma] $k $v}
@@ -96,34 +86,34 @@
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">毕业院校</label>
+                        <label class="layui-form-label"><em>*</em>毕业院校</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="info[graduation_university]" value="{$basicinfo[graduation_university]}" id="graduation_university" placeholder="毕业院校" autocomplete="off" class="layui-input">
+                            <input type="text" name="info[graduation_university]" value="{$basicinfo[graduation_university]}" id="graduation_university" lay-verify="require" placeholder="毕业院校" autocomplete="off" class="layui-input">
                         </div>
-                        <label class="layui-form-label">毕业日期</label>
+                        <label class="layui-form-label"><em>*</em>毕业日期</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="info[graduation_date]" value="{$basicinfo[graduation_date]}" id="graduation_date" lay-verify="date" placeholder="毕业日期" autocomplete="off" class="layui-input">
+                            <input type="text" name="info[graduation_date]" value="{$basicinfo[graduation_date]}" id="graduation_date" lay-verify="require|date" placeholder="毕业日期" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">工作年限(年)</label>
+                        <label class="layui-form-label"><em>*</em>工作年限(年)</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[work_experience]" value="{$basicinfo[work_experience]}" id="work_experience" lay-verify="require|number" placeholder="工作年限(年)" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">空乘经验(年)</label>
+                        <label class="layui-form-label"><em>*</em>空乘经验(年)</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[aviation_experience]" value="{$basicinfo[aviation_experience]}" id="aviation_experience" lay-verify="require|number" placeholder="空乘经验(年)" autocomplete="off" class="layui-input">
                         </div>
-                        <label class="layui-form-label">航空经验(年)</label>
+                        <label class="layui-form-label"><em>*</em>航空经验(年)</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[flight_experience]" value="{$basicinfo[flight_experience]}" id="flight_experience" lay-verify="require|number" placeholder="航空经验(年)" autocomplete="off" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">政治面貌</label>
+                        <label class="layui-form-label"><em>*</em>政治面貌</label>
                         <div class="layui-input-block">
                             {loop $enums[political_outlook] $k $v}
                             <input type="radio" name="info[political_outlook]" value="{$k}" title="{$v}" {if $n=='1' || $basicinfo[political_outlook] == $k}checked{/if}>
@@ -132,7 +122,7 @@
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">婚姻状况</label>
+                        <label class="layui-form-label"><em>*</em>婚姻状况</label>
                         <div class="layui-input-block">
                             {loop $enums[marital_status] $k $v}
                             <input type="radio" name="info[marital_status]" value="{$k}" title="{$v}" {if $n=='1' || $basicinfo[marital_status] == $k}checked{/if}>
@@ -140,30 +130,23 @@
                         </div>
                     </div>
 
-                   <!--  <div class="layui-form-item">
-                       <label class="layui-form-label">矫正视力</label>
-                       <div class="layui-input-inline">
-                           <input type="text" name="info[vision]" value="{$basicinfo[vision]}" lay-verify="required" autocomplete="off" placeholder="矫正视力" class="layui-input">
-                       </div>
-                   </div> -->
-
                     <div class="layui-form-item">
-                        <label class="layui-form-label">身高(cm)</label>
+                        <label class="layui-form-label"><em>*</em>身高(cm)</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[height]" value="{$basicinfo[height]}" lay-verify="required|number" autocomplete="off" placeholder="身高" class="layui-input">
                         </div>
-                        <label class="layui-form-label">体重(kg)</label>
+                        <label class="layui-form-label"><em>*</em>体重(kg)</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[weight]" value="{$basicinfo[weight]}" lay-verify="required|number" autocomplete="off" placeholder="体重" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">手机号</label>
+                        <label class="layui-form-label"><em>*</em>手机号</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[mobile_phone]" value="{$basicinfo[mobile_phone]}" lay-verify="required|phone" autocomplete="off" placeholder="手机号" class="layui-input">
                         </div>
-                        <label class="layui-form-label">电话</label>
+                        <label class="layui-form-label"><em>*</em>电话</label>
                         <div class="layui-input-inline">
                             <input type="text" name="info[telphone]" value="{$basicinfo[telphone]}" lay-verify="required" autocomplete="off" placeholder="电话" class="layui-input">
                         </div>
@@ -172,16 +155,16 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">护照号</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="info[passport_number]" value="{$basicinfo[passport_number]}" lay-verify="" autocomplete="off" placeholder="护照号" class="layui-input">
+                            <input type="text" name="info[passport_number]" value="{$basicinfo[passport_number]}" autocomplete="off" placeholder="护照号" class="layui-input">
                         </div>
                         <label class="layui-form-label">护照有效期</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="info[passport_deadline]" value="{$basicinfo[passport_deadline]}" id="passport_deadline" lay-verify="" placeholder="护照有效期" autocomplete="off" lay-verify="date" class="layui-input">
+                            <input type="text" name="info[passport_deadline]" value="{$basicinfo[passport_deadline]}" id="passport_deadline" placeholder="护照有效期" autocomplete="off" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item layui-form" lay-filter="living_city_id">
-                        <label class="layui-form-label">现居住地</label>
+                        <label class="layui-form-label"><em>*</em>现居住城市</label>
                         <div class="layui-input-inline">
                             <select name="info[living_province_id]" lay-verify="required" lay-filter="living_province_id" lay-search="">
                                 <option value="">请选择</option>
@@ -199,8 +182,15 @@
                         </div>
                     </div>
 
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><em>*</em>居住地址</label>
+                        <div class="layui-input-inline size410">
+                            <input type="text" name="info[living_address]" value="{$basicinfo[living_address]}" lay-verify="required" autocomplete="off" placeholder="居住地址" class="layui-input">
+                        </div>
+                    </div>
+
                     <div class="layui-form-item layui-form" lay-filter="hukou_city_id">
-                        <label class="layui-form-label">户口所在地</label>
+                        <label class="layui-form-label"><em>*</em>户口所在地</label>
                         <div class="layui-input-inline">
                             <select name="info[hukou_province_id]" lay-verify="required" lay-filter="hukou_province_id" lay-search="">
                                 <option value="">请选择</option>
@@ -219,28 +209,28 @@
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">存档机构</label>
+                        <label class="layui-form-label"><em>*</em>户口地址</label>
+                        <div class="layui-input-inline size410">
+                            <input type="text" name="info[address]" value="{$basicinfo[address]}" lay-verify="required" autocomplete="off" placeholder="户口地址" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><em>*</em>存档机构</label>
                         <div class="layui-input-inline size410">
                             <input type="text" name="info[archiving_organization]" value="{$basicinfo[archiving_organization]}" lay-verify="required" autocomplete="off" placeholder="存档机构" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">通讯地址</label>
-                        <div class="layui-input-inline size410">
-                            <input type="text" name="info[address]" value="{$basicinfo[address]}" lay-verify="required" autocomplete="off" placeholder="通讯地址" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">通讯编码</label>
+                        <label class="layui-form-label"><em>*</em>邮编</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="info[zip_code]" value="{$basicinfo[zip_code]}" lay-verify="required" autocomplete="off" placeholder="通讯编码" class="layui-input">
+                            <input type="text" name="info[zip_code]" value="{$basicinfo[zip_code]}" lay-verify="required" autocomplete="off" placeholder="邮编" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">游泳能力</label>
+                        <label class="layui-form-label"><em>*</em>游泳能力</label>
                         <div class="layui-input-inline">
                             <select name="info[swimming_ability]" lay-verify="required" placeholder="游泳能力" lay-search="">
                                 <option value="">请选择游泳能力</option>
@@ -252,57 +242,35 @@
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">矫正视力</label>
+                        <label class="layui-form-label"><em>*</em>矫正视力</label>
                         <div class="layui-input-inline size410">
                             <input type="text" name="info[correct_vision]" value="{$basicinfo[correct_vision]}" lay-verify="required" autocomplete="off" placeholder="矫正视力" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">身上是否有疤痕及纹身</label>
+                        <label class="layui-form-label"><em>*</em>身上是否有疤痕及纹身</label>
                         <div class="layui-input-inline size410">
-                             <input type="radio" name="info[scar_tattoo]" value="是" title="是">
-                             <input type="radio" name="info[scar_tattoo]" value="否" title="否" checked="checked">
+                             <input type="radio" name="info[scar_tattoo]" value="1" title="是" {if $basicinfo[scar_tattoo] == '1'}checked="checked"{/if}>
+                             <input type="radio" name="info[scar_tattoo]" value="0" title="否" {if $basicinfo[scar_tattoo] == '0'}checked="checked"{/if}>
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">何时可开始工作</label>
+                        <label class="layui-form-label"><em>*</em>何时可开始工作</label>
                         <div class="layui-input-inline size410">
                             <input type="text" name="info[start_work_date]" value="{$basicinfo[start_work_date]}" id="start_work_date" lay-verify="date" placeholder="何时可开始工作" autocomplete="off" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">母亲姓名</label>
+                        <label class="layui-form-label"><em>*</em>紧急联系人</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="info[mother_name]" value="{$basicinfo[mother_name]}" lay-verify="required" autocomplete="off" placeholder="母亲姓名" class="layui-input">
+                            <input type="text" name="info[urgent_name]" value="{$basicinfo[urgent_name]}" autocomplete="off" lay-verify="required" placeholder="紧急联系人" class="layui-input">
                         </div>
-                        <label class="layui-form-label">母亲电话</label>
+                        <label class="layui-form-label"><em>*</em>紧急电话</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="info[mother_phone]" value="{$basicinfo[mother_phone]}" lay-verify="required" autocomplete="off" placeholder="母亲电话" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">父亲姓名</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="info[father_name]" value="{$basicinfo[father_name]}" lay-verify="required" autocomplete="off" placeholder="父亲姓名" class="layui-input">
-                        </div>
-                        <label class="layui-form-label">父亲电话</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="info[father_phone]" value="{$basicinfo[father_phone]}" lay-verify="required" autocomplete="off" placeholder="父亲电话" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">配偶姓名</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="info[spouse_name]" value="{$basicinfo[spouse_name]}" lay-verify="" autocomplete="off" placeholder="配偶姓名" class="layui-input">
-                        </div>
-                        <label class="layui-form-label">配偶电话</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="info[spouse_phone]" value="{$basicinfo[spouse_phone]}" lay-verify="" autocomplete="off" placeholder="配偶电话" class="layui-input">
+                            <input type="text" name="info[urgent_phone]" value="{$basicinfo[urgent_phone]}" autocomplete="off" lay-verify="required" placeholder="紧急电话" class="layui-input">
                         </div>
                     </div>
                     <!-- 提交按钮 -->
@@ -346,7 +314,7 @@
         //监听提交
         form.on('submit(submit)');
 
-        // 监听省份select 现居住地
+        // 监听省份select 现居住城市
         form.on('select(living_province_id)', function(data){
             var province_id = data.value;
 

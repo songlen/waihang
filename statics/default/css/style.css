@@ -1,4 +1,4 @@
-body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div, input, dl, dt{margin:0;padding:0;border:0;} 
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,td,img,div, input, dl, dt{margin:0;padding:0;border:0;} 
 body{background:#fff;color:#000; font-size:14px; font-family:"微软雅黑","Microsoft Yahei",arial,"\5b8b\4f53";} 
 ol.list-paddingleft-2 li{margin: 20px;}
 input, a {outline: none;}
@@ -17,12 +17,16 @@ a:active {color:#d32628;}
 .container {width: 1100px; margin: 0 auto; position: relative;}
 .ch {height: 10px; background: url(../images/index_h.jpg) repeat;}
 
-#top { height: 60px; background: #d0161b;}
+#top { height: 60px; background: #d0161b; min-width: 1200px;}
 
 .menu {float: left;}
 .menu ul li {float: left; height: 60px; line-height: 60px; font-size: 18px; list-style: none;}
 .menu ul li a{display: inline-block; height: 60px; padding: 0 18px; color: #fff;}
 .menu ul li:hover a, .menu ul li.current a{ font-weight: bold; }
+
+
+.menu_en ul li a {padding: 0 40px;}
+.menu_en ul li:hover a {font-weight: normal;}
 
 .menu dl {position: absolute; background: #ab3131; display: none; top: 60px; z-index: 10000; padding: 5px 2px;}
 .menu dt {line-height: 40px; height: 40px; padding-left: 8px; padding-right: 1px; text-align: left;}
@@ -30,16 +34,21 @@ a:active {color:#d32628;}
 .menu ul li dt:hover a{background: #FFF; border-left: 4px solid #fb964d; color: #bf1321;}
 .menu ul li:hover dt a { font-weight: normal;}
 
+.menu_en ul li dt a {width: 480px;}
+
 .menuright {float: right; color: #FFF; height: 60px; line-height: 60px;}
 .menuright div {float: left;}
-.menuright .language {padding-right: 30px; position: relative; font-size: 18px; cursor: pointer; background: url(../images/index_06.jpg) right center no-repeat;}
-.menuright .shu {padding: 0 30px; font-size: 22px;}
+.menuright .language { position: relative; font-size: 18px; cursor: pointer; }
+.menuright .shu {padding: 0 20px; font-size: 22px;}
 .menuright .person {padding-right: 30px; position: relative; background: url(../images/index_06.jpg) right center no-repeat; margin-top: 0px; cursor: pointer;}
 .menuright .person img {vertical-align: middle;}
-.menuright .language .zh { background: #FFF; display: none; position: absolute; z-index: 1000; top: 62px; left: 0; width: 96px; height: 40px; line-height: 40px; font-family: "黑体"; color: #333; text-align: center; border: 1px solid #e5e5e5; border-radius: 5px; behavior:url('PIE.htc');}
+.menuright .language .zh { background: #FFF; display: none; position: absolute; z-index: 1000; top: 62px; left: 0; width: 96px; height: 40px; line-height: 40px; color: #333; text-align: center; border: 1px solid #e5e5e5; border-radius: 5px; behavior:url('PIE.htc');}
+.menuright .language a { color: #FFF; }
 .menuright .person .loginreg { background: #FFF;display: none; position: absolute; z-index: 1000; top: 56px; left: 0; font-size: 18px;  width: 96px;  border: 1px solid #e5e5e5; border-radius: 5px; behavior:url('PIE.htc');}
 .menuright .person .loginreg li{text-align: center; height: 40px; line-height: 40px;}
 .menuright .person .loginreg li a{font-size: 16px;}
+
+.menuright .person .ucenter {color: #FFF; font-size: 18px;}
 
 .logotop {height: 95px; overflow: hidden;}
 .logotop .logo {width: 390px; float: left; margin-top: 15px;}
@@ -93,14 +102,14 @@ a:active {color:#d32628;}
 .index_customer ul li .title a:hover{color: #d32628}
 
 
-.footer { padding: 30px 0; overflow: hidden; margin-top: 100px; letter-spacing: 2px; background: #2f2f2f;}
+.footer { padding: 30px 0; min-width: 1200px; overflow: hidden; margin-top: 100px; letter-spacing: 2px; background: #2f2f2f;}
 .footer .foot_l {float: left; width: 750px;}
 
 .footer .foot_l ul {}
 .footer .foot_l li {line-height: 44px; color: #666; font-size: 18px; list-style: none;}
 .footer .foot_l li a{color: #666}
 .footer .foot_l li a:hover{color: #fff}
-.footer .foot_l li .lable {display: inline-block; width: 130px; color: #fff; }
+.footer .foot_l li .lable {/* display: inline-block; width: 130px; */ color: #fff; }
 .footer .foot_l li .huoban {margin-right: 20px;}
 .footer .foot_r {float: right; width: 340px;}
 .footer .foot_r p {line-height: 44px; color: #666; font-size: 18px;}
@@ -108,6 +117,10 @@ a:active {color:#d32628;}
 .footer .foot_r li {float: left; width: 132px; margin-left: 66px; text-align: center; list-style: none;}
 .footer .foot_r li img {margin-top: 20px;}
 .footer .tousu {margin-left: 30px;}
+
+.footer_en .foot_l li {font-size: 16px; line-height: 30px}
+.footer_en .foot_r p{font-size: 14px;}
+
 
 /* 分页 */
 #pages { padding:14px 0 10px; font-family:宋体; text-align: center; margin-top: 30px; font-size: 14px; font-weight: bold; }
@@ -128,12 +141,16 @@ a:active {color:#d32628;}
 .page_left li.current/*, .page_left li:hover */{border-left-color: #fb964d; }
 .page_left li a:hover{color: #ab3131;}
 .page_right {float: right; width: 860px;}
+.list_laws {width: 1100px;}
 
 .page_left li.current.navParent/*, .page_left li:hover */{border-left-color: #d0161b; }
 .page_left li dl {display: none;}
 .page_left li.current dl {display: block;}
 .page_left li dl a { padding-left: 30px; width: 152px;}
 .page_left li dl.current a { border-left: 4px solid #fb964d;}
+
+.page_left_en ul {font-size: 14px;}
+.page_left_en li a {text-indent: 0px; height: auto; line-height: 18px; padding: 10px 0 10px 10px;}
 
 
 .current_crumb {padding-left: 60px; background: url(../images/posbg.png) left center no-repeat; border-bottom: 2px solid #f0f0f0;}
@@ -165,8 +182,8 @@ a:active {color:#d32628;}
 .activity_form {width: 500px; margin-top: 30px;}
 .activity_tit{ font-size: 18px; margin-top: 50px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
 
-.page_list .link {margin-left: -100px; overflow: hidden;}
-.page_list .link li {width: 230px; margin: 30px 0 0 60px; text-align: center; overflow: hidden; float: left; list-style: none;}
+.page_list .link {margin-left: -60px; overflow: hidden;}
+.page_list .link li {width: 230px; height: 215px; margin: 30px 0 0 60px; text-align: center; overflow: hidden; float: left; list-style: none;}
 .page_list .link img {width: 228px; height: 150px; border:1px solid #eee;}
 .page_list .link p {padding: 10px 0;}
 
@@ -271,7 +288,7 @@ a:active {color:#d32628;}
 .lesson .price a { position: absolute; right: 0; display: inline-block; border: 1px solid #d11718; color: #d11718; font-size: 14px; width: 60px; height: 26px; line-height: 26px; text-align: center; border-radius: 3px; }
 
 .lesson_show_crumbs{color: #9b999a;}
-.lesson_baseinfo {height: 430px; overflow: hidden; margin-top: 30px; background: #FFF;}
+.lesson_baseinfo {overflow: hidden; margin-top: 30px; background: #FFF;}
 .lesson_baseinfo .video {width: 590px; float: left;}
 
 .lesson_baseinfo .info {float: right; width: 450px; padding: 15px;}
@@ -295,3 +312,19 @@ a:active {color:#d32628;}
 .pay_code {margin-top: 30px; text-align: center;}
 
 .enroll_number {position: absolute; top: 136px; right: 63px; color: #999;}
+
+.page_right .category {margin-top: 15px;}
+.page_right .category a{ display: inline-block; padding: 5px 8px; margin-right: 10px; border: 2px solid #e7e7e7;}
+.page_right .category a.current {border-color: #ab3131; color: #ab3131; }
+
+ul.product1 {margin-left: -20px; margin-top: 30px; overflow: hidden;}
+.product1 li {float: left; width: 540px; height: 450px; margin-left: 20px; letter-spacing: 1px; list-style: none; position: relative; background: #f1f0f0; }
+.product1 li .titbg {height: 40px; background: #000; opacity: 0.7; position: absolute; top: 220px; z-index: 1; width: 100%;}
+.product1 li .tit { display: table; width: 100%;position: absolute; top: 220px; z-index: 2;}
+.product1 li .tit span {display: table-cell; height: 40px; vertical-align: middle; text-align: center; width: 100%; color: #fff; }
+.product1 li .sub {margin-top: 20px;}
+.product1 li .sub p { line-height: 30px; padding-left: 40px; }
+
+
+.product2 li {width: 353px;}
+.product2 li .sub p {padding-left: 20px;}

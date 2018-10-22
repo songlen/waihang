@@ -11,7 +11,7 @@ if(empty($data['fullname'])){
 	die(json_encode(array('code' => 400, 'msg'=>'请输入姓名')));
 }
 
-if(empty($data['people_num'])){
+if($data['people_num'] == '' && intval($data['people_num']) >= 0){
 	die(json_encode(array('code' => 400, 'msg'=>'请输入家属人数')));
 }
 

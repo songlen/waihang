@@ -1,10 +1,32 @@
 {template 'content', 'header'}
+<style type="text/css">
+	a {text-decoration:none;} 
+</style>
 <div class="ch"></div>
 <div class="container">
 	<div class="page_content">
 		<div class="page_title">{$title}</div>
-		{$content}
+		{html_entity_decode($content)}
 	</div>
 </div>
 
+<!-- html5 video 兼容处理 -->
+<script src="//api.html5media.info/1.2.2/html5media.min.js"></script>
+<style type="text/css">
+	video::-internal-media-controls-download-button {
+	    display:none;
+	}
+    video::-webkit-media-controls-enclosure {
+        overflow:hidden;
+    }
+    video::-webkit-media-controls-panel {
+        width: calc(100% + 30px);
+    }
+</style>
+<script type="text/javascript">
+	$("video").on("contextmenu",function(){
+		//取消右键事件
+	    return false;
+	});
+</script>
 {template 'content', 'footer'}

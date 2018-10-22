@@ -40,7 +40,7 @@ class module extends admin {
 			if ($module_api->install()) showmessage(L('success_module_install').L('update_cache'), '?m=admin&c=module&a=cache&pc_hash='.$_SESSION['pc_hash']);
 			else showmesage($module_api->error_msg, HTTP_REFERER);
 		} else {
-			include PC_PATH.'modules'.DIRECTORY_SEPARATOR.$this->module.DIRECTORY_SEPARATOR.'install'.DIRECTORY_SEPARATOR.'config.inc.php';
+			my_include(PC_PATH.'modules'.DIRECTORY_SEPARATOR.$this->module.DIRECTORY_SEPARATOR.'install'.DIRECTORY_SEPARATOR.'config.inc.php');
 			include $this->admin_tpl('module_config');
 		}
 	}

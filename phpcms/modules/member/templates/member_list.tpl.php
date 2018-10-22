@@ -21,14 +21,23 @@
 					<option value='1' <?php if(isset($_GET['status']) && $_GET['status']==1){?>selected<?php }?>><?php echo L('lock')?></option>
 					<option value='2' <?php if(isset($_GET['status']) && $_GET['status']==2){?>selected<?php }?>><?php echo L('normal')?></option>
 				</select>
+				<select name="sex">
+					<option value='0' <?php if(isset($_GET['sex']) && $_GET['sex']==0){?>selected<?php }?>>性别</option>
+					<option value='1' <?php if(isset($_GET['sex']) && $_GET['sex']==1){?>selected<?php }?>>男</option>
+					<option value='2' <?php if(isset($_GET['sex']) && $_GET['sex']==2){?>selected<?php }?>>女</option>
+				</select>
 
 				
 				<select name="type">
+					<option value=''>请选择</option>
+					<option value='fullname' <?php if(isset($_GET['type']) && $_GET['type']=='fullname'){?>selected<?php }?>>姓名</option>
+					<option value='ID_number' <?php if(isset($_GET['type']) && $_GET['type']=='ID_number'){?>selected<?php }?>>身份证号</option>
 					<option value='mobile' <?php if(isset($_GET['type']) && $_GET['type']=='mobile'){?>selected<?php }?>>手机号</option>
 				</select>
 				
-				<input name="keyword" type="text" value="<?php if(isset($_GET['keyword'])) {echo $_GET['keyword'];}?>" class="input-text" />
+				<input name="keyword" type="text" value="<?php if(isset($_GET['keyword'])) {echo input('keyword');}?>" class="input-text" />
 				<input type="submit" name="search" class="button" value="<?php echo L('search')?>" />
+				<input type="submit" name="export" class="button" value="导出" />
 	</div>
 		</td>
 		</tr>
@@ -43,7 +52,10 @@
 		<tr>
 			<th  align="left" width="20"><input type="checkbox" value="" id="check_box" onclick="selectall('userid[]');"></th>
 			<th align="left"><?php echo L('uid')?></th>
-			<th align="left">手机号</th>
+			<th align="left">姓名</th>
+			<th align="left">身份证号</th>
+			<th align="left">性别</th>
+			<th align="left">账号</th>
 			<th align="left">头像</th>
 			<th align="left">是否员工</th>
 			<th align="left">状态</th>
@@ -59,7 +71,17 @@
     <tr>
 		<td align="left"><input type="checkbox" value="<?php echo $v['userid']?>" name="userid[]"></td>
 		<td align="left"><?php echo $v['userid']?></td>
-		<td align="left"><?php echo $v['mobile']?></td>
+		<td align="left"><?php echo $v['fullname']?></td>
+		<td align="left"><?php echo $v['ID_number']?></td>
+		<td align="left"><?php echo $enums['sex'][$v['sex']]?></td>
+		<td align="left"><?php 
+			if($v['mobile']){
+				echo $v['mobile'];
+			} else {
+				echo $v['email'];
+			}
+			
+		?></td>
 		<td align="left"><img src="<?php if($v['headimg']){echo $v['headimg'];} else {echo IMG_PATH.'member/nophoto.gif';}?>" height=20 width=20 /></td>
 		<td align="left">
 			<?php if($v['is_employee']){echo '是';} else {echo '否';}?>
@@ -84,6 +106,8 @@
 <label for="check_box"><?php echo L('select_all')?>/<?php echo L('cancel')?></label> <input type="submit" class="button" name="dosubmit" value="<?php echo L('delete')?>" onclick="return confirm('<?php echo L('sure_delete')?>')"/>
 <input type="submit" class="button" name="dosubmit" onclick="document.myform.action='?m=member&c=member&a=lock'" value="<?php echo L('lock')?>"/>
 <input type="submit" class="button" name="dosubmit" onclick="document.myform.action='?m=member&c=member&a=unlock'" value="<?php echo L('unlock')?>"/>
+<input type="submit" class="button" name="dosubmit" onclick="document.myform.action='?m=member&c=member&a=changeEmployee&type=1'" value="设为员工"/>
+<input type="submit" class="button" name="dosubmit" onclick="document.myform.action='?m=member&c=member&a=changeEmployee&type=0'" value="取消员工"/>
 </div>
 
 <div id="pages"><?php echo $pages?></div>

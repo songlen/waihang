@@ -404,7 +404,7 @@ initUeditor;
 		$files = @array_map('basename', $templates);
 		$names = array();
 		if(file_exists($confing_path)) {
-			$names = include $confing_path;
+			$names = my_include($confing_path);
 		}
 		$templates = array();
 		if(is_array($files)) {

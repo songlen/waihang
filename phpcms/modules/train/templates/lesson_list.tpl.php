@@ -39,7 +39,8 @@ include $this->admin_tpl('header', 'admin');
 				<th width="3%" align="center"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
 				<th width="3%" align="center"><?php echo L('listorder')?></th>
 				<th width="3%">ID</th>
-				<th width="40%" align="center">课程名称</th>
+				<th width="30%" align="center">课程名称</th>
+				<th width="10%" align="center">课程类别</th>
 				<th width="15%" align="center">添加时间</th>
 				<th width="15%" align="center">操作</th>
 			</tr>
@@ -54,7 +55,11 @@ include $this->admin_tpl('header', 'admin');
 			<td align="center" width="3%"><input type="checkbox" name="id[]" value="<?php echo $info['id']?>"></td>
 			<td align="center" width="3%"><input name='listorders[<?php echo $info['id']?>]' type='text' size='3' value='<?php echo $info['listorder']?>' class="input-text-c"></td>
 			<td align="center" width="3%"><?php echo $info['id'];?></td>
-			<td align="center" width="40%"><?php echo $info['title']?></td>
+			<td align="center" width="30%"><?php echo $info['title']?></td>
+			<td align="center" width="10%">
+				<?php if($info['type'] == '1') echo '线下课程';?>
+				<?php if($info['type'] == '2') echo '线上课程';?>
+			</td>
 			<td align="center" width="15%"><?php echo date('Y-m-d', strtotime($info['inputtime']))?></td>
 			<td align="center" width="15%">
 				<a href="index.php?m=train&c=order&lesson_id=<?php echo $info['id'];?>">订单管理</a> |  

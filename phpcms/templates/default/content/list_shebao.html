@@ -18,9 +18,16 @@
 			<div class="crumb">{catpos($catid)}</div>
 			<div class="category_title">{$catname}</div>
 		</div>
+		<div class="category">
+			{loop $usable_types $utype}
+			<a href="{$CAT[url]}&utypeid={$utype['typeid']}" {if $utype[typeid] == $utypeid} class="current"{/if}>{$utype[name]}</a>
+			{/loop}
+		</div>
 		<div class="page_list">
 			<ul class="shebao">
-				{pc:content action="lists" catid="$catid" num="10" order="listorder desc, id DESC" page="$page"}
+				{php $where = isset($_GET['utypeid']) ? 'typeid='.(int)$_GET['utypeid'] : ''}
+
+				{pc:content action="lists" catid="$catid" where="$where"  num="10" order="listorder desc, id DESC" page="$page"}
 				{loop $data $r}
 				<li>
 					<div class="pic"><a href="" target="_blank"><img src="{thumb($r[thumb], 235, 160)}" alt=""></a></div>
@@ -32,7 +39,7 @@
 				{/loop}
 				{/pc}
 			</ul>
-			<div id="pages">{$pages}</div>
+			<div id="pages">{htmlentities($pages)}</div>
 		</div>
 	</div>
 	<div class="clear"></div>

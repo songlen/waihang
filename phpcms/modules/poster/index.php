@@ -11,32 +11,6 @@ class index {
 	}
 	
 	/**
-	 * 统计广告点击次数
-	 * 
-	 */
-	public function poster_click() {
-		$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-		$r = $this->db->get_one(array('id'=>$id));
-		if (!is_array($r) && empty($r)) return false;
-		$ip_area = pc_base::load_sys_class('ip_area');
-		$ip = ip();
-		$area = $ip_area->get($ip);
-		$username = param::get_cookie('username') ? param::get_cookie('username') : '';
-		if($id) {
-			$siteid = isset($_GET['siteid']) ? intval($_GET['siteid']) : get_siteid();
-			$this->s_db->insert(array('siteid'=>$siteid, 'pid'=>$id, 'username'=>$username, 'area'=>$area, 'ip'=>$ip, 'referer'=>safe_replace(HTTP_REFERER), 'clicktime'=>SYS_TIME, 'type'=> 1));
-		}
-		$this->db->update(array('clicks'=>'+=1'), array('id'=>$id));
-		$setting = string2array($r['setting']);
-		if (count($setting)==1) {
-			$url = $setting['1']['linkurl'];
-		} else {
-			$url = isset($_GET['url']) ? $_GET['url'] : $setting['1']['linkurl'];
-		}
-		header('Location: '.$url);
-	}
-	
-	/**
 	 * php方式展示广告
 	 */
 	public function show_poster() {

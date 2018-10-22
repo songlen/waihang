@@ -38,8 +38,14 @@
 	<table width="100%" class="table_form">
 
 		<tr>
-			<td><?php echo L('mp')?></td>
-			<td><?php echo $memberinfo['mobile']?>
+			<td>账号</td>
+			<td><?php
+					if($memberinfo['mobile']){
+						echo $memberinfo['mobile'];
+					} else {
+						echo $memberinfo['email'];
+					}
+				?>
 			</td>
 		</tr>
 
@@ -68,7 +74,7 @@
 				<select name="political_outlook">
 					<option value="">请选择</option>
 					<?php foreach ($enums_member['political_outlook'] as $key => $value) { ?>
-					<option value="<?php echo $key ?>"><?php echo $value ?></option>
+					<option value="<?php echo $key ?>" <?php if($key == $resumeinfo['political_outlook']) echo 'selected=selected' ?>><?php echo $value ?></option>
 					<?php } ?>
 				</select>
 			</td>

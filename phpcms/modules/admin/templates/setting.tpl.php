@@ -4,7 +4,7 @@ include $this->admin_tpl('header');?>
 <script type="text/javascript">
 <!--
 	$(function(){
-		SwapTab('setting','on','',5,<?php echo $_GET['tab'] ? $_GET['tab'] : '1'?>);
+		SwapTab('setting','on','',5,<?php echo input('tab') ? input('tab') : '1'?>);
 		$.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({content:msg,lock:true,width:'200',height:'50'}, function(){this.close();$(obj).focus();})}});		
 		$("#js_path").formValidator({onshow:"<?php echo L('setting_input').L('setting_js_path')?>",onfocus:"<?php echo L('setting_js_path').L('setting_end_with_x')?>"}).inputValidator({onerror:"<?php echo L('setting_js_path').L('setting_input_error')?>"}).regexValidator({regexp:"(.+)\/$",onerror:"<?php echo L('setting_js_path').L('setting_end_with_x')?>"});
 		$("#css_path").formValidator({onshow:"<?php echo L('setting_input').L('setting_css_path')?>",onfocus:"<?php echo L('setting_css_path').L('setting_end_with_x')?>"}).inputValidator({onerror:"<?php echo L('setting_css_path').L('setting_input_error')?>"}).regexValidator({regexp:"(.+)\/$",onerror:"<?php echo L('setting_css_path').L('setting_end_with_x')?>"});
@@ -27,11 +27,11 @@ include $this->admin_tpl('header');?>
 <div class="pad-10">
 <div class="col-tab">
 <ul class="tabBut cu-li">
-            <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',5,1);"><?php echo L('setting_basic_cfg')?></li>
-            <li id="tab_setting_2" onclick="SwapTab('setting','on','',5,2);"><?php echo L('setting_safe_cfg')?></li>
-            <li id="tab_setting_3" onclick="SwapTab('setting','on','',5,3);"><?php echo L('setting_sso_cfg')?></li>
+            <!-- <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',5,1);"><?php echo L('setting_basic_cfg')?></li> -->
+            <!-- <li id="tab_setting_2" onclick="SwapTab('setting','on','',5,2);"><?php echo L('setting_safe_cfg')?></li> -->
+            <!-- <li id="tab_setting_3" onclick="SwapTab('setting','on','',5,3);"><?php echo L('setting_sso_cfg')?></li> -->
             <li id="tab_setting_4" onclick="SwapTab('setting','on','',5,4);"><?php echo L('setting_mail_cfg')?></li>
-			<li id="tab_setting_5" onclick="SwapTab('setting','on','',5,5);"><?php echo L('setting_connect')?></li>
+			 <!-- <li id="tab_setting_5" onclick="SwapTab('setting','on','',5,5);"><?php echo L('setting_connect')?></li> -->
 </ul>
 <div id="div_setting_1" class="contentList pad-10">
 <table width="100%"  class="table_form">

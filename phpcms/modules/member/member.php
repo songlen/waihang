@@ -47,7 +47,6 @@ class member extends admin {
 
 		$todaytime = strtotime(date('Y-m-d', SYS_TIME));
 		$memberinfo['today_member'] = $this->db->count("`regdate` > '$todaytime'");
-		
 		include $this->admin_tpl('member_init');
 	}
 	
@@ -57,10 +56,11 @@ class member extends admin {
 	function manage() {
 		//搜索框
 		
-		$start_time = isset($_GET['start_time']) ? $_GET['start_time'] : '';
-		$end_time = isset($_GET['end_time']) ? $_GET['end_time'] : '';
+		$start_time = $_GET['start_time'] ? strtotime($_GET['start_time']) : '';
+		$end_time = $_GET['end_time'] ? strtotime($_GET['end_time']) + 3600*24 : '';
 
 		$status = isset($_GET['status']) ? $_GET['status'] : '';	
+		$sex = isset($_GET['sex']) ? $_GET['sex'] : '';	
 		$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 		$type = isset($_GET['type']) ? $_GET['type'] : '';
 		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -70,17 +70,7 @@ class member extends admin {
 			
 			if($start_time && $end_time){
 				//开始时间大于结束时间，置换变量
-				if($start_time > $end_time) {
-					$tmp = $start_time;
-					$start_time = $end_time;
-					$end_time = $tmp;
-					$tmptime = $start_time;
-					
-					$start_time = $end_time;
-					$end_time = $tmptime;
-					unset($tmp, $tmptime);
-				}
-				$where .= "and `regdate` BETWEEN '$where_start_time' AND '$where_end_time' ";
+				$where .= " and `regdate` BETWEEN '$start_time' AND '$end_time' ";
 			}
 
 			if($status) {
@@ -88,17 +78,42 @@ class member extends admin {
 				$where .= " and `islock` = '$islock' ";
 			}
 
-		
+			if($sex) {
+				$sex = $sex == 1 ? 1 : 0;
+				$where .= " and mr.sex = '$sex' ";
+			}
+
 			if($keyword) {
+				if ($type == 'fullname') {
+					$where .= " and `fullname` like '%$keyword%'";
+				}
+				if ($type == 'ID_number') {
+					$where .= " and `ID_number` = $keyword";
+				}
 				if ($type == 'mobile') {
 					$where .= " and `mobile` = $keyword";
 				}
 			}
 		}
 
-		$memberlist = $this->db->listinfo($where, 'userid DESC', $page, 15);
-		$pages = $this->db->pages;
+		// 导出
+		if($_GET['export']){
+			$this->export($where);
+		}
 
+		$pernum = 20;
+		$limit = ($page-1)*$pernum. ',' .$pernum;
+		$sql = "SELECT m.userid, fullname, ID_number, sex, m.mobile, m.email, headimg, is_employee, islock, lastdate FROM phpcms_member m LEFT JOIN phpcms_member_resume mr on mr.member_id=m.userid WHERE {$where} group by userid ORDER BY userid DESC LIMIT $limit";
+		$this->db->query($sql);
+		$memberlist = $this->db->fetch_array();
+		// 分页
+		$sql = "SELECT 1 count FROM phpcms_member m LEFT JOIN phpcms_member_resume mr on mr.member_id=m.userid WHERE {$where} group by userid";
+		$this->db->query($sql);
+		$count_result = $this->db->fetch_array();
+		$count = count($count_result);
+
+		$pages = pages($count, $page, $pernum);
+		// P($pages);
 		// if($memberlist && is_array($memberlist)){
 		// 	$member_resume = pc_base::load_model('member_resume_model');
 		// 	foreach ($memberlist as &$item) {
@@ -107,8 +122,102 @@ class member extends admin {
 		// 	}
 		// }
 
+		$enums = pc_base::load_config('enums', 'member');
+
 		$big_menu = array('javascript:window.top.art.dialog({id:\'add\',iframe:\'?m=member&c=member&a=add\', title:\''.L('member_add').'\', width:\'700\', height:\'500\', lock:true}, function(){var d = window.top.art.dialog({id:\'add\'}).data.iframe;var form = d.document.getElementById(\'dosubmit\');form.click();return false;}, function(){window.top.art.dialog({id:\'add\'}).close()});void(0);', L('member_add'));
 		include $this->admin_tpl('member_list');
+	}
+
+	public function export($where = '', $language='zh'){
+		ini_set('memory_limit', '256M');
+		// 计算总条数
+		$sql = "SELECT 1 count FROM phpcms_member m LEFT JOIN phpcms_member_resume mr on mr.member_id=m.userid WHERE {$where} group by userid";
+		$this->db->query($sql);
+		$count_result = $this->db->fetch_array();
+		$count = count($count_result);
+		// 每次获取5000条
+		$pernum = 5000;
+		$pageCount = ceil($count/5000);
+
+		$enums = pc_base::load_config('enums', 'member');
+		$csvcontent = "英文名,姓拼音,名拼音,民族,工作年限,政治面貌,年龄,身高,体重,护照有效期,姓名,游泳能力,身上是否有疤痕及纹身,何时可开始工作,性别,毕业日期,身份证号,护照号码,手机,国内座机,邮箱,档案存放地,出生日期,现居住城市,婚姻状况,紧急联系人,紧急联系人电话,户口地址,通讯编码,最高学历、学位,专业,毕业院校,注册时间,登录时间,备注";
+		for($page = 1; $page <= $pageCount; $page++){
+			$limit_start = ($page-1)*$pernum;
+
+			$sql = "SELECT *, m.mobile account_mobile, m.email account_email  FROM phpcms_member m LEFT JOIN phpcms_member_resume mr on mr.member_id=m.userid WHERE {$where} group by userid ORDER BY userid DESC limit $limit_start, $pernum";
+
+			$this->db->query($sql);
+			$result = $this->db->fetch_array();
+			foreach ($result as $item) {
+				extract($item);
+				// $fullname = str_replace(array(',', "\r\n", "\r", "\n", ' '), array('，',''), $item['fullname']);
+				// $sex = $item['sex'] == '1' ? '男' : '女';
+				if($language == 'zh'){
+					$living_city = get_linkage_name($living_province_id).get_linkage_name($living_city_id); // 现居住城市
+					$marital_status = $enums['marital_status'][$marital_status]; // 婚姻桩体
+					$diploma = $enums['diploma'][$diploma]; // 最高学历、学位
+					$swimming_ability = $enums['swimming_ability'][$swimming_ability];
+					$political_outlook = $enums['political_outlook'][$political_outlook];
+					$nation = $enums['nation'][$nation];
+					$sex = $enums['sex'][$sex];
+				} else {
+					$living_city = get_linkage_name($living_province_id, 'pinyin').get_linkage_name($living_city_id, 'pinyin'); // 现居住城市
+					$marital_status = $enums['marital_status_en'][$marital_status]; // 婚姻桩体
+					$diploma = $enums['diploma_en'][$diploma]; // 最高学历、学位
+					$swimming_ability = $enums['swimming_ability_en'][$swimming_ability];
+					$political_outlook = $enums['political_outlook_en'][$political_outlook];
+					$nation = $enums['nation_en'][$nation];
+					$sex = $enums['sex_en'][$sex];
+				}
+				
+				$foreign_address = ''; // 国外住址
+				$foreign_telphone = ''; // 国外电话
+				$mark = ''; // 备注
+
+				$csvcontent .= "\r\n"
+					.$foreign_name.',' // 英文名
+					.$surname_spell.',' // 姓拼音
+					.$firstname_spell.',' // 名拼音
+					.$nation.',' // 民族
+					.$work_experience.',' // 工作年限
+					.$political_outlook.',' // 政治面貌
+					.$age.',' // 年龄
+					.$height.',' // 身高
+					.$weight.',' // 体重
+					.$passport_deadline."\t".',' // 护照有效期
+					.$fullname.',' // 姓名
+					.$swimming_ability.',' // 游泳能力
+					.$scar_tattoo.',' // 身上是否有疤痕及纹身
+					.$start_work_date."\t".',' // 何时可开始工作
+					.$sex.',' // 性别
+					.$graduation_date."\t".',' // 毕业日期
+					.$ID_number."\t".',' // 身份证号
+					.$passport_number.',' // 护照号码
+					.$mobile_phone."\t".',' // 手机
+					.$telphone."\t".',' // 国内座机
+					.$email."\t".',' // 邮箱
+					.$archiving_organization.',' // 档案存放地
+					.$birthday."\t".',' // 出生日期
+					.$living_city.',' // 现居住城市
+					.$marital_status.','
+					.$urgent_name.',' // 紧急联系人
+					.$urgent_phone."\t".',' // 紧急联系人电话
+					.$address.',' // 户口地址
+					.$zip_code.',' // 通讯编码
+					.$diploma.',' // 最高学历、学位
+					.$profession.',' // 专业
+					.$graduation_university.',' // 毕业院校
+					.date('Y-m-d', $regdate).',' // 注册时间
+					.date('Y-m-d', $lastdate).',' // 登录时间
+					.$mark.',' // 备注
+					;
+			}
+			
+		}
+
+		$csvcontent = mb_convert_encoding($csvcontent,'gb2312','utf-8');
+		$filename = '人才库名单.csv';
+		doexport($csvcontent, $filename);
 	}
 		
 	/**
@@ -265,6 +374,8 @@ class member extends admin {
 			}
 
 			$enums_member = pc_base::load_config('enums', 'member');
+			$member_resume_model = pc_base::load_model('member_resume_model');
+			$resumeinfo = $member_resume_model->get_one(array('member_id'=> $userid, 'language'=>'zh'));
 
 			$show_dialog = 1;
 			include $this->admin_tpl('member_edit');		
@@ -348,6 +459,18 @@ class member extends admin {
 			$where = to_sqls($uidarr, '', 'userid');
 			$this->db->update(array('islock'=>0), $where);
 			showmessage(L('member_unlock').L('operation_success'), HTTP_REFERER);
+		} else {
+			showmessage(L('operation_failure'), HTTP_REFERER);
+		}
+	}
+
+	public function changeEmployee(){
+		if(isset($_POST['userid'])) {
+			$uidarr = isset($_POST['userid']) ? $_POST['userid'] : showmessage(L('illegal_parameters'), HTTP_REFERER);
+			$type = $_GET['type'];
+			$where = to_sqls($uidarr, '', 'userid');
+			$this->db->update(array('is_employee'=>$type), $where);
+			showmessage('操作成功', HTTP_REFERER);
 		} else {
 			showmessage(L('operation_failure'), HTTP_REFERER);
 		}
